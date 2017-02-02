@@ -299,26 +299,34 @@ Conditioning probabilities do not work for intervention, if they did, curing sym
 %https://youtu.be/RPgvfSeQB8A 
 Dichotomy between causal and statistical notions.
 
-Statistical notions or notions that can be defined with a joint distribution are Regression, Controlling for (conditioning), odd and risk ratios, Granger causality (Collapsability), Propensity score (Rubin's propensity score matching,  make the groups receiving treatment and not-treatment more comparable).
-
+Statistical notions or notions that can be defined with a joint distribution are Regression, Controlling for (conditioning), odd and risk ratios, Granger causality (Collapsability), Propensity score (Rubin's propensity score matching, make the groups receiving treatment and not-treatment more comparable).
 Causal notions are spurious correlations (volume conduction pb), randomnization (you cant tell from the observation, we need additional assumptions, we need an intervention), confounding, explanatory variables.
+A confound, a lurking variable or a confounder) is a variable in a statistical model that correlates (directly or inversely) with both the dependent variable and an independent variable,  in a way that "explains away" some or all of the correlation between these two variables (if z affects to x and y, and x and y are not correlated it may look that x and y are correlated (z has explained away xy , confounding)). note that confounding is a causal notion while correlation is ot.
 
 %http://voxeu.org/article/limitations-randomised-controlled-trials
-Cartwhright, no causes in no causes out, in order to have causal conclusions you need to have causal assumptions. Example of statistical assumption, normal distribution, independence ... but we need the judgemental causal assumptions because only those encode the invariance.
-The important point is the causal assumptions cannot be expressed in the language of standard statistics. In 1920 Wright created the SEM.
+Cartwhright, no causes in no causes out, in order to have causal conclusions you need to have causal assumptions. Example of statistical assumptions, normal distribution, independence ... but we need the judgemental causal assumptions because only those encode the invariance.
+The important point is that causal assumptions cannot be expressed in the language of standard statistics. In 1920 Sewell Wright (and the early econometricians) created the SEM.
+%http://ftp.cs.ucla.edu/pub/stat_ser/r370.pdf  The Causal Foundations of Structural Equation Modeling
+The paper starts with "The role of causality in SEM research is widely perceived to be, on the one hand, of pivotal
+methodological importance and, on the other hand, confusing, enigmatic, and controversial.", and the same can be said about causality. The origins are more ilustrious, Aristotle, Hume etc but the contrast between the insidious and necessary and the enigmatic is there. Causal effects in observational studies can only be substantiated from a combination of data and untested theoretical assumptions, not from the
+data alone.
+%Many SEM textbooks have subsequently considered the term “causal modeling” to be an outdated misnomer (e.g., Kelloway, 1998, p. 8), giving clear preference to causality-free nomenclature such as “covariance structure,” “regression analysis,” or “si- multaneous equations.” 
+%Comparing structural equation models to the potential-outcome framework, Sobel (2008) asserts that “in general (even in randomized studies), the structural and causal parameters are not equal, implying that the structural parameters should not be interpreted as effect.”
+Rubin and Sobel are from the potential-outcome framework. also Paul Holland which states that the equation $y = a +bx+ \epsilon$ what really means is a way to expresses the $p(y|x)$. But for Pearl, the  structural interpretation of this equation has nothing to do with the conditional distribution of ${y}$ given  ${x}$ ; rather, it conveys causal information that is orthogonal to the statistical properties of  ${x}$  and  ${y}$. For Pearl, the SEM language in its nonparametric form offers a mathematically equivalent alternative to the potential-outcome framework that Holland and Sobel advocate for causal inference. This explains why SEM retains its status as the prime language for causal and counterfactual analysis.
 
 \citep{wiedermann2016statistics}
-not to confuse X(correlation) with Y(causation) falls a little flat, specially since we dont know what causation means, correlation on the other hand we know many, maybe too many ways to calculate ad plot it in Matlab,R, SPSS or any of the plethora of statistical modeling software available these days. 
+Not to confuse X(correlation) with Y(causation) falls a little flat, specially since we dont know what causation means, correlation on the other hand we know many, maybe too many ways to calculate ad plot it in Matlab,R, SPSS or any of the plethora of statistical modeling software available these days. 
 The counterfactual or “interventionist” account lead by Woodward and Pearl is gaining momentum.
 
 %Causality, randomness, intelligibility, and the epistemology of the cell.
 The basic unit of biology is the cell, biological knowledge is rooted in the epistemology of the cell and because life is the salient characteristic of the cell, its epistemology must be centered on its livingness, not its constituent components.
-Stochastic dynamic systems stochasticity being a consequence of the need to ignore a large number of factors while modeling relatively few in an extremely complex environment.
+Stochastic dynamic systems: stochasticity being a consequence of the need to ignore a large number of factors while modeling relatively few in an extremely complex environment.
 %YS: going towards the epistemology of the network. It is a nion sequitor center the epistemology in livingness, salient characteristic?
 
 %Statistics and Causality: Methods for Applied Empirical Research. Chapter 11
 In cell biology causality networks are also called gene regulatory networks. In neuroscience, causality networks are widely used to express the temporal interactions between various regions of the brain.
-Approaches for the reconstruction of the causal relations.
+%Andrew lo physics envy https://arxiv.org/pdf/1003.2688.pdf
+\subsubsection{Approaches for the reconstruction of the causal relations}
 
 In 1969 Granger introduced a method to quantify temporal-causal relations among time series measurements. He introduced Wiener’s concept of causality into the analysis of time series (Wiener,1956)
 %Wiener, N. (1956) The theory of prediction, in Modern Mathematics for Engineers
@@ -328,13 +336,13 @@ GC characterize the extent to which a process influences another process and bui
 
 The bivariate model is:
 $y_t = a_0 \sum_{k=1}^{L}b_{1k}y_{t-k} \sum_{k=1}^{L}b_{2k}x_{t-k} + \vhi_t$
-where $\vhi_t$ are uncorrelated random  variables of mean 0 and varianve $\sigma^2$, L is the time lag and tells us the number of past values taken into consideration. The null hypothesis that $x_t$ does not Granger cause $y_t$, that is,$b_{2k} = 0$ for $k=1..L$.
+where $\vhi_t$ are uncorrelated random  variables of mean 0 and variance $\sigma^2$, L is the time lag and tells us the number of past values taken into consideration. The null hypothesis that $x_t$ does not Granger cause $y_t$, that is,$b_{2k} = 0$ for $k=1..L$.
 
 It can be straightforwardly extended to p-dimensional multivariate time series $x_t \in R^{p \times }$ (p number of variables, for example, space locations (roi) l is the length of the time series).
 Hume cause must precede the effect.
 The approximation problem
 $x_t \sim \sum_{p=1}^{P} \sum_{l=1}^{L}\beta_{l}^{p} x_{t-l}^{p}$
-The approximation problem can be approximed with least squares to estimate the coefficients $\beta_{l}^{p}$ from a system of linear equations.
+The approximation problem can be approximated with least squares to estimate the coefficients $\beta_{l}^{p}$ from a system of linear equations.
 
 
 Granger causality on gene regulatory networks with a large p may not lead to satisfactory results (Lozano et al., 2009). The statistical significant tests are inefficient, while they lead to higher chances of spurious correlations. Moreover, the high dimensionality of biological data leads to further challenges (sparse parameter vector). To address this issue, various variable selection procedures can be applied (Lasso, LARS, elastic nets).
