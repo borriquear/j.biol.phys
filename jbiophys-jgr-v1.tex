@@ -56,6 +56,7 @@ Insert your abstract here. Include up to five keywords.
 
 %But, back then, only a handful of biologists had enough Math to follow this (some corresponded with me from Edinburgh and Russia). Only a handful of mathematicians knew enough biology (John Holland, in particular, on the Genetic Algorithm side).Jonathan Vos Post
 
+%my friend hoffman unpublished book
 
 
 \section*{Definitions}
@@ -67,87 +68,86 @@ Note that all space is characterized by both qualitative and quantitative (topol
 The converse is not true: topological relationships do not define the shape or scale of either the parts. For example, the fact that region x is adjacent to or overlaps with the region y says nothing about the shapes or sizes of x or y. The latter are defined via geometric measures (distances, areas, angles, etc.), and the relationships that are built on them.
 
 An (abstract) simplicial complex X, is a pair of sets: $V_X$ called the vertices and $S_X$ called the simplices each of which (called simplex) is a subset of $V_X$ plus the condition that if $\sigma$ is in $S_X$ then every subset $\tau$, $\tau \in \signa$ is also in $S_X$, $\tau \in \S_X$.
-A simplex with n elements is called a $(n-1)-$simplex or what is the same a n-simplex is the convex hull of (n+1) vertices. Thus, a vertice (1) is a 0-simplex, an edge (2 vertices) is a 1-simplex, a triangle or face (3) is a 2-simplex... and subsets $\tau \in \sigma$ are faces of $\sigma$. Just as one can represent a graph as a collection of points and line segments between them, one can represent the simplices in a simplicial complex as a collection of solid regions spanning vertices.
+A simplex with n elements (vertices) is called a $(n-1)-$ simplex or what is the same a n-simplex is the convex hull of (n+1) vertices. Thus, a vertice (1) is a 0-simplex, an edge (2 vertices) is a 1-simplex, a triangle or face (3) is a 2-simplex... and subsets $\tau \in \sigma$ are faces of $\sigma$. Just as one can represent a graph as a collection of points and line segments between them, one can represent the simplices in a simplicial complex as a collection of solid regions spanning vertices.
 The boundary of a simplex consists of all possible subsets of its constituent vertices, called its faces. 
 A simplicial complex encodes polyadic relations through its simplices.
 Because any given simplex is required to “contain all of its faces”, it suffices to specify only the maximal simplices, those which do not appear as faces of another simplex (Fig. 4c). This dramatically reduces the amount of data necessary to specify a simplicial complex, which helps make both conceptual work and computations feasible.
+
+Convex hull or convex envelope is the smallest convex set that contains all points in set X. Computing the convex hull means constructing an unambiguous, efficient representation of the required convex shape. The convex hull of the given points is identical to the set of all their convex combinations.
+A convex combination is a linear combination of points (which can be vectors, scalars, or more generally points in an affine space) where all coefficients are non-negative and sum to 1. Formally give n points in real vector space, $x_1, ... x_n$ a convex combination is a point $y=a_{1}x_1 + ... + a_{n}x_n$ such that the sum of the weights is 1, $\sum a_i = 1$. We can also by the same token obtain the convex combination of probability distributions. 
+
+For example,  every convex combination of two points lies on the line segment between the points, then in an edge we a the convex hull or the 2-1-simplex. For three points, every convex combination will line in the area, so the triangle is a convex hull or a 3+1-complex.
+% https://en.wikipedia.org/wiki/Convex_combination
+
 \section{Introduction}
 \label{intro}
 
-\section{ topological neuroscience}
+\section{Topological Neuroscience}
 %Isabel K. Darcy simplicial complex from data https://www.youtube.com/watch?v=E7d7LHb6PLc&t=902s
-Data points are each a collection of properties (eg coordinates for space location, weight, age , time series..) then we need to relate the data points based on its closeness (which can be defined quite liberally) any idea of closeness that is relevant for our application, for example correlation (the closeness is always built upon the properties of the data points or vertices or 0-simplices). We add an edge (1-semplices) when they are "close", the edge makes factual the relationship. To define close we always need a threshold, so by adding edges (condition holds) we have our data cast into disjoint sets or clusters all simplices of dimension 1.
+Data points are each a collection of properties (e.g. coordinates for space location, weight, age, time series..) then we need to relate the data points based on its closeness (which can be defined quite liberally) any idea of closeness that is relevant for our application, for example correlation (the closeness is always built upon the properties of the data points or vertices or 0-simplices). We add an edge (1-semplices) when they are "close", the edge makes factual the relationship. To define close we always need a threshold, so by adding edges (condition holds) we have our data cast into disjoint sets or clusters all simplices of dimension 1.
 How to grow simplices of higher order? If we have a triangle we fill in the triangle and we get the "side" 2-simplex, 3 simplex thetaedrom etc.
 
-With n points that are closed together I can form a n-1 simplex. So a data point is a 0-simplex, when we build a relationship we have 1-simplex and whenever we have a triangle we add 2-simplices, whenever we have a thetaedrom (4 points close together) we have a 3-simplex , when 5 points are lose together we add 4 -simplex and so on.
+With n points that are closed together, I can form a n-1 simplex. So a data point is a 0-simplex, when we build a relationship we have 1-simplex and whenever we have a triangle we add 2-simplices, whenever we have a tetrahedron (4 points close together.  tetrahedron is the Platonic solid $P_5$ with four polyhedron vertices, six polyhedron edges, and four equivalent equilateral triangular faces) we have a 3-simplex, when 5 points are lose together we add 4 -simplex and so on.
 It is in reality a two steps process, one we connect the points and two we build a n-complex for each group of n+1 points.
 
-The choice of the threshold affects the kind of simplicial complex that we get, since choosing one in particular is hardly justifiable, we choose all possible thresholds.
-By increasing the threshold eventually all the data points will be part of the same simplex, once component.
+The choice of the threshold affects the kind of simplicial complex that we get, since choosing one in particular is hardly justifiable, we choose all possible thresholds. By increasing the threshold eventually all the data points will be part of the same simplex, once component.
 
-Topological Data analysis (TDA) provides geometric summaries of our data.
-Data has shape and shape has meaning.
+Topological Data analysis (TDA) provides geometric summaries of our data. Data has shape and shape has meaning.
+Topology is about shape, and shape is the global realization of local constraints. %YS this is problematic because if topology is about shape why it is hard to get the shape from the topological properties. This motto cant referred to shape as geometric shape . all boils down to how you define the relationships, if a metric (euclidean) or some sort of similarity, in that last case one couldnt possibly reconstruct the shape
 
- 
-Topology is about shape, and shape is the global realization of local constraints.
 %https://youtu.be/gtFVdGb9Y8w?t=5m30s
-Give a metric on the rows, and the columns are the features and we can work our shape with the metric,but note that we can relax the study of shape and use similarity rather than metric.
-Once you have a metric the data has a shape, the occupy part in the metric space, there is gaps, holes, flairs, bubbles...and with this we can stop and ask what the shape we just devised tells us about the data.
+Given a metric on the rows, and the columns are the features and we can work our shape with the metric, but note that we can relax the study of shape and use similarity rather than metric.
+Once you have a metric the data has a (topological) shape, the occupy part in the metric space, there is gaps, holes, flairs, bubbles...and with this we can stop and ask what the shape we just devised tells us about the data.
 
-
-The small field of topological biology has already produced:
- the discovery of new genetic markers for breast cancer survival (Nicolau et al. 2011), measurement of structure and stability of biomolecules (Gameiro et al. 2013; Xia et al. 2015), new frameworks for understanding viral evolution (Chan et al. 2013), characterization of dynamics in gene regulatory networks (Boczko et al. 2005), quantification of contagion spread in social networks (Taylor et al. 2015), characterization of structure in networks of coupled oscillators (Stolz 2014), the study of phylogenic trees (Miller et al. 2015), and the classification of dicotyledonous leaves (Katifori and Magnasco 2012).
+The small field of topological biology has already produced: the discovery of new genetic markers for breast cancer survival (Nicolau et al. 2011), measurement of structure and stability of biomolecules (Gameiro et al. 2013; Xia et al. 2015), new frameworks for understanding viral evolution (Chan et al. 2013), characterization of dynamics in gene regulatory networks (Boczko et al. 2005), quantification of contagion spread in social networks (Taylor et al. 2015), characterization of structure in networks of coupled oscillators (Stolz 2014), the study of phylogenic trees (Miller et al. 2015), and the classification of dicotyledonous leaves (Katifori and Magnasco 2012).
 
 Topological neuroscience is an untapped resource for empirical neuroscientists.
-Roughly speaking, the uses of topology in neuroscience can be categorized
-into three (overlapping) themes: (i) traditional topological data analysis applied to neuroscience; (ii) an upgrade to network science; and (iii) understanding the neural code \citep{curto2016can}.
-i. Calculate the statistics of the shape of point cloud data and more importantly the persistent homology (simplicial complex captures the information of intersecting balls, the simplicial complex can be Cech complex and Rips complex).
-ii. "upgrade" of the network model: instead of a graph, one
-considers a simplicial complex. The higher-order simplices correspond to cliques (all-to-all connected subgraphs)
+Roughly speaking, the uses of topology in neuroscience can be categorized into three (overlapping) themes: (i) traditional topological data analysis applied to neuroscience; (ii) an upgrade to network science; and (iii) understanding the neural code \citep{curto2016can}.
+\begin{enumerate}
+\item  Calculate the statistics of the shape of point cloud data and more importantly the persistent homology (simplicial complex captures the information of intersecting balls, the simplicial complex can be Cech complex and Rips complex).
+\item  "upgrade" of the network model: instead of a graph, one considers a simplicial complex. The higher-order simplices correspond to cliques (all-to-all connected subgraphs)
+\item Suppose we are monitoring with painstaking detail the electrical firing at every time point of a neuron, what governs the behavior of this cell? the network, bien sure!  Now, imagine that we could monitor the activity of all the other neurons, and we knew exactly the pattern of connections between them, and were blessed with an excellent model describing all relevant dynamics, then (maybe?) we would be able to predict when our neuron will fire. This seems a far away project, but monitoring  single cells as we do now seemed impossible in the 50's. %lit
 
-Suppose we are monitoring with painstaking detail the electrical firing at every time point of a neuron, what governs the behavior of this cell? the network, bien sure! 
-Now, imagine that we could monitor the activity of all the other neurons, and we knew exactly the pattern of connections between them, and were blessed with an excellent model describing all relevant dynamics, then (maybe?) we would be able to predict when our neuron will fire. This seems a far away project, but monitoring  single cells as we do now seemed even further in the 50's. %lit
+\end{enumerate}
+
 Hubel and Wiesel pioneering work in the visual cortex inserted a microelectrode in the primary visual cortex of an anesthesized cat, but they could not monitor, let alone control the activity of neighboring cells, they could just listen to one neuron at a time, what they could control was the stimulus (bars with certain angle). They found orientation-tuned neurons.
 
 O'Keefe made a remarkable discovery on the same lines, but more striking, because in the hippocampus there is not an obvious sensory path, but he reported that hippocampal place cells responded selectively to spatial locations.
-With this discovery and with the Grid cells later on in mind, we may ask are neurons neurons in a network or autonomous device (sensors) attuned with the outside world? Both models can be valid but yield different conceptual and methodological consequences. The first view, neurons are nodes in a network, is endorsed by neural networks and the last by neural coding. In the neural network paradigm the neuron behavior is described via  network properties and in neural coding theory the neuronal behavior is a black box with the focus in the relationship between the external stimulus and the neural activity.
+With this discovery and with the Grid cells later on mind, we may ask are neurons vertices in a network or autonomous device (sensors) attuned with the outside world? Both models can be valid but yield different conceptual and methodological consequences. The first view, neurons are nodes in a network, is endorsed by neural networks and the last by neural coding. In the neural network paradigm the neuron behavior is described via network properties and in neural coding theory the neuronal behavior is a black box with the focus in the relationship between the external stimulus and the neural activity.
 
 We know about the neural coding of neurons but not much abut the neural coding of networks, since it seems that they belong to two different conceptual schemes. But topology, a mathematical theory in which neuroscientists are not trained at all, may be the natural tool for understanding the neural code of brain networks.
 
-For place cells, when simultaneous recordings of place
-cells became possible, it was shown via statistical inference (using previously measured place fields) that the animal's position could indeed be inferred from population place cell activity. The place cell
-code thus naturally reflects the topology of the represented space.
+For place cells, when simultaneous recordings of place cells became possible, it was shown via statistical inference (using previously measured place fields) that the animal's position could indeed be inferred from population place cell activity. The place cell code, thus, naturally reflects the topology of the represented space.
 
 % Curto review for neural coding (place cells)
-\citep{curto2016can} Some have argued that hippocampal place cell code is fundamentally topological in nature [12, 6] while others have argued that considerable geometric information is also present and can be extracted using topological methods [9, 18]. Dabaghian have worked towards disambiguate geometric and topological information: the place fields respected topological aspects of the environment more than metric features \citep{dabaghian2014reconceiving}.
-Also, about the grid cells, it turns out that the space represented by grid cells is not the full environment, but a torus.
+\citep{curto2016can} Some have argued that hippocampal place cell code is fundamentally topological in nature [12, 6] while others have argued that considerable geometric information is also present and can be extracted using topological methods [9, 18]. Dabaghian have worked towards disambiguate geometric and topological information: the place fields respected topological aspects of the environment more than metric features \citep{dabaghian2014reconceiving}. Also, about the grid cells, it turns out that the space represented by grid cells is not the full environment, but a torus.
 
 \citep{giusti2016two} The use of networks is predicated on a critical simplifying assumption: that the quintessential unit of interest in the brain is a dyad – two nodes (neurons or brain regions) connected by an edge. While rarely mentioned, this fundamental assumption inherently
-limits the types of neural structure and function that graphs
-can be used to model. Simplicial complexes (algebraic topology) is a generalization of graphs that overcomes these limitations.
+limits the types of neural structure and function that graphs can be used to model. Simplicial complexes (algebraic topology) is a generalization of graphs that overcomes these limitations.
 
 The wealth of studies linking network models with cognition, disease \citep{stefan2013epileptic}, \citep{stam2014modern} and novel biomarkers points out to a paradigm shift in systems, cognitive, and clinical neuroscience: namely, that brain function and alteration are inherently networked phenomena.
-% Dialectics, so far focus on one side, the bivariate, next step isthe polyvariate, when we master that, inerventional will make sense (causal)
+% Dialectics, so far focus on one side, the bivariate, next step isthe poly variate, when we master that, interventional attack will make sense (causal)
 % the road towards causation pass by mastering the polyadic structure of the system
 % Dyadic/Polyadic, bivariate/multivariate.
 
-%In large-scale neuroimaging, cognitive functions appear to be performed by a distributed set of brain regions and even at a smaller scale, the spatiotemporal patterns of interactions between a few neurons is thought to underlie basic information coding (Szatmary and Izhikevich 2010).%no entiendo izi paper
+% In large-scale neuroimaging, cognitive functions appear to be performed by a distributed set of brain regions and even at a smaller scale, the spatiotemporal patterns of interactions between a few neurons is thought to underlie basic information coding (Szatmary and Izhikevich 2010).%no entiendo izi paper
 
-Simplicial complexes encode diverse neural data modalities.  Simplicial complexes is a generalization of graphs from the field of algebraic topology.  After choosing the complex of interest, quantitative and theoretical tools can be used to describe, compare, and explain the statistical properties of their structure in a manner analogous to graph statistics or network diagnostics.
+Simplicial complexes encode diverse neural data modalities. Simplicial complexes is a generalization of graphs from the field of algebraic topology.  After choosing the complex of interest, quantitative and theoretical tools can be used to describe, compare, and explain the statistical properties of their structure in a manner analogous to graph statistics or network diagnostics.
 % filtration to binarize rather than thresholding
 The filtration of the complex is the method by which the complex is reduced into its constituent pieces. Filtrations reveal more detailed structure in the complex, and provide tools for understanding how that structure arises and can be seen as an alternative to thresholding a weighted complex, providing a principled approach to binarizing.
 
-A simplicial complex model is capable of encoding higher order interactions, thus distinguishing between for example, three rois as a pacemarker and the three rois simulatenously active. BUT this is not exactly true if we do coherency, this will identify the phase-lag and will distinguish between the pacemarker model (time-lag) and the simultaneous (zero-lag).
+A simplicial complex model is capable of encoding higher order interactions, thus distinguishing between for example, three rois as a pacemarker and the three rois simulatenously active. 
+BUT this is not exactly true if we do coherency, this will identify the phase-lag and will distinguish between the pacemarker model (time-lag) and the simultaneous (zero-lag). %YS
 The crux of the matter is to provide the maths that capture higher order interactions, is any of the approaches that are mainstream invalid for doing this?
-Coherency analysis is capable of characterize coactivity, but the problem is when we want to express the relationship in networks. Because a network can only describe dyadic relationships between population elements, any binary coactivity network constructed from such observations would necessarily be identical, it doesnt matter if a use correlation coherence or phase lag, at the end I end up building a dyadic relationship.
+Coherency analysis is capable of characterize coactivity, but the problem is when we want to express the relationship in networks. Because a network can only describe dyadic relationships between population elements, any binary coactivity network constructed from such observations would necessarily be identical, it doesnt matter if I use correlation, coherence or phase lag, at the end I end up building a dyadic relationship.
 We need a more versatile language able to explicitly encoding the multiple (other than double, triple etc.) coactivity pattern (Fig 1e).
 
 Hypergraphs, can record any possible collection of relations but it is precisely this degree of generality leads to a combinatorial explosion in systems of modest size. 
 Giusti et al, argues that simplicial complexes gives a compact and computable encoding of relations between arbitrarily large subgroups while retaining access to a host of quantitative tools for detecting and analyzing the structure of the systems they encode. In particular, the homology \footcite{Names of topological objects have a seemingly pathological tendency to conflict with terms in biology, so long have the two subjects been separated. Mathematical homology has no a priori relationship to the usual biological notion of homology} of a simplicial complex is a collection of topological features called cycles that one can extract from the complex.
 
-Thresholding (or selecting significance level) is problematic, particularly when the underlying system has a combination of small-scale features, some of which are noise artifacts, and some of which are critically important. 
+Thresholding (or selecting significance level) is problematic, particularly when the underlying system has a combination of small-scale features, some of which are noise artifacts, and some of which are critically important.  %YS ? this point is weak. 
 % the approach of my eo ec paper:
-One method for working around this difficulty is filtrations, which record the results of every possible binarization of the network, along with the associated threshold values. With this appraoch we can use first order  measure of structure in networks (or simplicial complexes) and  “second order” measures as functions of edge weight. Such functions carry information, for example, in their rate of change, where sudden phase transitions in network structure as one varies the threshold can indicate the presence of modules or rich clubs in networks. The area under such curves can help us characterize the geometric structure in the activity of (hippocampal) neural populations, without appealing to external stimuli or receptive field ( \citep{giusti2015clique})
+One method for working around this difficulty is filtrations, which record the results of every possible binarization of the network, along with the associated threshold values. With this approach we can use first order measure of structure in networks (or simplicial complexes) and  “second order” measures as functions of edge weight. Such functions carry information, for example, in their rate of change, where sudden phase transitions in network structure as one varies the threshold can indicate the presence of modules or rich clubs in networks. The area under such curves can help us characterize the geometric structure in the activity of (hippocampal) neural populations, without appealing to external stimuli or receptive field ( \citep{giusti2015clique})
 
 Using the simple observation that place fields corresponding to nearby locations will overlap, the authors conclude that neurons corresponding to those fields will tend to be co-active. Importantly, because of their inherently non-pairwise nature, coactivation patterns of neurons or brain regions can be naturally encoded as simplicial complexes. 
 Using the aptly (but coincidentally) named “Nerve Theorem” from algebraic topology, one can work backward from observed coactivity patterns to recover the intersection pattern of the receptive fields, describing a topological map of the animal’s environment.
@@ -157,7 +157,7 @@ Dabaghian \citep{dabaghian2014reconceiving} shows that hippocampal place cells m
 Dabaghian claims that the paper provides evidence that hippocampal networks represent spatial contiguities and not 2D Cartesian maps created by path integration. The experiment directly pitted against one another these two hypotheses by having rats run in a variable shaped track in the near-dark, and CA1 place cells tracked the linear contiguities much better than the 2D shapes created by various configurations. 
 
 In (Ellis and Klein 2014), the authors study the frequency of observation of coactivity patterns in fMRI recordings to extract fundamental computational units. Even when those regions which are coactive will change dynamically over time, cohesive functional units will appear more often than those that happen coincidental, though it is impossible to set an a priori threshold for the significance of such observations.
-%we dont solve here the threshold, selection significance problem, it is in reality a problem of scale?
+% we dont solve here the threshold, selection significance problem, it is in reality a problem of scale?
 Real geometry is that that persist against changes of scale to understand the shape we need to dynamically change the threshold.
 %https://www.youtube.com/watch?v=kctyag2Xi8o
 
@@ -170,26 +170,40 @@ as exemplified in the reconstruction and simulation of neocortical microcircuitr
 \subsection{Metric space is a Topological space}
 \label{sec:1}
 
-Dynamic network data are easily available from multiple disciplines, not only the life science (genomic) but specially from the social science, for example finances, social networks. A new approach for network comparison is persistent homology. Persistent homology is the analysis of the connectivity pattern as the threshold varies. Thus, it avoids the ad-hoc specification of a threshold for the study of the overlapping network patterns and the rates at which the appear and disappear as the threshold changes. 
-The effect of increasing threshold is that edges (links) drop out and the resulting networks are compared via the computation of distances between nodes (mostly euclidean distance).
-Distance between nodes is unsuited for networks autocorrelated time-series \footnote{time-series network where each node has records of a scalar time-series $x_{i,t} = x_{i,1},..., x{i,T}$}. 
+%NETWORK COMPARISON WITH FREQUENCY DOMAIN PERSISTENT HOMOLOGY. Ben Cassidy, Caroline Rae, Victor Solo
+
+Dynamic network data are easily available from multiple disciplines, not only the life science (genomic) but specially from the social science, for example finances, social networks. A new approach for network comparison is persistent homology. Persistent homology is the analysis of the connectivity pattern as the threshold varies. Thus, it avoids the ad-hoc specification of a threshold for the study of the overlapping network patterns and the rates at which they 
+Distance between nodes is unsuited for networks autocorrelated time-series \footnote{time-series network where each node has records of a scalar time-series $x_{i,t} = x_{i,1},..., x{i,T}$}. %YS this is pertinent in neuroimaging, eeg and fmri...  the problem of the distance between time series(as i am trying to do with the flip angle difference) 
 A distance $d$ between two vectors $x,y$ in order to be such (metric) needs to fulfill the requirements: $d(x,y)$ is real non-negative and finite, is symmetric, is unique $d(x,y)=0$  only if $x=y$ and triangle inequality $d(x,z) \leq  d(x,y) + d(y,z)$.
 
-For Cassidy, Rae and Solo there are two type of distances, marginal and joint. Marginal distances, for example, the Mahalanobis distance is based on marginal statistics such as means, covariances and densities. 
+For Cassidy, Rae and Solo there are two type of distances, marginal and joint. Marginal distances, for example, the Mahalanobis distance is based on marginal distribution statistics such as means, covariances and densities. 
+% "marginal" because they used to be found by summing values in a table along rows or columns, and writing the sum in the margins of the table. http://www.statisticshowto.com/marginal-distribution/  https://en.wikipedia.org/wiki/Marginal_distribution
+
 Joint distances on the other hand, are based on joint statistics like cross spectra, mutual information and correlation. If the data are collected separately in time and space then there is no point in calculating joint distance, rather we need marginal distance. On the other hand, for network comparison, marginal distances are inappropriate because the data are collected jointly. 
+% YS: wy not, i have women and men and i want to know how they like fish or meat.
+% I can day in day one and site 1 plus day 2 site 2 and calculate the marignal, p(someone like meat) p(somelike fish)
+
 %mean corrected (Scanner drift is corrected by detrending and mean correction is the simplest way to detrend data -normalizing to the mean signal intensity of each run other more complicated forms of detreanding is wavelets, polinomial interpolation etc.)
 The most basic distance between two nodes or recorded time series is $d(x,y) = \sqrt(1 - \rho_{x,y})$, where $\rho_{x,y}=\fraq{cov(x,y)}{var(x)var(y)}$. From a signal processing point of view, we can calculate the distance as the closeness or how well can we predict one with the other, eg. predicting $y_t$ from $x_t$ (regression problem). The prediction error is $e_{y|x} = y_t - \alpha x_t$, where alpha $\fraq{cov(x,y)}{var(x)}$.
 The next step is to capture autocorrelation using pointwise frequency coherence measures.
 
-Small world or clusterness are joint measures, thus we must be careful they can change very drastically depending on the choice of the threshold. %ys: not only joint also marginal can change drastically with the threshold
+Small world or clusterness are joint measures, thus we must be careful they can change very drastically depending on the choice of the threshold. %ys: not only joint also marginal can change drastically with the threshold. %YS not really because marginal is precisely obtained by marginalizing over the distribution of the variables being discarded which are said to be "marginalized out"
+
+%YS: Probabilities may be either marginal, joint or conditional.  http://sites.nicholas.duke.edu/statsreview/probability/jmc/
+%Marginal: the probability of an event occurring (p(A)), it may be thought of as an unconditional probability.  It is not conditioned on another event
+% Joint: p(A and B).  The probability of event A and event B occurring.  It is the probability of the intersection of two or more events.
+%p(A|B) is the probability of event A occurring, given that event B occur
+%And Bayes unite them, conditional = joint/marginal
+
 An alternative approach is persistent homology consists on studying the architecture as it evolves with every new threshold.
 A pair of nodes a, b are linked if $d(y_a, y_b) \leq \delta$. When $\delta = 0$ the network is totally disconnected and has N (number of nodes) components, the number of connected components increases as $\delta$ increases until the threshold is $\delta_{max}$ in which case the network is fully connected. It is the continuous variation of $\delta$ what gives us a graph filtration. The easiest way to show this graphically is to plot delta in one axis and the number of connected components in the other axis (barcode). (we can also use dendograms, where $\delta$ is the cut off). 
 
-The Rips complex is the main algebraic representation of the entire brain and the multiscale networks are the Rips filtration which is a sequence of nested Rips complexes over different scales. The Betti numbs e.g. connected components, holes and voids, capture the topological information. The \textit{barcode} is the visualization of the changes in the Betti number over the Rips filtration. Thus the barcode is the topological invariance representation of the network change over filtration, so it lacks geometric information about the nodes, in order to have that we can incorporate the node information to the barcode to obtain a dendogram. Then we can compare the distance between network by calculating the Gromov distance between dendograms.
+The Rips complex is the main algebraic representation of the entire brain and the multiscale networks are the Rips filtration which is a sequence of nested Rips complexes over different scales. The Betti numbers e.g. connected components, holes and voids, capture the topological information. 
+The \textit{barcode} is the visualization of the changes in the Betti number over the Rips filtration. Thus, the barcode is the topological invariance representation of the network change over filtration, so it lacks geometric information about the nodes, in order to have that we can incorporate the node information to the barcode to obtain a dendogram. Then we can compare the distance between network by calculating the Gromov distance between dendograms.
 The main importance of this approach is that it allows to have a multiscale network framework avoiding the threshold determination problem.
 This graph filtration approach along with other persistent homology framework can be used to differentiate between classes of networks, so it can be a sort of hierarchical classifier. For example, used in differentiating between glucose metabolic network using 102 ROI from FDG-PET from ADHD, ASD and pediatric controls.
 
-We have a measurement set denoted as $X= \{ x_1 ... x_p\}$ where p is the number of ROIs. The measurement $x_i$ can be assumed to be normally distributed $x_i ~ N(0,1)$, the distance between two measurements can be for example calculated with the Pearson correlation $c_{X}(x_i,x_j= 1 - corr(x_i,x_j))$. 
+We have a measurement set denoted as $X= \{ x_1 ... x_p\}$ where p is the number of ROIs. The measurement $x_i$ can be assumed to be normally distributed $x_i ~ N(0,1)$, the distance between two measurements can be, for example,calculated with the Pearson correlation $c_{X}(x_i,x_j= 1 - corr(x_i,x_j))$. 
 %YS cor shold be in abs value
 The measurement set X and the distance $c_X$ form the metric space $(X,c_X)$. The network constructed by thresholding correlation between nodes is as follows:
 there is a link between two nodes if $c(x_i,x_j) \leq \delta$, for some threshold $\delta$. The collection of the edges and the nodes gives us a binary network $B(X,\delta)$ for threshold $\delta$ which is the same as the network $G(V,E)$. Note that here the threshold is variable not fixed as in the orthodox approach based on graph theory a la Sporns.
@@ -217,6 +231,7 @@ The Gramov-Hausdorff distance allows us to measure the distance between two metr
 \begin{equation}
 d_{}(X,Y) = \frac{1}{2}_{x_i \in X, y_j \in Y} max |d_X(x_i,x_j) - d_Y(y_i,y_j))|
 \end{equation} 
+% Gromov distance in python http://stackoverflow.com/questions/30706079/hausdorff-distance-between-3d-grids
 
 \subsection{Mathematical basis of simplicial complexes }
 A graph consists of a set of vertices and a specified collection of pairs of vertices, called edges. A simplicial complex, similarly, consists of a set of vertices, and a collection of simplices — finite sets of vertices. Edges are examples of very small simplices, making every graph a particularly simple simplicial complex.
@@ -246,20 +261,19 @@ With optogenetics, DBS, TMS etc one can stimulate single neurons or specific gro
 
 Persistent homology:  the sequence of complexes in the filtration is transformed by homology into an inter-related family of evolving cycles.
 
-
 Computational problems: computing the persistent homology from correlation data of 100 neurons leads to a simplicial complex with approximately 107 4-simplices, while the same computation for a population of 200 neurons involves two orders of magnitude more.
 To mitigate this combinatorial growth in complexity, use reduction algorithms as a sort of preprocessing to collapse the size of the complex.
 Another approach is to use the fact that homology can be computed locally and then aggregated, allowing for distributed computation over multiple processors and memory cores (Bauer et al. 2014). Finally, computing approximate homology further reduces complexity in difficult cases while still providing useful statistical information (Sheehy 2013). 
-For a reviewin the ste of art ofcomputational methods in topological analysis (persistent homology) \citep{otter2015roadmap}.
+For a review in the state of the art of computational methods in topological analysis (persistent homology) \citep{otter2015roadmap}.
 Persistent homology (PH) is a method used in topological data analysis (TDA) to study qualitative features of data that persist across multiple scales. It is robust to perturbations of input data, independent of dimensions and coordinates, and provides a compact representation of the qualitative features of the input. (Python Mapper software) 
 % www.ams.org/journals/bull/2009-46-02/S0273-0979-09-01249-X/ http://diglib.eg.org/handle/10.2312/SPBG.SPBG07.091-100
-
+% $MapperGUI.py
 
 \subsection{Hierarchical theory, partitions of topological spaces }
 \label{sec:2}
 
 Hierarchical theory: the question of how many clusters do my data set needs is an ill posed question, is like asking how many scales I need. The answer is that structure emerges at different scales. Thus, there is no answer for how many clusters (k-means) k or number of clusters has to be imposed, given, externally, there is no a "natural" number of clusters. Instead of asking about how many clusters are good we can build a hierarchy, for this there are two approaches: coarse-effects or fine-grained.
-In the former we put all the data points in the same or maybe 2 partitions and at the end we will get a bunch of patches, that is, structure dissolves (from max structure to less structure). In the fine grained approaches is reverse, we start with singletons, or no structure (max variance or entropy) to end up generating structure (patches)
+In the former we put all the data points in the same or maybe 2 partitions and at the end we will get a bunch of patches, that is, structure dissolves (from max structure to less structure). In the fine grained approaches is reverse, we start with singletons, or no structure (max variance or entropy) to end up generating structure (patches).
  
 \citep{edelsbrunner2010computational}
 Geometric questions have been pondered since the Greeks or even before, however, topological ones are only one century old. 
@@ -277,8 +291,8 @@ Thus, here we focus on simplicial complexes as the main structure to study topol
 
 \section{Scalability}
 %The challenges and scope of theoretical biology David Krakauer
-Despite the diversity and complexity of organisms, key
-biological processes generate rates, for example the basal metabolic rate that scale as simple power laws. The hypothesis is that hierarchical, fractal-like branching networks were evolved by natural selection to minimize power loss when delivering resources to the cells of the body
+Despite the diversity and complexity of organisms, key biological processes generate rates, for example the basal metabolic rate that scale as simple power laws. The hypothesis is that hierarchical, fractal-like branching networks were evolved by natural selection to minimize power loss when delivering resources to the cells of the body %YS because absroption dissipation of energy is what animals and plant, do at the most fundamental level
+
 \section{Causality}
 GCM (J.Pearl) Causality is inferences under change. A causal model is a symbolic system that encodes the invariance, what remains constant.
 Conditioning probabilities do not work for intervention, if they did, curing symptoms would cure diseases
@@ -331,6 +345,36 @@ $y = A \beta$ where y is the effect, $\beta$ is the cause and A is the model bet
 In practice, one has to take into account that the data y  are noisy. The data y deviate from the ideal data $y*$ and the norm $||y - y* ||$ is the noise. 
 Inverse problems are often ill-posed, which that the above Equation (using the noisy data y) may have no solution, or more than one Regularization methods are proposed to deal with the ill-posedness of inverse problem (e.g. Tikhonov)
 
+\section{Thermodynamics of living systems}
+https://www.quantamagazine.org/20140122-a-new-physics-theory-of-life/
+Jeremy England theory. (Statistical physics of self-replication) Energy dissipation is the driven force in living systems, they maximize a dissipation function till they reach thermodinamyc equllibrium and die.
+
+From the standpoint of physics, there is one essential difference between living things and inanimate clumps of carbon atoms: The former tend to be much better at capturing energy from their environment and dissipating that energy as heat. And England derived a formula that formalizes/explains this capacity (of absorving Energy).
+The formula says that when atoms receive fuel from an external source energy (eg the sun) they rearrange in such a way that dissipates increasingly more  energy.
+In this view, the distinction between living and non living things is not that sharp, because matter under certain conditions would acquire properties that are compatible with life (rearrange in response to external energy input to increasingly dissipate energy)
+A cup of coffee and the room it sits in become the same temperature -eventually, the system arrives at a state of maximum entropy or “thermodynamic equilibrium,” in which energy is uniformly distributed.-. As long as the cup and the room are left alone, this process is irreversible. The coffee never spontaneously heats up again because the odds are overwhelmingly stacked against so much of the room’s energy randomly concentrating in its atoms.
+(the corpse will not come back to death because it has reach the  “thermodynamic equilibrium,” or state of maximum energy).
+
+In closed systems entropy has to increase over time but in open systems it may be low, that is, the energy is unevenly distributed across its atoms/states and it does so by increasing the energy of its surroundings.
+Life does not violate the second law of thermodynamics, but until recently. The overall entropy of the universe increases during photosynthesis as the sunlight dissipates, even as the plant prevents itself from decaying by maintaining an orderly internal structure.
+Gavin Crooks and Jarzynski building on Prigonine, derived a generalization of the second law of thermodynamics usable in living things.:Living systems tend to evolve over time as they increase their irreversibility. From Crooks formual we can clearly see that the more likely evolutionary outcomes are going to be the ones that absorbed and dissipated more energy from the environment’s external drives .Particles tend to dissipate more energy when they resonate with a driving force, so living bodies arrange in such a way that dissipate as much energy as possible.
+And crucially, self-replication or reproduction (biology jargon) , the process that drives the evolution of life on Earth,is a mechanism by which a system might dissipate an increasing amount of energy over time.  A great way of dissipating more is to make more copies of yourself. England proved that the he theoretical minimum amount of dissipation that can occur during the self-replication of RNA is very close to the actual amounts these systems dissipate when replicating.
+Besides self-replication, greater structural organization is another means by which strongly driven systems ramp up their ability to dissipate energy. For example, a plant is better at capturing and routing solar energy than a heap of carbon atoms. This implies that life could have emerge spontaneously by atoms arranging in such a way that capture energy, in this vein there is not much of a difference between living and non living things, the last would be on their way to have life (inanimate structures have have internal order as well.) Snowflakes, sand dunes and turbulent vortices all have in common that they are strikingly patterned structures that emerge in many-particle systems driven by some dissipative process.
+We can prove computationally the theory by  if running simulations and showing . that dissipation and replication success are indeed correlated, that would suggest this is the correct organizing principle -overarching principle of life and evolution.
+
+%https://www.quantamagazine.org/20170126-information-theory-and-the-foundation-of-life/
+%Philip Ball
+For E. Mayr, biology was unique among the sciences due to its teleology and historical contingency and these two features stems from biology guiding principle: evolution.  Evolution depends on chance and randomness, but natural selection gives it the appearance of intention and purpose. This believe of May, is challenged with recent discoveries in non equilibrium thermodynamics, complex science and information theory.
+The capacity to extract useful work from the energy resources of the universe is always diminishing. Eventually all the universe will be reduced to a uniform, boring jumble: a state of equilibrium, wherein entropy is maximized and nothing meaningful will ever happen again. Maxwell didnt like the prospect and set out to pick a hole in the second law of thermodynamics. The demon could separate the hot form the cold molecules and therefore have a reservoir of heat to produce work and defeat the 2nd law of thermodynamiocs. But to do so, the daemon need to have an intention: a plan to separate the hot from the cold. By exploiting its knowledge with intent, it can defy the laws of thermodynamics. But, It took a hundred years to understand why Maxwell’s demon can’t in fact defeat the second law and avert the inexorable slide toward deathly, universal equilibrium. This is thanks to Landauer's understanding of the link between computation and thermodynamics . The daemon cant have ilimited memory of every molecular motion, at some point, it needs to erase its memory before it can continue harvesting energy. his act of information erasure has a price: It dissipates energy, and therefore increases entropy (the “Landauer’s limit” or converting information to one form to another).
+well-adapted organisms are correlated with that environment and is this information that the organism and the environment share (quantify as a correlation) what keeps the organism alive, that is, stay out of equilibrium, this is because, like Maxwell’s demon, it can then tailor its behavior to extract work from fluctuations in its surroundings.
+Looked at this way, life is computation that aims to optimize the storage and use of meaningful information.
+natural selection has been hugely concerned with minimizing the thermodynamic cost of computation. It will do all it can to reduce the total amount of computation a cell must perform.
+Adaptation for biologists tend to be reduced to survival, but a more explanatory interpretation can be given: a well-adapted entity can absorb energy efficiently from an unpredictable, fluctuating environment. well-adapted systems are the ones that absorb and dissipate the energy of the environment, generating entropy in the process.You can explain evolutionary adaptation using thermodynamics, even in intriguing cases where there are no self-replicators and Darwinian logic breaks down, so long as the system in question is complex, versatile and sensitive enough to respond to fluctuations in its environment.
+But neither is there any conflict between physical and Darwinian adaptation. In fact, the latter can be seen as a particular case of the former. If replication is present, then natural selection becomes the route by which systems acquire the ability to absorb work — Schrödinger’s negative entropy — from the environment. But in the non living world replication doesnt happen, the well-adapted dissipative structures tend to be ones that are highly organized.
+Prediction isn’t optional in a random, fluctuating environment.
+A thermodynamically optimal machine must balance memory against prediction by minimizing its nostalgia — the useless information about the past,’’
+Hildegard Meyer-Ortmanns,aging is a physical process not biological, governed by the thermodynamics of information.It’s certainly not simply a matter of things wearing out.  The thermodynamics of information copying dictates that there must be a trade-off between precision and energy. An organism has a finite supply of energy, so errors necessarily accumulate over time.he organism then has to spend an increasingly large amount of energy to repair these errors. The renewal process eventually yields copies too flawed to function properly; death follows.
+cultured human cells seem able to replicate no more than 40 to 60 times (called the Hayflick limit) before they stop and become senescent
 
 \section{On modeling}
 \citep{wilkinson2011stochastic} Modelling is to describe, in a precise way, an understanding of the elements of a system of interest, their states, and their interactions with other elements. And the model should be precise enough to can build simulations in a computer. In principle, any biochemical mechanism of interest e.g., transcription, translation, gene regulation, cellular signalling, DNA damage and repair processes, homeostatic processes, the cell cycle, or apoptosis can be modelled. 
