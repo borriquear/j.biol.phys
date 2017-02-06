@@ -1,0 +1,592 @@
+\documentclass[onecollarge,runningheads]{svjour2}
+% ***  %% %%
+\smartqed  % flush right qed marks, e.g. at end of proof
+%
+\usepackage{graphicx}
+%
+\journalname{Journal of Biological Physics}
+%
+\begin{document}
+
+\title{Insert your title here%\thanks{Grants or other notes
+%about the article that should go on the front page should be
+%placed here. General acknowledgments should be placed at the end of the article.}
+}
+\subtitle{Do you have a subtitle?\\ If so, write it here}
+
+%\titlerunning{Short form of title}        % if too long for running head
+
+\author{Jaime Gomez-Ramirez        \and
+        Jose Luis Perez-Velazquez %etc.
+}
+
+%\authorrunning{Short form of author list} % if too long for running head
+
+\institute{The Hospital for Sick Children \at
+			  Department of Neuroscience and Mental Health \\	              
+              Bay, 686 Toronto Canada   \\
+              \email{jaime.gomez-remirez@sickkids.ca}           %  \\
+%             \emph{Present address:} of F. Author  %  if needed
+           \and
+           S. Author \at
+              second address
+}
+
+\date{Received: date / Accepted: date}
+% The correct dates will be entered by the editor
+
+
+\maketitle
+
+\begin{abstract}
+Insert your abstract here. Include up to five keywords.
+\keywords{ metabolic network systems biology \and Category Theory  \and Graph Theory \and Functor\and emergent properties\and Graph Theory\and }
+\PACS{First \and Second \and More}
+\end{abstract}
+
+
+%https://golem.ph.utexas.edu/category/2007/11/category_theory_and_biology.html
+%Michael J. Fisher, Grant Malcolm and Ray C. Paton: Spatio-logical processes in intracellular signalling. Biosystems, 55(1-3): 93–105, 2000.
+%Beyond the Gene Evelyn Fox Keller,  David Hare
+%Systems biology: The reincarnation of systems theory applied in biology? Olaf Wolkenhauer
+%Metaphors, models and bioinformation
+%Biosystems, Volume 38, Issues 2-3, 1996, Pages 155-162
+%Ray Paton
+%OLaf http://download.bioon.com.cn/view/upload/month_0807/20080725_365cf28bca4d72c35899K1jDgRUNy24T.attach.pdf
+
+%But, back then, only a handful of biologists had enough Math to follow this (some corresponded with me from Edinburgh and Russia). Only a handful of mathematicians knew enough biology (John Holland, in particular, on the Genetic Algorithm side).Jonathan Vos Post
+
+%my friend hoffman unpublished book
+
+
+\section*{Definitions}
+%https://elifesciences.org/content/3/e03476
+Topology of the environment as a set of qualitative relationships between its parts: adjacency, containment, connectedness, overlap, cover, etc. (Aleksandrov, 1965; Poincaré, 1895). 
+These qualitative relations stand in contrast to metrical (geometric), quantitative features such as distances, angles, and shapes.
+
+Note that all space is characterized by both qualitative and quantitative (topological and geometric) features, but the relation between these aspects of space is asymmetrical: qualitative spatial relationships are easy to deduce if the identity, shapes, and sizes of specific regions in the environment are known. 
+The converse is not true: topological relationships do not define the shape or scale of either the parts. For example, the fact that region x is adjacent to or overlaps with the region y says nothing about the shapes or sizes of x or y. The latter are defined via geometric measures (distances, areas, angles, etc.), and the relationships that are built on them.
+
+An (abstract) simplicial complex X, is a pair of sets: $V_X$ called the vertices and $S_X$ called the simplices each of which (called simplex) is a subset of $V_X$ plus the condition that if $\sigma$ is in $S_X$ then every subset $\tau$, $\tau \in \signa$ is also in $S_X$, $\tau \in \S_X$.
+A simplex with n elements (vertices) is called a $(n-1)-$ simplex or what is the same a n-simplex is the convex hull of (n+1) vertices. Thus, a vertice (1) is a 0-simplex, an edge (2 vertices) is a 1-simplex, a triangle or face (3) is a 2-simplex... and subsets $\tau \in \sigma$ are faces of $\sigma$. Just as one can represent a graph as a collection of points and line segments between them, one can represent the simplices in a simplicial complex as a collection of solid regions spanning vertices.
+The boundary of a simplex consists of all possible subsets of its constituent vertices, called its faces. 
+A simplicial complex encodes polyadic relations through its simplices.
+Because any given simplex is required to “contain all of its faces”, it suffices to specify only the maximal simplices, those which do not appear as faces of another simplex (Fig. 4c). This dramatically reduces the amount of data necessary to specify a simplicial complex, which helps make both conceptual work and computations feasible.
+
+Convex hull or convex envelope is the smallest convex set that contains all points in set X. Computing the convex hull means constructing an unambiguous, efficient representation of the required convex shape. The convex hull of the given points is identical to the set of all their convex combinations.
+A convex combination is a linear combination of points (which can be vectors, scalars, or more generally points in an affine space) where all coefficients are non-negative and sum to 1. Formally give n points in real vector space, $x_1, ... x_n$ a convex combination is a point $y=a_{1}x_1 + ... + a_{n}x_n$ such that the sum of the weights is 1, $\sum a_i = 1$. We can also by the same token obtain the convex combination of probability distributions. 
+
+For example, every convex combination of two points lies on the line segment between the points, then in an edge we a the convex hull or the 2-1(=1)-simplex. For three points, every convex combination will lie in the area, so the triangle is a convex hull or a 3-1(=2)-complex. %YS dont see this, why every linear combination must lie in the straight line or in the triangle for 3points?
+% https://en.wikipedia.org/wiki/Convex_combination
+
+\section{Introduction}
+\label{intro}
+
+\section{Topological Neuroscience}
+%Isabel K. Darcy simplicial complex from data https://www.youtube.com/watch?v=E7d7LHb6PLc&t=902s
+Data points are each a collection of properties (e.g. coordinates for space location, weight, age, time series..) then we need to relate the data points based on its closeness (which can be defined quite liberally) any idea of closeness that is relevant for our application, for example correlation (the closeness is always built upon the properties of the data points or vertices or 0-simplices). We add an edge (1-semplices) when they are "close", the edge makes factual the relationship. To define close we always need a threshold, so by adding edges (condition holds) we have our data cast into disjoint sets or clusters all simplices of dimension 1.
+%clustering as it is done now is building 1-simplices, or connecting dots that are close in space, but why to stop there and do not study clustering (shape) at higher dimensions
+How to grow simplices of higher order? If we have a triangle we fill in the triangle and we get the "side" 2-simplex, 3 simplex thetaedrom etc.
+
+With n points that are closed together, I can form a n-1 simplex. So a data point is a 0-simplex, when we build a relationship we have 1-simplex and whenever we have a triangle we add 2-simplices, whenever we have a tetrahedron (4 points close together.  tetrahedron is the Platonic solid $P_5$ with four polyhedron vertices, six polyhedron edges, and four equivalent equilateral triangular faces) we have a 3-simplex, when 5 points are lose together we add 4 -simplex and so on.
+It is in reality a two steps process, one we connect the points and two we build a n-complex for each group of n+1 points.
+
+The choice of the threshold affects the kind of simplicial complex that we get, since choosing one in particular is hardly justifiable, we choose all possible thresholds. By increasing the threshold eventually all the data points will be part of the same simplex, one component.
+
+Topological Data analysis (TDA) provides geometric summaries of our data. Data has shape and shape has meaning.
+Topology is about shape, and shape is the global realization of local constraints. %YS this is problematic because if topology is about shape why it is hard to get the shape from the topological properties. This motto cant referred to shape as geometric shape . all boils down to how you define the relationships, if a metric (euclidean) or some sort of similarity, in that last case one couldnt possibly reconstruct the shape
+
+%https://youtu.be/gtFVdGb9Y8w?t=5m30s
+Given a metric on the rows, and the columns are the features and we can work our shape with the metric, but note that we can relax the study of shape and use similarity rather than metric.
+Once you have a metric the data has a (topological) shape, they occupy parts in the metric space, there is gaps, holes, flairs, bubbles...and with this we can stop and ask what the shape we just devised tells us about the data.
+
+The small field of topological biology has already produced: the discovery of new genetic markers for breast cancer survival (Nicolau et al. 2011), measurement of structure and stability of biomolecules (Gameiro et al. 2013; Xia et al. 2015), new frameworks for understanding viral evolution (Chan et al. 2013), characterization of dynamics in gene regulatory networks (Boczko et al. 2005), quantification of contagion spread in social networks (Taylor et al. 2015), characterization of structure in networks of coupled oscillators (Stolz 2014), the study of phylogenic trees (Miller et al. 2015), and the classification of dicotyledonous leaves (Katifori and Magnasco 2012).
+
+Topological neuroscience is an untapped resource for empirical neuroscientists.
+Roughly speaking, the uses of topology in neuroscience can be categorized into three (overlapping) themes: (i) traditional topological data analysis applied to neuroscience; (ii) an upgrade to network science; and (iii) understanding the neural code \citep{curto2016can}.
+
+\begin{enumerate}
+\item  Calculate the statistics of the shape of point cloud data and more importantly the persistent homology (simplicial complex captures the information of intersecting balls, the simplicial complex can be Cech complex and Rips complex).
+\item  "upgrade" of the network model: instead of a graph, one considers a simplicial complex. The higher-order simplices correspond to cliques (all-to-all connected subgraphs)
+\item Suppose we are monitoring with painstaking detail the electrical firing at every time point of a neuron, what governs the behavior of this cell? the network, bien sure!  Now, imagine that we could monitor the activity of all the other neurons, and we knew exactly the pattern of connections between them, and were blessed with an excellent model describing all relevant dynamics, then (maybe?) we would be able to predict when our neuron will fire. This seems a far away project, but monitoring  single cells as we do now seemed impossible in the 50's. %lit
+
+\end{enumerate}
+
+Hubel and Wiesel pioneering work in the visual cortex inserted a microelectrode in the primary visual cortex of an anesthesized cat, but they could not monitor, let alone control the activity of neighboring cells, they could just listen to one neuron at a time, what they could control was the stimulus (bars with certain angle). They found orientation-tuned neurons.
+
+O'Keefe made a remarkable discovery on the same lines, but more striking, because in the hippocampus there is not an obvious sensory path, but he reported that hippocampal place cells responded selectively to spatial locations.
+With this discovery and with the Grid cells later on mind, we may ask are neurons vertices in a network or autonomous device (sensors) attuned with the outside world? Both models can be valid but yield different conceptual and methodological consequences. The first view, neurons are nodes in a network, is endorsed by neural networks and the last by neural coding. In the neural network paradigm the neuron behavior is described via network properties and in neural coding theory the neuronal behavior is a black box with the focus in the relationship between the external stimulus and the neural activity.
+
+We know about the neural coding of neurons but not much abut the neural coding of networks, since it seems that they belong to two different conceptual schemes. But topology, a mathematical theory in which neuroscientists are not trained at all, may be the natural tool for understanding the neural code of brain networks.
+
+For place cells, when simultaneous recordings of place cells became possible, it was shown via statistical inference (using previously measured place fields) that the animal's position could indeed be inferred from population place cell activity. The place cell code, thus, naturally reflects the topology of the represented space.
+
+% Curto review for neural coding (place cells)
+\citep{curto2016can} Some have argued that hippocampal place cell code is fundamentally topological in nature [12, 6] while others have argued that considerable geometric information is also present and can be extracted using topological methods [9, 18]. Dabaghian have worked towards disambiguate geometric and topological information: the place fields respected topological aspects of the environment more than metric features \citep{dabaghian2014reconceiving}. Also, about the grid cells, it turns out that the space represented by grid cells is not the full environment, but a torus.
+
+\citep{giusti2016two} The use of networks is predicated on a critical simplifying assumption: that the quintessential unit of interest in the brain is a dyad – two nodes (neurons or brain regions) connected by an edge. While rarely mentioned, this fundamental assumption inherently
+limits the types of neural structure and function that graphs can be used to model. Simplicial complexes (algebraic topology) is a generalization of graphs that overcomes these limitations.
+
+The wealth of studies linking network models with cognition, disease \citep{stefan2013epileptic}, \citep{stam2014modern} and novel biomarkers points out to a paradigm shift in systems, cognitive, and clinical neuroscience: namely, that brain function and alteration are inherently networked phenomena.
+% Dialectics, so far focus on one side, the bivariate, next step is the poly variate, when we master that, interventional attack will make sense (causal)
+% the road towards causation pass by mastering the polyadic structure of the system
+% Dyadic/Polyadic, bivariate/multivariate.
+
+% In large-scale neuroimaging, cognitive functions appear to be performed by a distributed set of brain regions and even at a smaller scale, the spatiotemporal patterns of interactions between a few neurons is thought to underlie basic information coding (Szatmary and Izhikevich 2010).%no entiendo izi paper
+
+Simplicial complexes encode diverse neural data modalities. Simplicial complexes is a generalization of graphs from the field of algebraic topology.  After choosing the complex of interest, quantitative and theoretical tools can be used to describe, compare, and explain the statistical properties of their structure in a manner analogous to graph statistics or network diagnostics.
+% filtration to binarize rather than thresholding
+The filtration of the complex is the method by which the complex is reduced into its constituent pieces. Filtrations reveal more detailed structure in the complex, and provide tools for understanding how that structure arises and can be seen as an alternative to thresholding a weighted complex, providing a principled approach to binarizing.
+
+A simplicial complex model is capable of encoding higher order interactions, thus distinguishing between for example, three rois as a pacemarker and the three rois simulatenously active. 
+BUT this is not exactly true if we do coherency, this will identify the phase-lag and will distinguish between the pacemarker model (time-lag) and the simultaneous (zero-lag). %YS
+The crux of the matter is to provide the maths that capture higher order interactions, is any of the approaches that are mainstream invalid for doing this?
+Coherency analysis is capable of characterize coactivity, but the problem is when we want to express the relationship in networks. Because a network can only describe dyadic relationships between population elements, any binary coactivity network constructed from such observations would necessarily be identical, it doesnt matter if I use correlation, coherence or phase lag, at the end I end up building a dyadic relationship.
+We need a more versatile language able to explicitly encoding the multiple (other than double, triple etc.) coactivity pattern (Fig 1e).
+
+Hypergraphs, can record any possible collection of relations but it is precisely this degree of generality leads to a combinatorial explosion in systems of modest size. 
+Giusti et al, argues that simplicial complexes gives a compact and computable encoding of relations between arbitrarily large subgroups while retaining access to a host of quantitative tools for detecting and analyzing the structure of the systems they encode. In particular, the homology \footcite{Names of topological objects have a seemingly pathological tendency to conflict with terms in biology, so long have the two subjects been separated. Mathematical homology has no a priori relationship to the usual biological notion of homology} of a simplicial complex is a collection of topological features called cycles that one can extract from the complex.
+
+Thresholding (or selecting significance level) is problematic, particularly when the underlying system has a combination of small-scale features, some of which are noise artifacts, and some of which are critically important.  %YS bar code built with honology  help in that, short bars are noise, long ones are persistent features. 
+% the approach of my eo ec paper:
+One method for working around this difficulty is filtrations, which record the results of every possible binarization of the network (simplicial complexes building by doing incremental threhold or ball size), along with the associated threshold values. With this approach we can use first order measure of structure in networks (or simplicial complexes) and  “second order” measures as functions of edge weight. Such functions carry information, for example, in their rate of change, where sudden phase transitions in network structure as one varies the threshold can indicate the presence of modules or rich clubs in networks. The area under such curves can help us characterize the geometric structure in the activity of (hippocampal) neural populations, without appealing to external stimuli or receptive field ( \citep{giusti2015clique})
+
+Using the simple observation that place fields corresponding to nearby locations will overlap, the authors conclude that neurons corresponding to those fields will tend to be co-active. Importantly, because of their inherently non-pairwise nature, coactivation patterns of neurons or brain regions can be naturally encoded as simplicial complexes. 
+Using the aptly (but coincidentally) named “Nerve Theorem” from algebraic topology, one can work backward from observed coactivity patterns to recover the intersection pattern of the receptive fields, describing a topological map of the animal’s environment.
+The topological approach serve to decode maps of the environment from observed cell activity.
+
+Dabaghian \citep{dabaghian2014reconceiving} shows that hippocampal place cells may ultimately be interested in a space's topological qualities (its connectivity) more than its geometry (distances and angles). After deforming an U track, the resulting place fields preserved the relative sequence of places visited along the track but did not vary with the metrical features of the track or the direction of the rat's movement.
+Dabaghian claims that the paper provides evidence that hippocampal networks represent spatial contiguities and not 2D Cartesian maps created by path integration. The experiment directly pitted against one another these two hypotheses by having rats run in a variable shaped track in the near-dark, and CA1 place cells tracked the linear contiguities much better than the 2D shapes created by various configurations. 
+
+In (Ellis and Klein 2014), the authors study the frequency of observation of coactivity patterns in fMRI recordings to extract fundamental computational units. Even when those regions which are coactive will change dynamically over time, cohesive functional units will appear more often than those that happen coincidental, though it is impossible to set an a priori threshold for the significance of such observations.
+% we dont solve here the threshold, selection significance problem, it is in reality a problem of scale?
+Real geometry is that that persist against changes of scale to understand the shape we need to dynamically change the threshold.
+%https://www.youtube.com/watch?v=kctyag2Xi8o
+
+Since traditional graph-theoretical methods may not be sufficient to understand the immense complexity of such a biological network, we explored whether methods from algebraic topology could provide a new perspective on its structural and functional organization. 
+An extension of this ideas is directedness of information flow has been used to investigate the relationship between simulated structural and functional neural networks \citep{dotko2016topological}. % Markram
+Dotko and Markram use methods from algebraic topology that can deal more effectively with he immense complexity of biological networks 
+as exemplified in the reconstruction and simulation of neocortical microcircuitry, comprising 8 million connections between 31,000 neurons \citep{markram2015reconstruction}. Dotko and Markram is the first algebraic topological analysis of structural connectomics and connectomics-based spatio-temporal activity in a biologically realistic neural microcircuit.  
+
+
+\subsection{Metric space is a Topological space}
+\label{sec:1}
+
+%NETWORK COMPARISON WITH FREQUENCY DOMAIN PERSISTENT HOMOLOGY. Ben Cassidy, Caroline Rae, Victor Solo
+
+Dynamic network data are easily available from multiple disciplines, not only the life science (genomic) but specially from the social science, for example finances, social networks. A new approach for network comparison is persistent homology. Persistent homology is the analysis of the connectivity pattern as the threshold varies. Thus, it avoids the ad-hoc specification of a threshold for the study of the overlapping network patterns and the rates at which they vary.
+
+Distance between nodes is unsuited for networks autocorrelated time-series \footnote{time-series network where each node has records of a scalar time-series $x_{i,t} = x_{i,1},..., x{i,T}$}. %YS this is pertinent in neuroimaging, eeg and fmri...  the problem of the distance between time series(as i am trying to do with the flip angle difference) 
+A distance $d$ between two vectors $x,y$ in order to be such (metric) needs to fulfill the requirements: $d(x,y)$ is real non-negative and finite, is symmetric, is unique $d(x,y)=0$  only if $x=y$ and triangle inequality $d(x,z) \leq  d(x,y) + d(y,z)$.
+
+For Cassidy, Rae and Solo there are two type of distances, marginal and joint. Marginal distances, for example, the Mahalanobis distance is based on marginal distribution statistics such as means, covariances and densities. 
+% "marginal" because they used to be found by summing values in a table along rows or columns, and writing the sum in the margins of the table. http://www.statisticshowto.com/marginal-distribution/  https://en.wikipedia.org/wiki/Marginal_distribution
+%time series distance http://stats.stackexchange.com/questions/185912/alternate-distance-metrics-for-two-time-series
+
+Joint distances on the other hand, are based on joint statistics like cross spectra, mutual information and correlation. If the data are collected separately in time and space then there is no point in calculating joint distance, rather we need marginal distance. On the other hand, for network comparison, marginal distances are inappropriate because the data are collected jointly. 
+% YS: wy not, i have women and men and i want to know how they like fish or meat.
+% I can day in day one and site 1 plus day 2 site 2 and calculate the marignal, p(someone like meat) p(somelike fish)
+
+%mean corrected (Scanner drift is corrected by detrending and mean correction is the simplest way to detrend data -normalizing to the mean signal intensity of each run other more complicated forms of detreanding is wavelets, polinomial interpolation etc.)
+% the distinction between marginal and joint isjust wrong, the ptoblem is : once i have my metric (distance, interaction ...)calculated in which language do i translate it, into networks? then i have a problem because graphs are structured as 1-simpex, thatis edges, they are dyadic,there are vertices (0-simplex) and there are edges, (1-simplex)
+%pearl knows that joint, neithermarginal nor conditional are non causal concept, so he created a new languae for causal networks, but always networks, always dyadic, the problem of coactivity will be there, also the pb of the threshold
+The most basic distance between two nodes or recorded time series is $d(x,y) = \sqrt(1 - \rho_{x,y})$, where $\rho_{x,y}=\fraq{cov(x,y)}{var(x)var(y)}$. From a signal processing point of view, we can calculate the distance as the closeness or how well can we predict one with the other, eg. predicting $y_t$ from $x_t$ (regression problem). The prediction error is $e_{y|x} = y_t - \alpha x_t$, where alpha $\fraq{cov(x,y)}{var(x)}$.
+The next step is to capture autocorrelation using pointwise frequency coherence measures.
+
+Small world or clusterness are joint measures, thus we must be careful they can change very drastically depending on the choice of the threshold. %ys: not only joint also marginal can change drastically with the threshold. %YS not really because marginal is precisely obtained by marginalizing over the distribution of the variables being discarded which are said to be "marginalized out"
+
+%YS: Probabilities may be either marginal, joint or conditional.  http://sites.nicholas.duke.edu/statsreview/probability/jmc/
+%Marginal: the probability of an event occurring (p(A)), it may be thought of as an unconditional probability.  It is not conditioned on another event
+% Joint: p(A and B).  The probability of event A and event B occurring.  It is the probability of the intersection of two or more events.
+%p(A|B) is the probability of event A occurring, given that event B occur
+%And Bayes unite them, conditional = joint/marginal
+
+An alternative approach is persistent homology consists on studying the architecture as it evolves with every new threshold.
+A pair of nodes a, b are linked if $d(y_a, y_b) \leq \delta$. When $\delta = 0$ the network is totally disconnected and has N (number of nodes) components, the number of connected components increases as $\delta$ increases until the threshold is $\delta_{max}$ in which case the network is fully connected. It is the continuous variation of $\delta$ what gives us a graph filtration. The easiest way to show this graphically is to plot delta in one axis and the number of connected components in the other axis (barcode). (we can also use dendograms, where $\delta$ is the cut off). 
+
+The Rips complex is the main algebraic representation of the entire brain and the multiscale networks are the Rips filtration which is a sequence of nested Rips complexes over different scales. The Betti numbers e.g. connected components, holes and voids, capture the topological information. 
+The \textit{barcode} is the visualization of the changes in the Betti number over the Rips filtration. Thus, the barcode is the topological invariance representation of the network change over filtration, so it lacks geometric information about the nodes, in order to have that we can incorporate the node information to the barcode to obtain a dendogram. Then we can compare the distance between network by calculating the Gromov distance between dendograms.
+The main importance of this approach is that it allows to have a multiscale network framework avoiding the threshold determination problem.
+This graph filtration approach along with other persistent homology framework can be used to differentiate between classes of networks, so it can be a sort of hierarchical classifier. For example, used in differentiating between glucose metabolic network using 102 ROI from FDG-PET from ADHD, ASD and pediatric controls.
+
+We have a measurement set denoted as $X= \{ x_1 ... x_p\}$ where p is the number of ROIs. The measurement $x_i$ can be assumed to be normally distributed $x_i ~ N(0,1)$, the distance between two measurements can be, for example,calculated with the Pearson correlation $c_{X}(x_i,x_j= 1 - corr(x_i,x_j))$. 
+%YS cor shold be in abs value
+The measurement set X and the distance $c_X$ form the metric space $(X,c_X)$. The network constructed by thresholding correlation between nodes is as follows:
+there is a link between two nodes if $c(x_i,x_j) \leq \delta$, for some threshold $\delta$. The collection of the edges and the nodes gives us a binary network $B(X,\delta)$ for threshold $\delta$ which is the same as the network $G(V,E)$. Note that here the threshold is variable not fixed as in the orthodox approach based on graph theory a la Sporns.
+
+The basic concepts of persistent homology in relation to network are
+\begin{itemize}
+\item network as simplicial complex
+\item multiscale network as graph filtration and dendogram 
+\end{itemize}
+
+For p ROIs there are $2^p$ possible subsets that can be a possible topology, the power set is thus a representation of the underlying topology.
+Importantly, every metric space is a topological space, then the metric space $B(X, \delta)$ is a topological space. 
+Given a (measurement) set X and a rule of connections, the topological space is a simplicial complex and its element is a simplex. %which element
+The important point is that a binary network is a simplicial complex consisting on 0-simplices (nodes) and 1-simplices (edges) and so on.
+
+A Rips complex is a kind of simplicial complex. Given a set X, the Rips complex $R(X,\delta)$ is a simplicial complex whose k-simplices correspond to k+1-tuples of points that are pairwise within distance $\delta$. 
+Now, while the binary networks have at most 1-semplices the Rips complex has at most p-1-simplices, so the Rips complex can have faces as well. Trivially, when we use the same distance to build the metric, we have $B(X,\delta) \in R(X,\delta)$
+
+A node is a 0-simplex an edge a 1-simplex a triangle a 2-simplex and a complete graph with p nodes represent the edges of a p-1 simplex.
+
+We have studied so far (i) "network as simplicial complex" for a fixed threshold, now we can study the relationship between networks as the threshold changes. Thus, for  binary network $B(X,\delta)$ we obtain the sequence of networks $B(X,\delta_0), ...,B(X,\delta_n)$. For the Rips complex as $\delta$ increases the Rips complex becomes larger, that is, $R(X,\delta_0 \in R(X,\delta_1) ...)$ for $\delta_0 \leq \delta_1 ...$. As the filtration value $\delta$ changes the topological properties of the Rips complex changes. Connected components are merged during Rips filtration is identical to the clustering in a dendogram.
+
+Since metric space is a topological space we can compare two networks or topological spaces with topological measures rather than graph theoretic measures like assortativity, betweenness centrality etc.
+The Gramov-Hausdorff distance allows us to measure the distance between two metric spaces, it just finds the edge that is most different in the two networks. For example, for the node sets X and Y since both are projected to the same template, then the node $x_i \in X$ is simply map to node $y_i \in Y$. Therefore the GH distance can be trivially discretized as 
+\begin{equation}
+d_{}(X,Y) = \frac{1}{2}_{x_i \in X, y_j \in Y} max |d_X(x_i,x_j) - d_Y(y_i,y_j))|
+\end{equation} 
+% Gromov distance in python http://stackoverflow.com/questions/30706079/hausdorff-distance-between-3d-grids
+
+\subsection{Mathematical basis of simplicial complexes }
+A graph consists of a set of vertices and a specified collection of pairs of vertices, called edges. A simplicial complex, similarly, consists of a set of vertices, and a collection of simplices — finite sets of vertices. Edges are examples of very small simplices, making every graph a particularly simple simplicial complex.
+The simplex condition must hold: any subset of a simplex is also a simplex. (See definitions section for the formal definition of a simplicial complex). 
+
+Examples of simplicial complexes applied to brain data are the clique complex, the concurrence complex \citep{ellis2012describing}; \citep{curto2008cell}; Dowker 1952), its Dowker dual (Dowker 1952), and the independence complex (Kozlov 2007).
+Of course, a graph is a simplicial complex. Graphs are good for encoding dyadic relationships, Clique Complex can do polyadic canonical extension of graphs, Concurrence/Dual complex is good at capturing relationships between two variables of interest eg: time and activity or activity in two distant regions and  Independence 
+
+Clique complex:  a clique is all-to-all connected subgraph. Given a graph,replace every vertice replaces every clique by a simplex on the vertices participating in the clique. This procedure produces a clique complex that has been used for neural analysis of hippocapal cells in both spatial and non spatial behavior \citep{giusti2015clique} and in general for correlation and coherence maps of for example fMRI data.
+%This application demonstrates that simplicial complexes are sensitive to organizational principles that are hidden to graph statistics, and can be used to infer parsimonious rules for information encoding in neural systems. 
+Thus, Clique complexes precisely encode the topological features present in a graph, so clique complexes "complete" graphs providing new views on the topological properties of graphs.
+However, other types of simplicial complexes can be used to represent information that cannot be so encoded in a graph.
+
+There are other complexes, like concurrent complexes (for coactivation but I dont see how they give more than coherence matrices) or Independence complex (hypergraph) to study system’s community structure (Bassett).
+
+\subsubsection{How do we measure the structure of simplicial complexes?}
+Just as with network models, once we have effectively encoded neural data in a simplicial complex, it is necessary to find useful quantitative measurements of the resulting structure to draw conclusions about the neural system of interest.
+
+First, we can generalize familiar graph statistics to the world of simplicial complexes. The simplest local measure of structure – the degree of a vertex – naturally becomes a vector-measurement whose entries are the number of maximal simplices of each size in which the vertex participates, this vector is more intuitively thought of as a generalization of the clustering coefficient of the vertices. Other local and global statistics such as efficiency and path length can be generalized by considering paths through simplices of some fixed size, which provides a notion of robust connectivity between vertices of the system (Dlotko et al. 2016).
+
+In addition to these more or less straight extensions of quantitative graph measure into simplicial complexes, however the power of algebraic topology comes with the use of algebraic topology for example, homology of the complex to identify homology cycles.
+
+A filtration of complexes can be constructed by consecutively applying each of the weights as thresholds in turn, constructing an unweighted simplicial complex whose simplices are precisely those whose weight exceeds the threshold, and labeling each such complex by the weight at which it was binarized. However, it is also the case that these unweighted complexes are related to one another, and more sophisticated measurements of structure, like homology, can exploit these relations to extract much finer detail of the evolution of the complexes as the threshold varies.
+Filtrations can be used to assess the dynamics of neural processes.
+
+With optogenetics, DBS, TMS etc one can stimulate single neurons or specific groups of neurons to control their function. To meet this need, one can construct a different type of filtration \citep{taylor2015topological} that construct a sequence of simplicial complexes with a time parameter, labeling each simplex as “on” or “off” at each time, and require that once simplices “turn on” they remain so indefinitely. This type of filtration is of use in  diffusion model of fronto-temporal dementia and in contagion models (Taylor et al. 2015), where a simplex becomes active once sufficiently many nearby simplices are active.
+
+Persistent homology:  the sequence of complexes in the filtration is transformed by homology into an inter-related family of evolving cycles.
+
+Computational problems: computing the persistent homology from correlation data of 100 neurons leads to a simplicial complex with approximately 107 4-simplices, while the same computation for a population of 200 neurons involves two orders of magnitude more.
+To mitigate this combinatorial growth in complexity, use reduction algorithms as a sort of preprocessing to collapse the size of the complex.
+Another approach is to use the fact that homology can be computed locally and then aggregated, allowing for distributed computation over multiple processors and memory cores (Bauer et al. 2014). Finally, computing approximate homology further reduces complexity in difficult cases while still providing useful statistical information (Sheehy 2013). 
+For a review in the state of the art of computational methods in topological analysis (persistent homology) \citep{otter2015roadmap}.
+
+Persistent homology (PH) is a method used in topological data analysis (TDA) to study qualitative features of data that persist across multiple scales. It is robust to perturbations of input data, independent of dimensions and coordinates, and provides a compact representation of the qualitative features of the input. (Python Mapper software) 
+% www.ams.org/journals/bull/2009-46-02/S0273-0979-09-01249-X/ http://diglib.eg.org/handle/10.2312/SPBG.SPBG07.091-100
+% $MapperGUI.py
+
+\subsection{Hierarchical theory, partitions of topological spaces }
+\label{sec:2}
+
+Hierarchical theory: the question of how many clusters do my data set needs is an ill posed question, is like asking how many scales I need. The answer is that structure emerges at different scales. Thus, there is no answer for how many clusters (k-means) k or number of clusters has to be imposed, given, externally, there is no a "natural" number of clusters. Instead of asking about how many clusters are good we can build a hierarchy, for this there are two approaches: coarse-effects or fine-grained.
+In the former we put all the data points in the same or maybe 2 partitions and at the end we will get a bunch of patches, that is, structure dissolves (from max structure to less structure). In the fine grained approaches is reverse, we start with singletons, or no structure (max variance or entropy) to end up generating structure (patches).
+ 
+\citep{edelsbrunner2010computational}
+Geometric questions have been pondered since the Greeks or even before, however, topological ones are only one century old. 
+Let X be a set of points eg the temporal series of n electrodes, $x_i ... x_n$, a topology of X is a collection of subsets called open sets. Thus, the set X, together with the topology, open sets such as the union and the intersection are also open sets, is called a topological space. By a neighborhood of a point we mean an open set that contains that point. For example, the plane (set of points X) together with the topology generated by the Euclidean metric (pairs of points) is a topological space. To construct it, we call the set of points at distance less than $r > 0$ from a point $x \in R^2$ an open disk. Taking finite intersections and arbitrary unions of open disks, we get a
+collection of open sets that satisfies the conditions of topological spaces. A homeomorphism between two topological spaces X,Y is a bijective function such that $f:X \to T$ and $f^{-1}$ are both continuous. 
+The basic question in topology is to classify spaces up to topology type.
+Given a topological space, its homology is a formal, algebraic way to talk about its connectivity.
+
+Topological spaces are continuous models of reality, topological spaces may be seem similar to graphs if we are only interested in connectedness. A topology is a way to say which points are near without having to specify how close they are from each other. Neighborhood are open disks centered in the point. Concretely, a topology on a point set X is a collection U of subsets of X, called open sets, such that X and the empty set are open and the intersection and union of subsets are open.
+
+%homeomorphic, or topologically equivalent, or they have the same topology type,
+
+A complex is a decomposition of a topological space into simple pieces in which pieces are topologically simple and their common intersections are lower-dimensional pieces of the same kind. The two most obvious or extreme choices of complex are: a few complicated pieces or many simple pieces. Computational toplogists find more interesting many simple pieces, the simplicial complex is the prime example. The first, few complicated pieces, is of more interest for those looking for aesthetically pleasing shapes (Birkhoff on aesthetics book).
+Thus, here we focus on simplicial complexes as the main structure to study topological spaces. Simplexes for the small dimension have proper names, for example, a vertex is a 0-simplex and an edge is a 1-simplex, triangle for a 2-simplex and tetrahedron for 3-simplex. Simplex is a subset of affinely independent points.
+
+\section{Scalability}
+%The challenges and scope of theoretical biology David Krakauer
+Despite the diversity and complexity of organisms, key biological processes generate rates, for example the basal metabolic rate that scale as simple power laws. The hypothesis is that hierarchical, fractal-like branching networks were evolved by natural selection to minimize power loss when delivering resources to the cells of the body %YS because absroption dissipation of energy is what animals and plant, do at the most fundamental level
+
+\section{Causality}
+GCM (J.Pearl) Causality is inferences under change. A causal model is a symbolic system that encodes the invariance, what remains constant.
+Conditioning probabilities do not work for intervention, if they did, curing symptoms would cure diseases
+%https://youtu.be/RPgvfSeQB8A 
+Dichotomy between causal and statistical notions.
+
+Statistical notions or notions that can be defined with a joint distribution are Regression, Controlling for (conditioning), odd and risk ratios, Granger causality (Collapsability), Propensity score (Rubin's propensity score matching, make the groups receiving treatment and not-treatment more comparable).
+Causal notions are spurious correlations (volume conduction pb), randomnization (you cant tell from the observation, we need additional assumptions, we need an intervention), confounding, explanatory variables.
+A confound, a lurking variable or a confounder) is a variable in a statistical model that correlates (directly or inversely) with both the dependent variable and an independent variable,  in a way that "explains away" some or all of the correlation between these two variables (if z affects to x and y, and x and y are not correlated it may look that x and y are correlated (z has explained away xy , confounding)). note that confounding is a causal notion while correlation is ot.
+
+%http://voxeu.org/article/limitations-randomised-controlled-trials
+Cartwhright, no causes in no causes out, in order to have causal conclusions you need to have causal assumptions. Example of statistical assumptions, normal distribution, independence ... but we need the judgemental causal assumptions because only those encode the invariance.
+
+The important point is that causal assumptions cannot be expressed in the language of standard statistics. In 1920 Sewell Wright (and the early econometricians) created the SEM.
+%http://ftp.cs.ucla.edu/pub/stat_ser/r370.pdf  The Causal Foundations of Structural Equation Modeling
+The paper starts with "The role of causality in SEM research is widely perceived to be, on the one hand, of pivotal
+methodological importance and, on the other hand, confusing, enigmatic, and controversial.", and the same can be said about causality. The origins are more ilustrious, Aristotle, Hume etc but the contrast between the insidious and necessary and the enigmatic is there. 
+
+Causal effects in observational studies can only be substantiated from a combination of data and untested theoretical assumptions, not from the data alone.
+%Many SEM textbooks have subsequently considered the term “causal modeling” to be an outdated misnomer (e.g., Kelloway, 1998, p. 8), giving clear preference to causality-free nomenclature such as “covariance structure,” “regression analysis,” or “si- multaneous equations.” 
+%Comparing structural equation models to the potential-outcome framework, Sobel (2008) asserts that “in general (even in randomized studies), the structural and causal parameters are not equal, implying that the structural parameters should not be interpreted as effect.”
+Rubin and Sobel are from the potential-outcome framework. also Paul Holland which states that the equation $y = a +bx+ \epsilon$ what really means is a way to expresses the $p(y|x)$. But for Pearl, the  structural interpretation of this equation has nothing to do with the conditional distribution of ${y}$ given  ${x}$ ; rather, it conveys causal information that is orthogonal to the statistical properties of  ${x}$  and  ${y}$. For Pearl, the SEM language in its nonparametric form offers a mathematically equivalent alternative to the potential-outcome framework that Holland and Sobel advocate for causal inference. This explains why SEM retains its status as the prime language for causal and counterfactual analysis.
+
+\citep{wiedermann2016statistics}
+Not to confuse X(correlation) with Y(causation) falls a little flat, specially since we dont know what causation means, correlation on the other hand we know many, maybe too many ways to calculate ad plot it in Matlab,R, SPSS or any of the plethora of statistical modeling software available these days. 
+The counterfactual or “interventionist” account lead by Woodward and Pearl is gaining momentum.
+
+%Causality, randomness, intelligibility, and the epistemology of the cell.
+The basic unit of biology is the cell, biological knowledge is rooted in the epistemology of the cell and because life is the salient characteristic of the cell, its epistemology must be centered on its livingness, not its constituent components.
+Stochastic dynamic systems: stochasticity being a consequence of the need to ignore a large number of factors while modeling relatively few in an extremely complex environment.
+%YS: going towards the epistemology of the network. It is a nion sequitor center the epistemology in livingness, salient characteristic?
+
+%Statistics and Causality: Methods for Applied Empirical Research. Chapter 11
+In cell biology causality networks are also called gene regulatory networks. In neuroscience, causality networks are widely used to express the temporal interactions between various regions of the brain.
+%Andrew lo physics envy https://arxiv.org/pdf/1003.2688.pdf
+\subsubsection{Approaches for the reconstruction of the causal relations}
+
+In 1969 Granger introduced a method to quantify temporal-causal relations among time series measurements. He introduced Wiener’s concept of causality into the analysis of time series (Wiener,1956)
+%Wiener, N. (1956) The theory of prediction, in Modern Mathematics for Engineers
+Granger causality (LR model) is impaired by several crucial problems of discovering latent confounding effect, missing counterfactual reasoning and capturing instantaneous and nonlinear causal relationships (Spirtes et al., 2001, Pearl, 2009, Bahadori and Liu, 2013b).
+Granger is not causal model rather it is a temporal dependence discovery method.
+GC characterize the extent to which a process influences another process and builds upon the notion of incremental predictability. Thus $x_t$ Granger causes another process $y_t$ if the future values of y can be better predicted with past values of x and y than with past values of y alone.
+
+The bivariate model is:
+$y_t = a_0 \sum_{k=1}^{L}b_{1k}y_{t-k} \sum_{k=1}^{L}b_{2k}x_{t-k} + \vhi_t$
+where $\vhi_t$ are uncorrelated random  variables of mean 0 and variance $\sigma^2$, L is the time lag and tells us the number of past values taken into consideration. The null hypothesis that $x_t$ does not Granger cause $y_t$, that is,$b_{2k} = 0$ for $k=1..L$.
+
+It can be straightforwardly extended to p-dimensional multivariate time series $x_t \in R^{p \times l }$ (p number of variables, for example, space locations (roi) l is the length of the time series).
+Hume cause must precede the effect.
+The approximation problem
+$x_t \sim \sum_{p=1}^{P} \sum_{l=1}^{L}\beta_{l}^{p} x_{t-l}^{p}$
+The approximation problem can be approximated with least squares to estimate the coefficients $\beta_{l}^{p}$ from a system of linear equations.
+
+
+Granger causality on gene regulatory networks with a large p may not lead to satisfactory results (Lozano et al., 2009). The statistical significant tests are inefficient, while they lead to higher chances of spurious correlations. Moreover, the high dimensionality of biological data leads to further challenges (sparse parameter vector). To address this issue, various variable selection procedures can be applied (Lasso, LARS, elastic nets).
+Lasso is an alternative regularized version of least squares, which, in addition to the minimization of the residual sum of squares, imposes an norm on the coefficients.LARS (least angle regression) is a less greedy version of traditional forward selection method is computationally less intensive compared to Lasso makes it widely used in variable selection problems. However, for highly correlated variables, Lasso and LARS tend to select only one variable instead of the whole group. The the elastic net method addresses this problem outperformed Lasso in terms of prediction error for correlated data.
+
+The problem of the reconstruction of a gene regulatory network belongs to the class of inverse problems with high-dimensional data set and sparse number of measurements. A general inverse problem can be seen as an operator equation $y = A \beta$ where y is the effect, $\beta$ is the cause and A is the model between the cause and its effect. The approximation problem can be seen as an inverse problem.
+In practice, one has to take into account that the data y  are noisy. The data y deviate from the ideal data $y*$ and the norm $||y - y* ||$ is the noise. 
+Inverse problems are often ill-posed, which that the above Equation (using the noisy data y) may have no solution, or more than one Regularization methods are proposed to deal with the ill-posedness of inverse problem (e.g. Tikhonov)
+
+\section{Thermodynamics of living systems}
+https://www.quantamagazine.org/20140122-a-new-physics-theory-of-life/
+Jeremy England theory. (Statistical physics of self-replication) Energy dissipation is the driven force in living systems, they maximize a dissipation function till they reach thermodinamyc equllibrium and die.
+
+From the standpoint of physics, there is one essential difference between living things and inanimate clumps of carbon atoms: The former tend to be much better at capturing energy from their environment and dissipating that energy as heat. And England derived a formula that formalizes/explains this capacity (of absorving Energy).
+The formula says that when atoms receive fuel from an external source energy (eg the sun) they rearrange in such a way that dissipates increasingly more  energy.
+In this view, the distinction between living and non living things is not that sharp, because matter under certain conditions would acquire properties that are compatible with life (rearrange in response to external energy input to increasingly dissipate energy)
+A cup of coffee and the room it sits in become the same temperature -eventually, the system arrives at a state of maximum entropy or “thermodynamic equilibrium,” in which energy is uniformly distributed.-. As long as the cup and the room are left alone, this process is irreversible. The coffee never spontaneously heats up again because the odds are overwhelmingly stacked against so much of the room’s energy randomly concentrating in its atoms.
+(the corpse will not come back to death because it has reach the  “thermodynamic equilibrium,” or state of maximum energy).
+
+In closed systems entropy has to increase over time but in open systems it may be low, that is, the energy is unevenly distributed across its atoms/states and it does so by increasing the energy of its surroundings.
+Life does not violate the second law of thermodynamics, but until recently. The overall entropy of the universe increases during photosynthesis as the sunlight dissipates, even as the plant prevents itself from decaying by maintaining an orderly internal structure.
+Gavin Crooks and Jarzynski building on Prigonine, derived a generalization of the second law of thermodynamics usable in living things.:Living systems tend to evolve over time as they increase their irreversibility. From Crooks formual we can clearly see that the more likely evolutionary outcomes are going to be the ones that absorbed and dissipated more energy from the environment’s external drives .Particles tend to dissipate more energy when they resonate with a driving force, so living bodies arrange in such a way that dissipate as much energy as possible.
+And crucially, self-replication or reproduction (biology jargon) , the process that drives the evolution of life on Earth,is a mechanism by which a system might dissipate an increasing amount of energy over time.  A great way of dissipating more is to make more copies of yourself. England proved that the he theoretical minimum amount of dissipation that can occur during the self-replication of RNA is very close to the actual amounts these systems dissipate when replicating.
+Besides self-replication, greater structural organization is another means by which strongly driven systems ramp up their ability to dissipate energy. For example, a plant is better at capturing and routing solar energy than a heap of carbon atoms. This implies that life could have emerge spontaneously by atoms arranging in such a way that capture energy, in this vein there is not much of a difference between living and non living things, the last would be on their way to have life (inanimate structures have have internal order as well.) Snowflakes, sand dunes and turbulent vortices all have in common that they are strikingly patterned structures that emerge in many-particle systems driven by some dissipative process.
+We can prove computationally the theory by  if running simulations and showing . that dissipation and replication success are indeed correlated, that would suggest this is the correct organizing principle -overarching principle of life and evolution.
+
+%https://www.quantamagazine.org/20170126-information-theory-and-the-foundation-of-life/
+%Philip Ball
+For E. Mayr, biology was unique among the sciences due to its teleology and historical contingency and these two features stems from biology guiding principle: evolution.  Evolution depends on chance and randomness, but natural selection gives it the appearance of intention and purpose. This believe of May, is challenged with recent discoveries in non equilibrium thermodynamics, complex science and information theory.
+The capacity to extract useful work from the energy resources of the universe is always diminishing. Eventually all the universe will be reduced to a uniform, boring jumble: a state of equilibrium, wherein entropy is maximized and nothing meaningful will ever happen again. Maxwell didnt like the prospect and set out to pick a hole in the second law of thermodynamics. The demon could separate the hot form the cold molecules and therefore have a reservoir of heat to produce work and defeat the 2nd law of thermodynamiocs. But to do so, the daemon need to have an intention: a plan to separate the hot from the cold. By exploiting its knowledge with intent, it can defy the laws of thermodynamics. But, It took a hundred years to understand why Maxwell’s demon can’t in fact defeat the second law and avert the inexorable slide toward deathly, universal equilibrium. This is thanks to Landauer's understanding of the link between computation and thermodynamics . The daemon cant have ilimited memory of every molecular motion, at some point, it needs to erase its memory before it can continue harvesting energy. his act of information erasure has a price: It dissipates energy, and therefore increases entropy (the “Landauer’s limit” or converting information to one form to another).
+well-adapted organisms are correlated with that environment and is this information that the organism and the environment share (quantify as a correlation) what keeps the organism alive, that is, stay out of equilibrium, this is because, like Maxwell’s demon, it can then tailor its behavior to extract work from fluctuations in its surroundings.
+Looked at this way, life is computation that aims to optimize the storage and use of meaningful information.
+natural selection has been hugely concerned with minimizing the thermodynamic cost of computation. It will do all it can to reduce the total amount of computation a cell must perform.
+Adaptation for biologists tend to be reduced to survival, but a more explanatory interpretation can be given: a well-adapted entity can absorb energy efficiently from an unpredictable, fluctuating environment. well-adapted systems are the ones that absorb and dissipate the energy of the environment, generating entropy in the process.You can explain evolutionary adaptation using thermodynamics, even in intriguing cases where there are no self-replicators and Darwinian logic breaks down, so long as the system in question is complex, versatile and sensitive enough to respond to fluctuations in its environment.
+But neither is there any conflict between physical and Darwinian adaptation. In fact, the latter can be seen as a particular case of the former. If replication is present, then natural selection becomes the route by which systems acquire the ability to absorb work — Schrödinger’s negative entropy — from the environment. But in the non living world replication doesnt happen, the well-adapted dissipative structures tend to be ones that are highly organized.
+Prediction isn’t optional in a random, fluctuating environment.
+A thermodynamically optimal machine must balance memory against prediction by minimizing its nostalgia — the useless information about the past,’’
+Hildegard Meyer-Ortmanns,aging is a physical process not biological, governed by the thermodynamics of information.It’s certainly not simply a matter of things wearing out.  The thermodynamics of information copying dictates that there must be a trade-off between precision and energy. An organism has a finite supply of energy, so errors necessarily accumulate over time.he organism then has to spend an increasingly large amount of energy to repair these errors. The renewal process eventually yields copies too flawed to function properly; death follows.
+cultured human cells seem able to replicate no more than 40 to 60 times (called the Hayflick limit) before they stop and become senescent
+
+\section{On modeling}
+\citep{wilkinson2011stochastic} Modelling is to describe, in a precise way, an understanding of the elements of a system of interest, their states, and their interactions with other elements. And the model should be precise enough to can build simulations in a computer. In principle, any biochemical mechanism of interest e.g., transcription, translation, gene regulation, cellular signalling, DNA damage and repair processes, homeostatic processes, the cell cycle, or apoptosis can be modelled. 
+
+Biologists are used to thinking about processes at different scales and different levels of detail. For example, photosynthesis. When studying photosynthesis for the first time at school, it is typically summarised by a single chemical reaction mixing water with carbon dioxide to get glucose and oxygen (catalysed by sunlight). A more in detail description (model, for example including ATP intermediaries in the generation of glucose) would require a model far more detailed and complex than most biologists would be comfortable with, using molecular dynamic simulations that explicitly manage the position and momentum of every molecule in the system.
+
+Quantum effects apart, current scientific wisdom views biological systems as essentially deterministic in character, with dynamics entirely predictable given sufficient knowledge of the state of the system (together with complete knowledge of the physics and chemistry of interacting biomolecules). However, despite technological improvement we still need to leave out many details of the "state" of a system (such as the position, orientation, and momentum of every single molecule under consideration), in favour of a higher-level view. So even if we identify all the components and track the interactions, there will be always as many degrees of freedom as we want (states). Recall that modeling is describing the elements their states and the interactions among the elements. Viewed at this higher level, the dynamics of the system are not deterministic, but intrinsically stochastic.
+
+%All models are wrong ??? some more than others (Olaf Wolkenhauer and Mukhtar Ullah )
+The whole purpose of (mathematical) modelling is abstraction, i.e, a reduction of complexity. %YS abstraction is reduction in complexity
+The success of differential equations in physics and engineering may produce the misspereption that models in systems biology can provide accurate or replica representations of the physicochemical reality in question. 
+Robert Rosen’s critique of mathematical modelling of complex (biological) systems. His distinction between analytical and synthetic
+Modelling is necessarily an abstraction ergo is a reduction of complex interrelations to essential features, without loosing the ability to predict. %YS predict is a side effect a collateral of modelling?
+%Mathematics is the art that makes us realise reality, and as Picasso commented, art is a lie that makes us realise truth.
+In Life Itself, Robert Rosen (1991) argues that mathematical modelling in the Newtonian realm of physics – the world of mechanisms – is inadequate to describe biological systems (organisms).
+He proposed metaphorical, relational paradigms for cellular activity, called (M,R)-systems. Using concepts from category theory, he demonstrated the minimal requirements that would have to be in place for a cell to be ‘alive’. This framewrok as reusedand extended for very different scopes (Casti, engineering systems,Artifical Life (Nomura, 2004), systems biology (Cho et al., 2005) Letelier to autopoietic systems and metabolic networks). This has been challenged by (Landauer & Bellman, 2002) %Landauer C & Bellman K. Theoretical Biology: Organisms and Mechanisms. In: AIP Conference Proceedings, American Institute of Physics, volume 627, 59–70, 2002.
+For the analysis of complex systems, Rosen argued that it is most important that we should not make any assumptions about the structure of M (set of abstract states). Measurements in M are encoded by observables $\sigma: M \to \signa(M)$.
+For complex systems, what we observe is not M directly but a reduced state space $M/E_\sigma$ (Equivalence classes, $E_\sigma$ subset of states the maps into the same value). The category of analytical model is the totality of equivalence relations on M. The key of analytical modeling is that we do not make any assumptions about the abstract set of pure states. In synthetic modelling, we synthesise M from subsets Oj in terms of the disjoint union. In the setting of category theory, we obtain a synthetic object as the coproduct of the family of objects. Although every synthetic model is an analytical model, there are analytical encodings of M that are not synthetic models; that do not possess a synthetic refinement.
+The main difference between these two approaches is linked to the difference between the direct product (analytic) and direct sum (synthetic). Direct products and sums differ for infinite indices. In category theory, these two concepts are dual and only in special circumstances (which Rosen argues involves linearity and finiteness) the two can be equivalent.
+It provides a means to discuss the modelling process itself %YS but who is interested on this, Rosen is abut the modelling process itself, this is at odds with the current zeitgest of productivity increase.
+Rosen defines a natural system as
+a ‘simple system’ or mechanism if all of its models are simulable. .If a natural system is a mechanism, then there is a necessarily finite set of minimal models ?min and the maximal model ?max is equivalent to the direct sum of the minimal ones which means the maximal model is a synthetic model. The uncertainty principle of systems biology states that as the complexity of a system increases, our ability to make precise and yet general statements diminishes
+%SB: the reincarnation of systems theory wolkenhauer
+Jame G Miller General theory of living systems in eight levels of increased complexity.
+Conceptual closure, the assumption that external factors are constant and that external forces can be described as a function of something inside the system. 
+Phenotype (what we can observe directly from the organism). The phenotype genotype dualism is explicit or implicitly casted in the Newtonian dualism between states and the forces that change the states. In Aritstotelian terms the states are the material causation behavor and the forces are an amalgam of formal and efficient causation.Biological phenotypes re open, to forcing genes and to the environment
+
+All theoretical results are derived from certain formal assumptions in a deductive manner. Energy or matter is the primary object in physics and the phenomenology is based on changes and for anything to be different space and or time must be presupposed.For Kant, space, time and causality were a priori. Changes in s & t are the essence of causal entailment. Rosen M-R is not useful for working biologists but it shows the limitation of transfer of Newtonian principles to biology "has not quite live up to expectations".
+
+%In defense of mechanism AJWells
+Rosen claims that closed causal loops that cannot be realised in machines
+
+
+%A biological relativity view of the relationships between genomes and phenotypes. (D. Noble)
+There is no privileged scale of causality in biology to clarify the relationships between genomes and phenotypes.  The idea that genetic causes are primary views the genome as a program. Initially, that view was vindicated by the discovery of mutations and knockouts that have large and specific effects on the phenotype. But we now know that these form the minority of cases. Many changes at the genome level are buffered by robust networks of interactions in cells, tissues and organs.  The 'differential' view of genetics therefore fails because it is too restrictive. An 'integral' view, using reverse engineering from systems biological models to quantify contributions to function, can solve this problem. % downward causation
+
+%Emergentism as a default: cancer as a problem of tissue organization.
+new theoretical concepts are needed in order to grapple with the apparent circular causality of complex biological phenomena in development and carcinogenesis.
+
+%The challenges and scope of theoretical biology David Krakauer https://www.ncbi.nlm.nih.gov/pubmed/21315730
+Hierarchical  modeling is the progressive refinement of quantitative observables or measurements into a set of variables that are interrelated across temporal and spatial scales. The lowest levels are considered to be the most fundamental whereas the highest levels refer to "emergent" properties of matter and because the higher level do not capture all of the variation present at the lowest levels we think that they may require new forms of description.
+Critical variation at the lowest levels, may promote through frozen accidents, diversity at the highest levels of a kind that prevents a theory from attaining the universal character of physical law.
+This to be the case in biological theories, largely as a result of the enduring role of initial conditions propagated through the evolutionary processes. Bertrand Russell wrote that "All exact science is dominated by the idea of approximation" and this is an insight often missed when criticizing biological theories on the ground of empirical exceptions.
+
+Models often serve pragmatic purposes. Machine learning approaches and related engineering formalisms, such as neural networks, decision trees and support vector machines are prevalent in bioinformatics and neuroscience (Bishop, 2006). ML aims at generalizing from give instances (input data) and making predictions out of sample.
+
+One of the vaunted benefits of machine learning is that classification and prediction tasks can be performed without insights into the structure and dynamics of the underlying system. For this reason machine learning is a powerful means of preprocessing data in preparation for mechanistic theory building (Witten and Frank, 2005), but should not be considered the final goal of a scientific inquiry. Simulations based Monte Carlo and Agent based models, rather than reconstruct properties of the data by dimension reduction as in machine learning, one seeks to fit data based on a priori mechanical models
+
+The most recent incarnation of the model-based approach to
+biology is systems' biology aims at reducing large amount data into in terms of parsimonious data structures.
+
+With the advent of high-throughput genomics, transcriptomics, proteomics, and metabolomics, and functional imaging we have witnessed a technological revolution in biology have gone hand by hand with the rise of bioinformatics and ML prediciton.
+But there has been a lack of complementary conceptual theory that could help us organize the flood of facts. An emphasis on models, rather than theory.
+A persistent problem in biology is (contrary to statistichal mechanics) that regularities exist at aggregate levels of description, therefore an qualitatively different theory is required to explain these emergent phenomena than the theory describing the underlying microscopic dynamics (Anderson, 1972).
+In biology, unlike for traditional physical and chemical phenomena, many of the spatial and temporal scales interact.In physics, nuclear forces can be neglected when calculating plane- tary orbits as these are screened off over large distances. In biology, however, the lowest levels can have a direct impact on the highest levels (and vice versa), as in the case of genes that influence behavior and social structures and behavior that influence gene expression patterns.
+ 
+How much of biological nature can be predicted from basic physical law? effectively zero.
+The idea is that the summary statistic, which changes relatively slowly, is a better predictor (or hypothesis) of the system's future state than lower-level, faster timescale fluctuations in component behavior.Building these variables is a way to buffer against mis- leading or erroneous information at lower levels (Boehm and Flack, 2010; Flack and deWaal, 2007). For example in the brain, individual neurons can be unreliable and population averages provide more reliable information through redundancy. And in populations of organisms, individual preferences can be misleading of group trends. Hence system components are a product of and respond to system averages.
+
+"The Unreasonable Effectiveness of Mathematics in the Natural Sciences", referring to the existence of empirical regularities of great generality that are often physically continuous properties of a natural system. However, the uncer- tain nature of initial conditions provides an ultimate limit to law- like theories. In this way, in a biological setting, each species might require a different theory as each was originated in slightly different circumstances. This is obviously undesirable, and in all likelihood, unnecessary; but is exists another problem already mentioned by  Wigner: there is no a priori reason to believe that all phenomena will be unified by mathematics
+%% end krakauer
+
+% The dawning of the ge of stohasticity (David Mumford)
+
+Davis-Hersh: Mathematics is the study of mental objects with reproducible properties. Thus, reproducible
+properties of the physical world are science whereas reproducible mental
+objects are math. Art lives on the mental plane (the real painting is not
+the set of dry pigments on the canvas nor is a symphony the sequence of
+sound waves that convey it to our ear) but, as the post-modernists insist,
+is reinterpreted in new contexts by each appreciator. Gossip (the actual glue of social life) , which
+includes the vast majority of our thoughts, its essence is its relation to a
+unique local part of time and space.
+
+The classical division of mathematics is Geometry, algebra and analysis (each will have its own mental objects to deal with).
+
+g: the perception of space (throughvision and muscular movements) is the primitive element or the incarnation of our experience on which geometry is based(so geometry as Kant already knew is a natural a priori). Th\e paradigmatic object is the space \emph{M made up of points with various sorts of structure.
+
+Analysis:  is the outgrowth of the human experience of force (acceleration and oscillation). This primitive experience (Newton's head falling on his head) gives tise to the paradigmatic mental object consisting of a function \emph{f} and its derivatives \emph{f} originally describing some physical quantity evolving in time.
+
+Algebra stems from the grammar of actions, concatenating and arranging hierarchical actions (counting pebbles with a law of composition).
+
+But there is a fourth branch and this arises from observing our mind at work, this is Aristotle's logic, the mental objects were propositions. 
+
+Mumford, has an alternative view, thought is the weighing of relative likelihoods of possible events and the act of sampling
+from the 'posterior', the probability distribution on unknown events, given
+the sum total of our knowledge of past events and the present context.
+The paradigmatic mental object is not a proposition, , but the random variable x, its value subject to probabilities but still not fixed. Gambling is a great example of this kind of thinking because the probabilities can be made explicit.
+If we accept this, the division of mathematics corresponding to
+this realm of experience is not logic but probability and statistics.
+%Graunt assembled his mortality tables in London ,Jacob Bernoulli proved the law of large numbers, justifying the use of empirical estimates.
+Thomas Bayes argued for the introduction of o priori (or 'prior') probabilities,
+probabilities that one assigns to unknown events based on experience of related
+but not identical events or just expressing a neutral agnostic view, these probabilities should be modified by new  observations, leading to new observations and better a posteriori probabilities as data is accumulated.
+
+In speech recognition, the prior probabilities
+may be generic models of human speech and the posterior probabilities the
+much more accurate model of one person's speech after training. The logic camp flourished in the rest
+of the 19th century, with Dedekind's cuts to arithmetize the real numbers,
+Boole's logic, Frege's formalization of predicate calculus and Cantor's
+formalization of set theory. 
+
+Galton was pretty much
+limited to fitting Gaussian distributions to scalar or low-dimensional data
+sets. A huge leap was made when Gibbs introduced very high-dimensional probability models in physics, e.g. for gases, starting statistical mechanics. Keynes (foundations of probability and of economics), Wiener (applied stochastic methods to signal prediction and
+control theory). Shannon applied stochastic methods to data compression
+and identified the key role played by the entropy of a probability distribution. Grenander applied stochastic methods first to algebraic structures and later
+to the patterns they create in the world, especially in vision.
+
+Meanwhile, statisticians were tying their hands in their backs by insisting that statistics couldn't be used in any
+but totally reproducible situations and then only using the empirical data (frequentist).
+Christopher Freiling.
+Erdos, beautiful discovery of the phase
+transition phenomenon: that the random graph becomes connected almost
+surely within a very narrow band of edge numbers. 
+Differential equations were developed
+to model nature with the full understanding that every specific equation
+was a partial representation of reality that modeled some effects but not
+others. The original case was, of course, the 2-body problem and Newton's
+laws of motion.  It
+makes the classical deterministic analysis of the 3-body gravitational
+equations about as relevant to the world as the continuum hypothesis! all differential equations are better models of
+the world when a stochastic term is added and that their classical analysis
+is useful only if it is stable in an appropriate sense to such perturbations.
+
+contrasting the idea of reasoning with logic and reasoning with likelihoods
+
+The intellectual world as a
+whole will come to view logic as a beautiful elegant idealization but to view
+statistics as the standard way in which we reason and think
+
+
+
+
+
+
+
+%PROBABILITY, RANDOM VARIABLES, AND STOCHASTIC PROCESSES Papoulis, Athanasios Pillai, Unnikrishna
+There is no conflict between causality and randomness or between determinism and probability if we agree, as we must, that scientific theories are not discoveries of the laws of nature but rather inventions of the human mind. Their consequences are presented in deterministic form if we examine the results of a single trial; they are presented as probabilistic statements if we are interested in averages of many trials. Thus, there is always uncertainty, also in the so called deterministic setting where the uncertainties are "with certain errors and in certain ranges of the relevant parameters" and in the stochastic "with a high degree of certainty if the number of trials is large enough." Classical mechanics holds within an error e provided that the neglected factors are smaller than $\varphi$.
+
+%Bunge Causality Book 3rd edition. pg 17
+causation begets chance: when we shuffle cards we cause disorder (H incr.) from the initial order (i know where the cards are) likewise, many random micro-events happen independently from one another, causal macro-patterns emerge. For example, as a piston compresses a gas, the number of molecular impacts increases, and so does the pressure (example of intervention). In social science, as the population of a social system increases, individual deviations tend to balance one another, and social regularities emerge. Free will, stated Hebb, is “control of behavior by thought.” ( it only shows that the brain can act spontaneously) and is not an slave of external stimuli.
+%Appendix for the new edition pg 358
+The causal relation is a relation among events—not among properties, or states, let alone among ideas. Strictly speaking causation is not even a relation among things (i.e., there are no material causes). When we say that thing A caused thing B to do C, we mean that a certain event (or set of events) in A generated a change C in the state of B.
+Unlike other relations among events, the causal relation is not external to them, as are the relations of conjunction, or coincidence, and succession: every effect is somehow produced (generated) by its causer(s). In other words, causation is a mode of event generation or, if preferred, of energy transfer.
+The world is not strictly causal although it is determinate. not all interconnected events are causally related and not all regularities are causal. Causation is just one mode of determination.
+Molecular biologists have a tendency to believe that, since since genic recombination and mutation are random, randomness is overriding on the biolevel and moreover that all biological novelty emerges by chance (Monod). However, whole organism biologists know that this is only half of the story: that the environment selects phenotypes not genotypes, and that such selection is random only in part (a monster has no chance to start a new lineage). For this reason it has been said that the environment is the anti-chance or causal aspect of evolution (Dobzhansky [18]).
+As for final causation, laughed away by Rabelais, Bacon, and Spinoza, it is now back in biology under the name of ‘teleonomy’ (cf. Mayr [19], Monod [17], Ayala [20]). the simplest of bacteria and a nonliving thing is that the former is goal-directed, or has a ‘teleonomic project’ built into it. downward causation: term ‘causation’ is being misused in this context, for what is at stake is a multilevel system.
+The truth seems to lie in a synthesis of the upward and the downward views, neither of these should be formulated in terms of causation because levels, being sets, cannot act upon one another.%thats why we need other than sets, complexes, categories etc.once you pick up your thresholsyou have the  set, and sets cannot act upon each other.
+%YS how can i transalte "sets dont act upon eachother"in mathematical formalism?
+What we do have here is not causal relations but functional, relations among properties and laws at different levels. Morphogenesis: René Thorn [24], has unearthed Plato’s Forms acting by themselves ab extrinsico upon inert matter. Behaviorism was the golden age of causality in psychology and social science.
+Because of its increasing concern with internal states, psychology has moved away from behaviorism, hence from causalism. Another factor in this trend has been the work in stochastic models of learning and in random neural networks.
+
+Samuelson [34] adopts the regular-succession-in-time view of causation  and, as a consequence, regards difference equations and differential equations with time as the independent variable, as causal laws. However, there need be nothing causal about a regular sequence of events and, unless the equations describing it are enriched with semantic assumptions pointing to causal factors, the equations are neither causal nor noncausal.
+Econometrician Wold, two linear regression equations may not be compatible. but each equation is a different hypothesis and should not be treated jointly (The problem, then, cannot be solved unless one commits himself to either hypothesis). 
+
+
+\section{New tools}
+%Krakauer
+McCullough and Pitts (1943) suggested that the brain be thought of as a distributed computing network with neuronal nodes implementing a boolean logic. Hopfield (1982) neural network builds on this idea providing a simple model of memory by "training" the network to associate input patterns with output patterns using a learning process based on the minimization of an energy-like function.
+Hierarchical models  (metabolic rate, genetic regulatory networks, neural networks) conform to May's (1973) biological model spectrum, ranging from pragmatic or tactical descriptions of specific systems through strategic models aiming to capture widespread regularities.% YS from pragmatic r tactical descriptions to strategic models to capture widespread regularities (Stability and Complexity in Model Ecosystems. Princeton)
+
+Signal processing in graphs: The emerging field of signal processing on graphs merges algebraic and spectral graph theoretic concepts with computational harmonic analysis to process such signals on graphs.  The idea that genetic causes are primary views the genome as a program. Initially, that view was vindicated by the discovery of mutations and knockouts that have large and specific effects on the phenotype
+
+\citep{shuman2013emerging}
+%\begin{acknowledgements}
+%If you'd like to thank anyone, place your comments here
+%and remove the percent signs.
+%\end{acknowledgements}
+
+% BibTeX users please use
+\bibliographystyle{spmpsci}
+\bibliography{C:/workspace/github/bibliography-jgr/bibliojgr}   % name your BibTeX data base
+
+\end{document}
+% end of file template.tex
+\subsection{Topic models (LDA)}
+
+\citep{zhang2016bayesian}
+
+The U.K. Biobank epidemiological study is ambitious. The critics that say that it is ill designed and a waste of money because it does not include PET scans are missing an important point: this study is precisely about large, very large numbers, and doing PET scans to measure A$\beta$ levels would render the project totally prohibitive. Cheap projects are more likely to have larger returns than outrageously expensive ones.
+I am however, more concerned with the criticisms about the methodological choices. It is not clear that the project has all cleared up, multiple comparison problem will be not a problem but a problemon!
+
+Researchers in big data applied to biomedicine are always trying to come to terms with the huge data flow available. However, the pressure for having better diagnosis and personalized treatment will be too strong to ignore. This customer's pressure will translate from clinicians to researchers, already is.
+Being a bit more specific, the heterogeneity found in AD calls for a theory or at least well informed models of decline personal trajectories. Nevertheless, the radical heterogeneity of the data makes quite impossible to make causal predicaments on the trajectories of the disease. 
+There is heterogeneity in comorbidities, clinical presentation, protein pathologies, genetics and so on and so for. And there is also the problem of correlating fMRI with emotion, personality and life style.... this is what Ed Vul called voodoo correlations:
+http://www.edvul.com/voodoocorr.php
+http://pps.sagepub.com/content/4/3/274.short?rss=1&ssource=mfc  
+
+As a scientist it is always better to be an optimistic. I find two approaches very promising, one is Bayesian modeling and the other is homological invariance, I will say a couple of things about the first and will let the last for a better occasion.
+Using a Bayesian model we can estimate a model that tells us the probability that a factor is associated with a brain observable, for example, atrophy at MRI voxel or $P(voxel|factor)$ and additionally, the probability that any given patient will express a latent factor or $P(factor|patient)$ 
+
+We can do the sMRI of AD patients and identify within them the atrophy factors, for example cortical, temporal, subcortical etc. Crucially, these factors would correspond to AD subtypes, and not to substages of the disease. This is a very important distinction which flies in the face of the staging scheme in AD (Braak's model), in which patients would progress from one factor e.g. temporal atrophy to another e.g. cortical atrophy.
+Once you have identified the atrophy factors, one should investigate the time course of these atrophy patterns using longitudinal MRI as well longitudinal assessment of A$\beta$.
+In this very recent paper \citep{zhang2016bayesian}, they use all this using a technique that is used for extracting information in web documents. This is why I am an optimist because two apparently totally disconnected domains may indeed "speak" the same numbers, with the right math. %http://www.pnas.org/content/113/42/E6535.full  
+%https://de.dariah.eu/tatom/topic_model_python.html
+% Latent Dirichlet Allocation (https://rstudio-pubs-static.s3.amazonaws.com/79360_850b2a69980c4488b1db95987a24867a.html)
+
+Probabilistic Topic Models are algorithms that extract the main themes in a collection of documents. It wouldn't be nice to have a system that read the horrendous B.O.E. for you and extract the main themes (topic, elegibility -institution or particulars, deadline, exclusion criteria, submission procedure etc) ?!
+To conclude, for our problem here of AD modeling, we can try to identify the themes (atrophy factor) to calculate the probability that given a patient will express a joint or marginal probability of factors. The translation is straightforward, a brain's patient is a document, voxels are words and the themes are the atrophy factors we are looking for.
