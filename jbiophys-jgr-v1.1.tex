@@ -50,20 +50,89 @@ In particular, we describe simplicial complexes a generalization of graphs able 
 patterns.
 
 In the next section we justify the need of a multiscale framework by exposing the inherent difficulties of the existing paradigm to deal with the threshold selection problem and to encoding multiple coactivity patterns.
-Section provides an introduction to algebraic topology, specifically simplicial complexes and the rips filtration and  functionarility.
+Section provides an introduction to algebraic topology, specifically simplicial complexes and the rips filtration and  functorarility.
 We conclude with a discussion on the future of this approach and its implications in a causal theory of biological function.
 
-  
-%what is clustering, why is important, the ipossibility theorem
-%%%%polyadic
+\section{Clustering}
+Cluster analysis or clustering is the mapping of a measurement set into subsets called clusters, so that observations in the same cluster are similar (points within each cluster are similar to each other and points from different clusters are dissimilar).
+The notion of similarity can be defined quite liberally with the selection of a distance between any two data points. Thus, a measurement set $X$ and a distance $d$ form a metric space $(X,d)$. There are many algorithms that construct clusterings on the metric space, for example k-means, fuzzy C-means, hierarchical clustering, spectral clustering etc. 
+
+Although cluster analysis has become a principle technique of knowledge discovery in a wide range of fields, including social networks, microarray gene expression \citep{nugent2010overview} and classification of brain disorders \citep{arbabshirani2017single} to cite a few, its implementation is not free of pitfalls and ambiguities \citep{carlsson2009topology}, \citep{ronan2016avoiding}.
+For example, the arbitrariness in the choice of the threshold result in the lack of robustness in the data partition. Indeed, little is known
+about consistency of most clustering algorithms \citep{von2008consistency}.
+% functoriality
+
+A clustering function f takes a metric space $(\mathcal{X},d)$ and returns a partition of the underlying set $\mathcal{X}$, $f:(\mathcal{X},d) \to \prod(\mathcal{X},d)$. Kleinberg's impossibility theorem for clustering demonstrates that there is no clustering function satisfying three simple properties: scale-invariance, richness and consistency. What this important result teaches us is that no clustering function can satisfy three axioms:\footnote{The Arrow's impossibility theorem is another example of an axiomatic approach,in this case in the social science. Arrow's impossibility theorem states that 
+ no rank-order voting system can be designed that always satisfies three fairness criteria \citep{arrow1950difficulty}}
+\begin{enumerate}
+\item[i] Scale-invariance: An ideal clustering function does not change its result when the data are scaled. For example, by changing the metric distance from miles to kilometers the clustering function $f$ produces same result of for any scale $ f(d) = f(\alpha d)$.
+\item[ii] Richness: Any partition of a finite set of points $\mathcal{X}$, $\prod(\mathcal{X},d$ can be created for some metric $d$ on $\mathcal{X}$ 
+\item[iii] Consistency:  If we stretch the data so that the distances between clusters increases and/or the distances within clusters decreases, then  the clustering function produces the same result. Formally, let $d$ and $d'$ be two distance function, then if for any pair of points $(i,j)$ in the same cluster,$d(i,f) \geq d'(i,j)$ and for every pair in different clusters $d(i,f) \leq d'(i,j)$ then clustering does not change, $f(d)= f(d')$
+\end{enumerate}
+%http://alexhwilliams.info/itsneuronalblog/2015/10/01/clustering2/ 
+
+Why his theorem is so poorly known, we do not know. It certainly shed light in the limitation and drawbacks of clustering algorithms. One of the most popular methods in clustering is the k-means. The number of clusters is fixed to k, that is, there is no a "natural" number of clusters to be discovered, it rather is an assumption externally imposed by the modeler.
+The question of how many clusters do the data set needs is an ill-posed question, is similar to asking how many scales exist in the data. The answer is, unless there is scale-invariance (first axiom of the impossibility theorem), that structure emerges at different scales.
+
+
+\section{Time series}
+   
+The computation of distances between nodes when they represent time series needs special consideration. Time-series networks where each node has record of scalar time series is pervasive in brain functioning modeling, for example electrophysiology (EEG) and functional magnetic resonance imaging (fMRI).
+Metric distance between nodes is unsuited for networks of autocorrelated time-series. 
+
+For Cassidy, Rae and Solo there are two type of distances, marginal and joint distances. Marginal distances, for example, the Mahalanobis distance is based on marginal distribution statistics such as means, covariances and densities. For example, a marginal distance between two nodes or recorded time series $(x,y)$ can be calculated as, $d(x,y) = \sqrt(1 - \rho_{x,y})$, where $\rho_{x,y}=\fraq{cov(x,y)}{var(x)var(y)}$. 
+From a signal processing point of view, we can calculate the distance as the closeness or how well can we predict one with the other, e.g. predicting $y_t$ from $x_t$ (regression problem). The prediction error is $e_{y|x} = y_t - \alpha x_t$, where alpha $\fraq{cov(x,y)}{var(x)}$. For network comparison, marginal distances are inappropriate because the data are collected jointly. To understand this point we need to have present that marginal probability  may be thought of as an unconditional probability. 
+Marginal distance are unaffected by the threshold choice we can't explain away the other variables as marginal probability assumes.
+
+Joint distances on the other hand, are based on joint statistics like cross spectra, mutual information and correlation. Pearl makes an important distinction between statistical and causal notions. Regression, Controlling for (conditioning), odd and risk ratios, Granger causality (Collapsability), Propensity score (Rubin's propensity score matching, make the groups receiving treatment and not-treatment more comparable) are all statistical notions based on joint distributions. 
+Causal notions are spurious correlations (volume conduction), randomization, confounding factors, explanatory variables.
+%A confound, a lurking variable or a confounder is a variable in a statistical model that correlates (directly or inversely) with both the dependent variable and an independent variable,  in a way that "explains away" some or all of the correlation between these two variables (if z affects to x and y, and x and y are not correlated it may look that x and y are correlated (z has explained away xy , confounding). note that confounding is a causal notion while correlation is not. 
+
+
+
+
+
+
+
+
+% "marginal" because they used to be found by summing values in a table along rows or columns, and writing the sum in the margins of the table. http://www.statisticshowto.com/marginal-distribution/  https://en.wikipedia.org/wiki/Marginal_distribution
+%time series distance http://stats.stackexchange.com/questions/185912/alternate-distance-metrics-for-two-time-series
+
+%If the data are collected separately in time and space then there is no point in calculating joint distance, rather we need marginal distance. On the other hand, for network comparison, marginal distances are inappropriate because the data are collected jointly. 
+% YS: wy not, i have women and men and i want to know how they like fish or meat.
+% I can day in day one and site 1 plus day 2 site 2 and calculate the marignal, p(someone like meat) p(somelike fish).
+% I think this refers exclusively for time series
+% for network analysis we cant do just marginal , because there p(a) is unconditional to any other event, that is, we must assume that the nodes (time series recirded at different (brain) location are not coupled)
+
+
+%mean corrected (Scanner drift is corrected by detrending and mean correction is the simplest way to detrend data -normalizing to the mean signal intensity of each run other more complicated forms of detreanding is wavelets, polinomial interpolation etc.)
+%  the problem is : once i have my metric (distance, interaction ...) calculated in which language do i translate it, into networks? then i have a problem because graphs are structured as 1-simpex, that is edges, they are dyadic,there are vertices (0-simplex) and there are edges, (1-simplex)
+%pearl knows that joint, neither marginal nor conditional are non causal concept, so he created a new language for causal networks, but always networks, always dyadic, the problem of coactivity will be there, also the pb of the threshold
+
+The next step is to capture autocorrelation using pointwise frequency coherence measures.
+
+Small world or clusterness are joint measures, thus we must be careful they can change very drastically depending on the choice of the threshold. %ys: not only joint also marginal can change drastically with the threshold. %YS not really because marginal is precisely obtained by marginalizing over the distribution of the variables being discarded which are said to be "marginalized out"
+
+%YS: Probabilities may be either marginal, joint or conditional.  http://sites.nicholas.duke.edu/statsreview/probability/jmc/
+%Marginal: the probability of an event occurring (p(A)), it may be thought of as an unconditional probability.  It is not conditioned on another event
+% Joint: p(A and B).  The probability of event A and event B occurring.  It is the probability of the intersection of two or more events.
+%p(A|B) is the probability of event A occurring, given that event B occur
+%And Bayes unite them, conditional = joint/marginal
+
+
+Since metric space is a topological space we can compare two networks or topological spaces with topological measures rather than graph theoretic measures like assortativity, betweenness centrality etc.
+The Gramov-Hausdorff distance allows us to measure the distance between two metric spaces, it just finds the edge that is most different in the two networks. For example, for the node sets X and Y since both are projected to the same template, then the node $x_i \in X$ is simply map to node $y_i \in Y$. Therefore the GH distance can be trivially discretized as 
+\begin{equation}
+d_{}(X,Y) = \frac{1}{2}_{x_i \in X, y_j \in Y} max |d_X(x_i,x_j) - d_Y(y_i,y_j))|
+\end{equation} 
+% Gromov distance in python http://stackoverflow.com/questions/30706079/hausdorff-distance-between-3d-grids
+
 
   
 
 
 
 
-\citep{giusti2016two} The use of networks is predicated on a critical simplifying assumption: that the quintessential unit of interest in the brain is a dyad – two nodes (neurons or brain regions) connected by an edge. While rarely mentioned, this fundamental assumption inherently
-limits the types of neural structure and function that graphs can be used to model. Simplicial complexes (algebraic topology) is a generalization of graphs that overcomes these limitations.
 
 
 
@@ -72,7 +141,6 @@ limits the types of neural structure and function that graphs can be used to mod
 
 
 
-The small field of topological biology has already produced: the discovery of new genetic markers for breast cancer survival (Nicolau et al. 2011), measurement of structure and stability of biomolecules (Gameiro et al. 2013; Xia et al. 2015), new frameworks for understanding viral evolution (Chan et al. 2013), characterization of dynamics in gene regulatory networks (Boczko et al. 2005), quantification of contagion spread in social networks (Taylor et al. 2015), characterization of structure in networks of coupled oscillators (Stolz 2014), the study of phylogenic trees (Miller et al. 2015), and the classification of dicotyledonous leaves (Katifori and Magnasco 2012).
 
 
 
@@ -90,7 +158,29 @@ The small field of topological biology has already produced: the discovery of ne
 %But, back then, only a handful of biologists had enough Math to follow this (some corresponded with me from Edinburgh and Russia). Only a handful of mathematicians knew enough biology (John Holland, in particular, on the Genetic Algorithm side).Jonathan Vos Post
 
 %my friend hoffman unpublished book
+\subsection{Hierarchical theory, partitions of topological spaces }
+\label{sec:2}
 
+Hierarchical theory: the question of how many clusters do my data set needs is an ill posed question, is like asking how many scales I need. The answer is that structure emerges at different scales. Thus, there is no answer for how many clusters (k-means) k or number of clusters has to be imposed, given, externally, there is no a "natural" number of clusters. Instead of asking about how many clusters are good we can build a hierarchy, for this there are two approaches: coarse-effects or fine-grained.
+In the former we put all the data points in the same or maybe 2 partitions and at the end we will get a bunch of patches, that is, structure dissolves (from max structure to less structure). In the fine grained approaches is reverse, we start with singletons, or no structure (max variance or entropy) to end up generating structure (patches).
+ 
+\citep{edelsbrunner2010computational}
+Geometric questions have been pondered since the Greeks or even before, however, topological ones are only one century old. 
+Let X be a set of points eg the temporal series of n electrodes, $x_i ... x_n$, a topology of X is a collection of subsets called open sets. Thus, the set X, together with the topology, open sets such as the union and the intersection are also open sets, is called a topological space. By a neighborhood of a point we mean an open set that contains that point. For example, the plane (set of points X) together with the topology generated by the Euclidean metric (pairs of points) is a topological space. To construct it, we call the set of points at distance less than $r > 0$ from a point $x \in R^2$ an open disk. Taking finite intersections and arbitrary unions of open disks, we get a
+collection of open sets that satisfies the conditions of topological spaces. A homeomorphism between two topological spaces X,Y is a bijective function such that $f:X \to T$ and $f^{-1}$ are both continuous. 
+The basic question in topology is to classify spaces up to topology type.
+Given a topological space, its homology is a formal, algebraic way to talk about its connectivity.
+
+Topological spaces are continuous models of reality, topological spaces may be seem similar to graphs if we are only interested in connectedness. A topology is a way to say which points are near without having to specify how close they are from each other. Neighborhood are open disks centered in the point. Concretely, a topology on a point set X is a collection U of subsets of X, called open sets, such that X and the empty set are open and the intersection and union of subsets are open.
+
+%homeomorphic, or topologically equivalent, or they have the same topology type,
+
+A complex is a decomposition of a topological space into simple pieces in which pieces are topologically simple and their common intersections are lower-dimensional pieces of the same kind. The two most obvious or extreme choices of complex are: a few complicated pieces or many simple pieces. Computational toplogists find more interesting many simple pieces, the simplicial complex is the prime example. The first, few complicated pieces, is of more interest for those looking for aesthetically pleasing shapes (Birkhoff on aesthetics book).
+Thus, here we focus on simplicial complexes as the main structure to study topological spaces. Simplexes for the small dimension have proper names, for example, a vertex is a 0-simplex and an edge is a 1-simplex, triangle for a 2-simplex and tetrahedron for 3-simplex. Simplex is a subset of affinely independent points.
+
+
+%The challenges and scope of theoretical biology David Krakauer
+Despite the diversity and complexity of organisms, key biological processes generate rates, for example the basal metabolic rate that scale as simple power laws. The hypothesis is that hierarchical, fractal-like branching networks were evolved by natural+ most fundamental level
 
 \section*{Definitions}
 %https://elifesciences.org/content/3/e03476
@@ -131,7 +221,7 @@ Topology is about shape, and shape is the global realization of local constraint
 
 %https://youtu.be/gtFVdGb9Y8w?t=5m30s
 Given a metric on the rows, and the columns are the features and we can work our shape with the metric, but note that we can relax the study of shape and use similarity rather than metric.
-Once you have a metric the data has a (topological) shape, they occupy parts in the metric space, there is gaps, holes, flairs, bubbles...and with this we can stop and ask what the shape we just devised tells us about the data.
+Once you have a metric + a threshold o statistical relevance the data has a (topological) shape, they occupy parts in the metric space, there is gaps, holes, flairs, bubbles...and with this we can stop and ask what the shape we just devised tells us about the data.
 
 The small field of topological biology has already produced: the discovery of new genetic markers for breast cancer survival (Nicolau et al. 2011), measurement of structure and stability of biomolecules (Gameiro et al. 2013; Xia et al. 2015), new frameworks for understanding viral evolution (Chan et al. 2013), characterization of dynamics in gene regulatory networks (Boczko et al. 2005), quantification of contagion spread in social networks (Taylor et al. 2015), characterization of structure in networks of coupled oscillators (Stolz 2014), the study of phylogenic trees (Miller et al. 2015), and the classification of dicotyledonous leaves (Katifori and Magnasco 2012).
 
@@ -218,11 +308,14 @@ For Cassidy, Rae and Solo there are two type of distances, marginal and joint. M
 
 Joint distances on the other hand, are based on joint statistics like cross spectra, mutual information and correlation. If the data are collected separately in time and space then there is no point in calculating joint distance, rather we need marginal distance. On the other hand, for network comparison, marginal distances are inappropriate because the data are collected jointly. 
 % YS: wy not, i have women and men and i want to know how they like fish or meat.
-% I can day in day one and site 1 plus day 2 site 2 and calculate the marignal, p(someone like meat) p(somelike fish)
+% I can day in day one and site 1 plus day 2 site 2 and calculate the marignal, p(someone like meat) p(somelike fish).
+% I think this refers exclusively for time series
+% for network analysis we cant do just marginal , because there p(a) is unconditional to any other event, that is, we must assume that the nodes (time series recirded at different (brain) location are not coupled)
+
 
 %mean corrected (Scanner drift is corrected by detrending and mean correction is the simplest way to detrend data -normalizing to the mean signal intensity of each run other more complicated forms of detreanding is wavelets, polinomial interpolation etc.)
-% the distinction between marginal and joint isjust wrong, the ptoblem is : once i have my metric (distance, interaction ...)calculated in which language do i translate it, into networks? then i have a problem because graphs are structured as 1-simpex, thatis edges, they are dyadic,there are vertices (0-simplex) and there are edges, (1-simplex)
-%pearl knows that joint, neithermarginal nor conditional are non causal concept, so he created a new languae for causal networks, but always networks, always dyadic, the problem of coactivity will be there, also the pb of the threshold
+%  the problem is : once i have my metric (distance, interaction ...) calculated in which language do i translate it, into networks? then i have a problem because graphs are structured as 1-simpex, that is edges, they are dyadic,there are vertices (0-simplex) and there are edges, (1-simplex)
+%pearl knows that joint, neither marginal nor conditional are non causal concept, so he created a new language for causal networks, but always networks, always dyadic, the problem of coactivity will be there, also the pb of the threshold
 The most basic distance between two nodes or recorded time series is $d(x,y) = \sqrt(1 - \rho_{x,y})$, where $\rho_{x,y}=\fraq{cov(x,y)}{var(x)var(y)}$. From a signal processing point of view, we can calculate the distance as the closeness or how well can we predict one with the other, eg. predicting $y_t$ from $x_t$ (regression problem). The prediction error is $e_{y|x} = y_t - \alpha x_t$, where alpha $\fraq{cov(x,y)}{var(x)}$.
 The next step is to capture autocorrelation using pointwise frequency coherence measures.
 
@@ -243,7 +336,7 @@ The main importance of this approach is that it allows to have a multiscale netw
 This graph filtration approach along with other persistent homology framework can be used to differentiate between classes of networks, so it can be a sort of hierarchical classifier. For example, used in differentiating between glucose metabolic network using 102 ROI from FDG-PET from ADHD, ASD and pediatric controls.
 
 We have a measurement set denoted as $X= \{ x_1 ... x_p\}$ where p is the number of ROIs. The measurement $x_i$ can be assumed to be normally distributed $x_i ~ N(0,1)$, the distance between two measurements can be, for example,calculated with the Pearson correlation $c_{X}(x_i,x_j= 1 - corr(x_i,x_j))$. 
-%YS cor shold be in abs value
+%YS cor should be in abs value
 The measurement set X and the distance $c_X$ form the metric space $(X,c_X)$. The network constructed by thresholding correlation between nodes is as follows:
 there is a link between two nodes if $c(x_i,x_j) \leq \delta$, for some threshold $\delta$. The collection of the edges and the nodes gives us a binary network $B(X,\delta)$ for threshold $\delta$ which is the same as the network $G(V,E)$. Note that here the threshold is variable not fixed as in the orthodox approach based on graph theory a la Sporns.
 
@@ -309,29 +402,7 @@ Persistent homology (PH) is a method used in topological data analysis (TDA) to 
 % www.ams.org/journals/bull/2009-46-02/S0273-0979-09-01249-X/ http://diglib.eg.org/handle/10.2312/SPBG.SPBG07.091-100
 % $MapperGUI.py
 
-\subsection{Hierarchical theory, partitions of topological spaces }
-\label{sec:2}
 
-Hierarchical theory: the question of how many clusters do my data set needs is an ill posed question, is like asking how many scales I need. The answer is that structure emerges at different scales. Thus, there is no answer for how many clusters (k-means) k or number of clusters has to be imposed, given, externally, there is no a "natural" number of clusters. Instead of asking about how many clusters are good we can build a hierarchy, for this there are two approaches: coarse-effects or fine-grained.
-In the former we put all the data points in the same or maybe 2 partitions and at the end we will get a bunch of patches, that is, structure dissolves (from max structure to less structure). In the fine grained approaches is reverse, we start with singletons, or no structure (max variance or entropy) to end up generating structure (patches).
- 
-\citep{edelsbrunner2010computational}
-Geometric questions have been pondered since the Greeks or even before, however, topological ones are only one century old. 
-Let X be a set of points eg the temporal series of n electrodes, $x_i ... x_n$, a topology of X is a collection of subsets called open sets. Thus, the set X, together with the topology, open sets such as the union and the intersection are also open sets, is called a topological space. By a neighborhood of a point we mean an open set that contains that point. For example, the plane (set of points X) together with the topology generated by the Euclidean metric (pairs of points) is a topological space. To construct it, we call the set of points at distance less than $r > 0$ from a point $x \in R^2$ an open disk. Taking finite intersections and arbitrary unions of open disks, we get a
-collection of open sets that satisfies the conditions of topological spaces. A homeomorphism between two topological spaces X,Y is a bijective function such that $f:X \to T$ and $f^{-1}$ are both continuous. 
-The basic question in topology is to classify spaces up to topology type.
-Given a topological space, its homology is a formal, algebraic way to talk about its connectivity.
-
-Topological spaces are continuous models of reality, topological spaces may be seem similar to graphs if we are only interested in connectedness. A topology is a way to say which points are near without having to specify how close they are from each other. Neighborhood are open disks centered in the point. Concretely, a topology on a point set X is a collection U of subsets of X, called open sets, such that X and the empty set are open and the intersection and union of subsets are open.
-
-%homeomorphic, or topologically equivalent, or they have the same topology type,
-
-A complex is a decomposition of a topological space into simple pieces in which pieces are topologically simple and their common intersections are lower-dimensional pieces of the same kind. The two most obvious or extreme choices of complex are: a few complicated pieces or many simple pieces. Computational toplogists find more interesting many simple pieces, the simplicial complex is the prime example. The first, few complicated pieces, is of more interest for those looking for aesthetically pleasing shapes (Birkhoff on aesthetics book).
-Thus, here we focus on simplicial complexes as the main structure to study topological spaces. Simplexes for the small dimension have proper names, for example, a vertex is a 0-simplex and an edge is a 1-simplex, triangle for a 2-simplex and tetrahedron for 3-simplex. Simplex is a subset of affinely independent points.
-
-\section{Scalability}
-%The challenges and scope of theoretical biology David Krakauer
-Despite the diversity and complexity of organisms, key biological processes generate rates, for example the basal metabolic rate that scale as simple power laws. The hypothesis is that hierarchical, fractal-like branching networks were evolved by natural selection to minimize power loss when delivering resources to the cells of the body %YS because absroption dissipation of energy is what animals and plant, do at the most fundamental level
 
 \section{Causality}
 GCM (J.Pearl) Causality is inferences under change. A causal model is a symbolic system that encodes the invariance, what remains constant.
@@ -341,7 +412,7 @@ Dichotomy between causal and statistical notions.
 
 Statistical notions or notions that can be defined with a joint distribution are Regression, Controlling for (conditioning), odd and risk ratios, Granger causality (Collapsability), Propensity score (Rubin's propensity score matching, make the groups receiving treatment and not-treatment more comparable).
 Causal notions are spurious correlations (volume conduction pb), randomnization (you cant tell from the observation, we need additional assumptions, we need an intervention), confounding, explanatory variables.
-A confound, a lurking variable or a confounder) is a variable in a statistical model that correlates (directly or inversely) with both the dependent variable and an independent variable,  in a way that "explains away" some or all of the correlation between these two variables (if z affects to x and y, and x and y are not correlated it may look that x and y are correlated (z has explained away xy , confounding)). note that confounding is a causal notion while correlation is ot.
+A confound, a lurking variable or a confounder is a variable in a statistical model that correlates (directly or inversely) with both the dependent variable and an independent variable,  in a way that "explains away" some or all of the correlation between these two variables (if z affects to x and y, and x and y are not correlated it may look that x and y are correlated (z has explained away xy , confounding). note that confounding is a causal notion while correlation is not.
 
 %http://voxeu.org/article/limitations-randomised-controlled-trials
 Cartwhright, no causes in no causes out, in order to have causal conclusions you need to have causal assumptions. Example of statistical assumptions, normal distribution, independence ... but we need the judgemental causal assumptions because only those encode the invariance.
