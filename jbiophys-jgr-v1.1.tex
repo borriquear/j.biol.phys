@@ -35,25 +35,26 @@ The pace at which data is being produced poses important challenges at either co
 
 
 \section*{Introduction}
-The curse of dimensionality refers to the situation in which the larger is the dataset the more sparse the data become. The rationale for this phenomenon is simple. For a 1-dimensional space, let us say that I need n random points to guarantee that they are separated a distance d. For a 2-dimensional space I will need $n^2$ random points to guarantee a separation d, and for a 3 dimensional space $n^3$ and so on. Thus, the amount of data needed grows exponentially with the dimensionality or in other words local smoothing methods will tend to perform poorly for multivariate data \citep{stone1982optimal} ,\citep{lavergne2008breaking}.  
+The curse of dimensionality refers to the situation in which the larger is the dataset the more sparse the data become. The rationale for this phenomenon is simple. For a 1-dimensional space, let us say that I need n random points to guarantee that they are separated a distance d. For a 2-dimensional space, I will need $n^2$ random points to guarantee a separation d, and for a 3 dimensional space $n^3$ and so on. Thus, the amount of data needed grows exponentially with the dimensionality or in other words, local smoothing methods will tend to perform poorly for multivariate data \citep{stone1982optimal} ,\citep{lavergne2008breaking}.  
+%YS put a chart?
 
-Data points are related based on its "closeness" which can be defined quite liberally depending on any idea that is relevant for the problem at hand. Thus, data points are related through a distance, for example a metric distance or a correlation coefficient when the data points represent time series. The choice of the threshold makes factual the relationship between data points. Two or more points are close to each other when the distance is within a certain threshold. 
+Data points are related based on its "closeness" which can be defined quite liberally depending on any idea that is relevant for the problem at hand. Thus, data points are related through a distance, for example a metric distance, a correlation coefficient or a coherency coefficient when the data points represent time series. The choice of the threshold makes factual the relationship between data points. Two or more points are close to each other when the distance is within a certain threshold. 
 %Threshold
-Thresholding or selecting significance level is problematic, particularly when the underlying system it not scale invariant. Small world or clusterness are joint measures can change very drastically depending on the choice of the threshold. Furthermore, by adopting a threshold  we may be loosing important information, for example it may occur that some small-scale features are noise artifacts and other are critically important.   
-Network modeling has became a standard de facto to study the spatial properties of biological systems. 
-Although we must be prudent in using the term paradigm shift, the wealth of studies linking network models  with phenomena at  as genetic marker, genetic regulatory processes, viral evolution, neural coding, synaptic plasticity. cognition, neurodegenerative disorders and even consciousness underlie the inescapability of network modeling.  
+Thresholding or selecting significance level is problematic, particularly when the underlying system it not scale invariant. Small world or clusterness are joint measures and can change very drastically depending on the choice of the threshold. Furthermore, by adopting a threshold, we may be loosing important information, for example it may occur that some small-scale features are noise artifacts while other are critically important.   
 
+Network modeling has became a standard de facto to study the spatial properties of biological systems. 
+Although we must be prudent in using the term paradigm shift, the wealth of studies linking network models with a range of phenomena as wide as genetic marker, genetic regulatory processes, viral evolution, neural coding, synaptic plasticity. cognition, neurodegenerative disorders and even consciousness, underlie the inescapability of network modeling.  
 It is worth pointing out, however, that a graph is a set of nodes or vertices, some of them connected forming edges or links. Graphs are built by connecting pair of elements, that is to say, the only type of relationship possible is between pairs. The limitation of having only dyadic (or bivariate in statistics jargon) relationships have important limitations that should not be overlooked.
+
 Algebraic topology provide a language and a methodology to overcome those limitations.
 The main goal of this paper is to introduce this new language and explain what has to offer to mathematical biologists, biophysicists or anybody interested in modeling spatio-temporal patterns in biological systems.
-In particular, we describe simplicial complexes a generalization of graphs able to capture polyadic or multiple coactivity patterns and the Rips complex to the invariance in network dynamics.
-patterns.
+In particular, we describe simplicial complexes a generalization of graphs able to capture polyadic or multiple coactivity patterns and the Rips complex an algebraic formalism that captures the invariance in network dynamics.
 
 In the next section we justify the need of a multiscale framework by exposing the inherent difficulties of the existing paradigm to deal with the threshold selection problem and to encoding multiple coactivity patterns.
-Section provides an introduction to algebraic topology, specifically simplicial complexes and the rips filtration and  functorarility.
+Section provides an introduction to algebraic topology, specifically simplicial complexes and the rips filtration and functorality.
 We conclude with a discussion on the future of this approach and its implications in a causal theory of biological function.
 
-\section{Clustering}
+\subsection{Clustering}
 Cluster analysis or clustering is the mapping of a measurement set into subsets called clusters, so that observations in the same cluster are similar (points within each cluster are similar to each other and points from different clusters are dissimilar).
 The notion of similarity can be defined quite liberally with the selection of a distance between any two data points. Thus, a measurement set $X$ and a distance $d$ form a metric space $(X,d)$. There are many algorithms that construct clusterings on the metric space, for example k-means, fuzzy C-means, hierarchical clustering, spectral clustering etc. 
 
@@ -62,31 +63,115 @@ For example, the arbitrariness in the choice of the threshold result in the lack
 about consistency of most clustering algorithms \citep{von2008consistency}.
 % functoriality
 
-A clustering function f takes a metric space $(\mathcal{X},d)$ and returns a partition of the underlying set $\mathcal{X}$, $f:(\mathcal{X},d) \to \prod(\mathcal{X},d)$. Kleinberg's impossibility theorem for clustering demonstrates that there is no clustering function satisfying three simple properties: scale-invariance, richness and consistency. What this important result teaches us is that no clustering function can satisfy three axioms:\footnote{The Arrow's impossibility theorem is another example of an axiomatic approach,in this case in the social science. Arrow's impossibility theorem states that 
- no rank-order voting system can be designed that always satisfies three fairness criteria \citep{arrow1950difficulty}}
+A clustering function f takes a metric space $(\mathcal{X},d)$ and returns a partition of the underlying set $\mathcal{X}$, $f:(\mathcal{X},d) \to \prod(\mathcal{X},d)$. Kleinberg's impossibility theorem for clustering demonstrates that there is no clustering function satisfying three simple properties: scale-invariance, richness and consistency \footnote{The Arrow's impossibility theorem is another example of an axiomatic approach,in this case in the social science. Arrow's impossibility theorem states that 
+ no rank-order voting system can be designed that always satisfies three fairness criteria \citep{arrow1950difficulty}}:
+ % 
 \begin{enumerate}
 \item[i] Scale-invariance: An ideal clustering function does not change its result when the data are scaled. For example, by changing the metric distance from miles to kilometers the clustering function $f$ produces same result of for any scale $ f(d) = f(\alpha d)$.
 \item[ii] Richness: Any partition of a finite set of points $\mathcal{X}$, $\prod(\mathcal{X},d$ can be created for some metric $d$ on $\mathcal{X}$ 
 \item[iii] Consistency:  If we stretch the data so that the distances between clusters increases and/or the distances within clusters decreases, then  the clustering function produces the same result. Formally, let $d$ and $d'$ be two distance function, then if for any pair of points $(i,j)$ in the same cluster,$d(i,f) \geq d'(i,j)$ and for every pair in different clusters $d(i,f) \leq d'(i,j)$ then clustering does not change, $f(d)= f(d')$
 \end{enumerate}
+% YS : Draw chart
 %http://alexhwilliams.info/itsneuronalblog/2015/10/01/clustering2/ 
+What this important result teaches us is that no clustering function that satisfies the axioms of scale-invariance, richness and consistency.
+Why this theorem is so poorly known, we do not know. It certainly shed light in the limitation and drawbacks of clustering algorithms. 
+For example, in k-means, one of the most important clustering methods, the number of clusters is fixed to k, that is, there is no a "natural" number of clusters to be discovered, it is rather an assumption externally imposed by the modeler. Having the Kleinberg's theorem in mind we can see that the question of how many clusters do the data set needs is ill-posed. It is similar to asking how many scales exist in the data. The answer is that unless there is  scale-invariance, structure emerges at different scales. 
 
-Why his theorem is so poorly known, we do not know. It certainly shed light in the limitation and drawbacks of clustering algorithms. One of the most popular methods in clustering is the k-means. The number of clusters is fixed to k, that is, there is no a "natural" number of clusters to be discovered, it rather is an assumption externally imposed by the modeler.
-The question of how many clusters do the data set needs is an ill-posed question, is similar to asking how many scales exist in the data. The answer is, unless there is scale-invariance (first axiom of the impossibility theorem), that structure emerges at different scales.
-
-
-\section{Time series}
+\subsection{Time series}
    
-The computation of distances between nodes when they represent time series needs special consideration. Time-series networks where each node has record of scalar time series is pervasive in brain functioning modeling, for example electrophysiology (EEG) and functional magnetic resonance imaging (fMRI).
+The computation of distances between nodes when they represent time series needs special consideration. Time-series networks where each node has a record of scalar time series is pervasive in brain functioning modeling, for example electrophysiology (EEG) and functional magnetic resonance imaging (fMRI).
 Metric distance between nodes is unsuited for networks of autocorrelated time-series. 
+% YS: why?because they are autocorrelated?
 
-For Cassidy, Rae and Solo there are two type of distances, marginal and joint distances. Marginal distances, for example, the Mahalanobis distance is based on marginal distribution statistics such as means, covariances and densities. For example, a marginal distance between two nodes or recorded time series $(x,y)$ can be calculated as, $d(x,y) = \sqrt(1 - \rho_{x,y})$, where $\rho_{x,y}=\fraq{cov(x,y)}{var(x)var(y)}$. 
-From a signal processing point of view, we can calculate the distance as the closeness or how well can we predict one with the other, e.g. predicting $y_t$ from $x_t$ (regression problem). The prediction error is $e_{y|x} = y_t - \alpha x_t$, where alpha $\fraq{cov(x,y)}{var(x)}$. For network comparison, marginal distances are inappropriate because the data are collected jointly. To understand this point we need to have present that marginal probability  may be thought of as an unconditional probability. 
+For Cassidy, Rae and Solo there are two type of distances, marginal and joint distances. Marginal distances, for example, the Mahalanobis distance is based on marginal distribution statistics such as means, covariances and densities. For example, a marginal distance between two nodes of recorded time series $(x,y)$ can be calculated as, $d(x,y) = \sqrt(1 - \rho_{x,y})$, where $\rho_{x,y}=\fraq{cov(x,y)}{var(x)var(y)}$. 
+From a signal processing point of view, we can calculate the distance as the closeness or how well can we predict one with the other, e.g. predicting $y$ from $x$ (regression problem). The prediction error is $e_{y|x} = y- \alpha x$, where alpha $\fraq{cov(x,y)}{var(x)}$. For network comparison, marginal distances are inappropriate because the data are collected jointly. To understand this point we need to have present that marginal probability may be thought of as an unconditional probability. 
 Marginal distance are unaffected by the threshold choice we can't explain away the other variables as marginal probability assumes.
+%YS: put example
 
-Joint distances on the other hand, are based on joint statistics like cross spectra, mutual information and correlation. Pearl makes an important distinction between statistical and causal notions. Regression, Controlling for (conditioning), odd and risk ratios, Granger causality (Collapsability), Propensity score (Rubin's propensity score matching, make the groups receiving treatment and not-treatment more comparable) are all statistical notions based on joint distributions. 
+Joint distances, on the other hand, are based on joint statistics like cross spectra, mutual information and correlation. Pearl makes an important distinction between statistical and causal notions. Regression, Controlling for (conditioning), odd and risk ratios, Granger causality (Collapsability), Propensity score (Rubin's propensity score matching, make the groups receiving treatment and not-treatment more comparable) are all statistical notions based on joint distributions. 
 Causal notions are spurious correlations (volume conduction), randomization, confounding factors, explanatory variables.
 %A confound, a lurking variable or a confounder is a variable in a statistical model that correlates (directly or inversely) with both the dependent variable and an independent variable,  in a way that "explains away" some or all of the correlation between these two variables (if z affects to x and y, and x and y are not correlated it may look that x and y are correlated (z has explained away xy , confounding). note that confounding is a causal notion while correlation is not. 
+
+\section{Methods}
+%Alegebraic topology
+\citep{edelsbrunner2010computational}
+Geometric questions have been pondered since the Greeks or even before, however, topological ones are only one century old. 
+%Why weneed topology
+Let X be a set of points, e.g. the temporal series of n electrodes, $x_i ... x_n$, a topology of X is a collection of subsets called open sets. The union and the intersection of open sets are also open sets.
+Thus, a set X, together with the topology is called a topological space. 
+
+By a neighborhood of a point we mean an open set that contains that point. For example, the plane (set of points X) together with the topology generated by the Euclidean metric (pairs of points) is a topological space. To construct it, we call the set of points at distance less than $r, r > 0$ from a point $x \in R^2$ an open disk. Taking finite intersections and arbitrary unions of open disks, we get a collection of open sets that satisfies the conditions of topological spaces. 
+
+A homeomorphism between two topological spaces X,Y is a bijective function such that $f:X \to Y$ and $f^{-1}$ are both continuous. 
+The basic question in topology is to classify spaces up to topology type.
+Given a topological space, its homology is a formal, algebraic way to talk about its connectivity.
+
+Topological spaces are continuous models of reality, topological spaces may be seem similar to graphs if we are only interested in connectedness. A topology is a way to say which points are near without having to specify how close they are from each other. Neighborhood are open disks centered in the point. Concretely, a topology on a point set X is a collection U of subsets of X, called open sets, such that X and the empty set are open and the intersection and union of subsets are open.
+
+%homeomorphic, or topologically equivalent, or they have the same topology type,
+
+A complex is a decomposition of a topological space into simple pieces in which pieces are topologically simple and their common intersections are lower-dimensional pieces of the same kind. The two most obvious or extreme choices of complex are: a few complicated pieces or many simple pieces. Computational toplogists find more interesting many simple pieces, the simplicial complex is the prime example. The first, few complicated pieces, is of more interest for those looking for aesthetically pleasing shapes (Birkhoff on aesthetics book).
+Thus, here we focus on simplicial complexes as the main structure to study topological spaces. Simplexes for the small dimension have proper names, for example, a vertex is a 0-simplex and an edge is a 1-simplex, triangle for a 2-simplex and tetrahedron for 3-simplex. Simplex is a subset of affinely independent points.
+
+
+%The challenges and scope of theoretical biology David Krakauer
+Despite the diversity and complexity of organisms, key biological processes generate rates, for example the basal metabolic rate that scale as simple power laws. The hypothesis is that hierarchical, fractal-like branching networks were evolved by natural+ most fundamental level
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
