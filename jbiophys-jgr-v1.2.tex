@@ -1,10 +1,6 @@
-<<<<<<< HEAD
+
 \documentclass[onecollarge,runningheads]{svjour2}
 % 4 July 2017
-=======
-\documentclass[onecollarge,runningheads]{svjour2} 
-% 19 Feb 2017
->>>>>>> 8619b36aecee516473757c3fb8dc89e5b95cb5d3
 \smartqed  % flush right qed marks, e.g. at end of proof
 \usepackage{graphicx}
 \journalname{Journal of Biological Physics}
@@ -38,56 +34,44 @@ The pace at which data is being produced poses important challenges at either co
 \keywords{metabolic network systems biology \and Category Theory  \and Graph Theory \and Functor\and emergent properties\and Graph Theory\and Algebraic topology \and Persistent homology \and Causality}
 \end{abstract}
 
-
 \section{Introduction}
 
 % The ontological primacy of relations
-Following the steps of Poincar{\'e}, modern physics teaches us that 
-what science can attain is not the things themselves but only the relations between the things \cite{Poincare:1952}. The physical world is a network of interacting systems with reciprocal information and satisfactory understanding of how this interaction evolves is the primordial goal of science \cite{rovelli2015relative}.
- 
-%Poincaré argues that what science can attain is not the things themselves,
-%as the naive dogmatists think, but only the relations between the things. Outside of these relations there is no knowable reality.
-%Since the interaction with the world is described by information, it is by dealing with information that these systems most effectively persist.
+Following the steps of Poincar{\'e}, modern physics teaches us that what science can attain is not the knowledge of things themselves but only the relations between the things \cite{Poincare:1952}. The physical world is a network of interacting systems with reciprocal information and satisfactory understanding of how this interaction evolves is the primordial goal of science \cite{rovelli2015relative}.
+The interaction can be precisely defined in mathematical terms and quantified as a correlation or distance measure between two variables.
 
-%Researchers in big data applied to biomedicine are always trying to come to terms with the huge data flow available. However, the pressure for having better diagnosis and personalized treatment will be too strong to ignore. This customer's pressure will translate from clinicians to researchers, already is.
-
-The interaction is described by information which can be quantified as a correlation or distance measure between two variables.
 For the sake of clarity and without loss of generality we frame the problem using statistical terminology.
-For a given data set each data point represents a collection of properties, for example, spatial coordinates, weight, age, temperature, pressure, time series etc.
-
-Data points are related to each other based on a distance measure which can be defined quite liberally depending on the needs of the problem at hand. For example, the "closeness" of two data points can be expressed, among others, as a metric distance, a correlation coefficient or a coherency coefficient when the data points represent time series.
+For a given data set each data point represents a collection of properties, for example, spatial coordinates, weight, age, temperature, pressure, time series etc. Data points are related to each other based on a distance measure which can be defined quite liberally depending on the needs of the problem at hand. For example, the "closeness" of two data points can be expressed, among others, as a metric distance, a correlation coefficient or a coherency coefficient when the data points represent time series.
 The closeness is always built upon the properties of the data points and requires a threshold. Thus, two points are close to each other when the distance among them is within a certain threshold. The choice of the threshold makes factual the relationship between data points. Two or more points are close to each other when the distance is within a certain threshold.
 
 Network modeling has became a standard de facto to study the spatial properties of biological systems. 
 Although we must be prudent in using the term paradigm shift, the wealth of studies linking network models with a range of phenomena as wide as genetic marker, genetic regulatory processes, viral evolution, neural coding, synaptic plasticity. cognition, neurodegenerative disorders and even consciousness, underlie the inescapability of network modeling.  
-It is worth pointing out, however, that a graph is a set of nodes or vertices, some of them connected forming edges or links. Graphs are built by connecting pair of elements, that is to say, the only type of relationship possible is between pairs. The limitation of having only dyadic (or bivariate in statistics jargon) relationships have important limitations that should not be overlooked.
+It is worth pointing out, however, that a graph is a set of nodes or vertices, some of them connected forming edges or links. Graphs are built by connecting two elements, that is to say, the only type of relationship possible is between pairs. The limitation of having only dyadic (or bivariate in statistics jargon) relationships have important limitations that should not be overlooked \cite{giusti2016two} .
 
-Binary or unweighted  networks are the result of thresholding or selecting the significance level. This is problematic, particularly when the underlying system it not scale invariant. Small world or clusterness are joint measures and can change very drastically depending on the choice of the threshold \cite{toppi2012statistica}. Furthermore, by adopting a threshold, we may be loosing important information, for example, it may occur that some small-scale features are noise artifacts while other are critically important \cite{fallani2014graph}, \cite{papo2014complex}.
+Binary or unweighted networks are the result of thresholding or selecting the significance level. This is problematic, particularly when the underlying system is  not scale invariant. Small world or clusterness are joint measures and can change very drastically depending on the choice of the threshold \cite{toppi2012statistica}. Furthermore, by adopting a threshold, we may be loosing important information, for example, it may occur that some small-scale features are noise artifacts while other are critically important \cite{fallani2014graph}, \cite{papo2014complex}.
 
 Algebraic topology \cite{munkres1984elements} provide a language and a methodology to overcome these limitations.
 % Give some references, some context
 The main goal of this paper is to introduce this new language and explain what has to offer to mathematical biologists, biophysicists or anybody interested in modeling spatio-temporal patterns in biological systems.
-In particular, we describe simplicial complexes a generalization of graphs able to capture polyadic or multiple coactivity patterns and the Rips complex an algebraic formalism that captures the invariance in network dynamics.
-
-Section \ref{sec:1} provides an introduction to algebraic topology, specifically simplicial complexes and the rips filtration and functorality. In section \ref{sec:1} we justify the need of a multiscale framework by exposing the inherent difficulties of the existing paradigm to deal with the threshold selection problem and to encoding multiple coactivity patterns.
+We describe simplicial complexes, a generalization of graphs able to capture polyadic or multiple coactivity patterns and the Rips complex, an algebraic formalism that captures the invariance in network dynamics. %Funtors category theory?
+Section \ref{sec:s1} provides an introduction to algebraic topology, specifically simplicial complexes and the rips filtration and functorality. In section \ref{sec:1} we justify the need of a multiscale framework by exposing the inherent difficulties of the existing paradigm to deal with the threshold selection problem and to encoding multiple coactivity patterns.
 We conclude (section \ref{sec:1}) with a discussion on the future of algebraic topology in biological systems modeling and its implications in a causal theory of biological function.
 
 \section{Algebraic topology for biologists}
 \label{se:s1}
-%%%%
-The small field of topological biology has already produced: the discovery of new genetic markers for breast cancer survival (Nicolau et al. 2011), measurement of structure and stability of biomolecules (Gameiro et al. 2013; Xia et al. 2015), new frameworks for understanding viral evolution (Chan et al. 2013), characterization of dynamics in gene regulatory networks (Boczko et al. 2005), quantification of contagion spread in social networks (Taylor et al. 2015), characterization of structure in networks of coupled oscillators (Stolz 2014), the study of phylogenic trees (Miller et al. 2015), and the classification of dicotyledonous leaves (Katifori and Magnasco 2012). 
 %YS Ojo literal
+Geometric questions have been pondered since the Greeks or even before, however, topological ones are only one century old  \cite{edelsbrunner2010computational}.  A geometric space is defined via geometric measures (distances, areas, angles, etc.), and the relationships that are built on them. A topological space, on the other hand, defines a set of qualitative relationships between its parts: adjacency, containment, connectedness, overlap, cover, etc. \cite{aleksandrov1999mathematics}. Thus, geometric space is defined in terms of quantitative features and the topological space uses  
+in terms of qualitative relationships.  Both set of features, the metrical and the topological are related but the relation is asymetrical, that is, topological (qualitative) features can be deduced from metrical (quantitative) ones but the inverse is not true.   For example, knowing the location and length of two segments we know if they overlap, but knowing that one segment is adjacent to another one does not say nothing about where are they located or their length. 
 
-%Geometric questions have been pondered since the Greeks or even before, however, topological ones are only one century old \cite{edelsbrunner2010computational}. 
-%Why weneed topology
-%https://elifesciences.org/content/3/e03476
+%https://elifesciences.org/content/3/e03476   %PUT REFS
+The small field of topological biology has already produced important insights, including among others, the discovery of new genetic markers for breast cancer survival (Nicolau et al. 2011), measurement of structure and stability of biomolecules (Gameiro et al. 2013; Xia et al. 2015), new frameworks for understanding viral evolution (Chan et al. 2013), characterization of dynamics in gene regulatory networks (Boczko et al. 2005), quantification of contagion spread in social networks (Taylor et al. 2015), characterization of structure in networks of coupled oscillators (Stolz 2014), the study of phylogenic trees (Miller et al. 2015), and the classification of dicotyledonous leaves (Katifori and Magnasco 2012). 
+
+% A geometric space is defined via geometric measures (distances, areas, angles, etc.), and the relationships that are built on them.
 %A topological space defines a set of qualitative relationships between its parts: adjacency, containment, connectedness, overlap, cover, etc. (Aleksandrov, 1965; Poincaré, 1895). These qualitative relations stand in contrast to metrical (geometric), quantitative features such as distances, angles, and shapes.
 %Note that all space is characterized by both qualitative and quantitative (topological and geometric) features, but the relation between these aspects of space is asymmetrical: qualitative spatial relationships are easy to deduce if the identity, shapes, and sizes of specific regions in the environment are known. 
 %The converse is not true: topological relationships do not define the shape or scale of either the parts. For example, the fact one region is adjacent to or overlaps with another region says nothing about the shapes or sizes of the regions. 
-% The latter are defined via geometric measures (distances, areas, angles, etc.), and the relationships that are built on them.
 
-Here we start by providing some definitions of topology, topological space and simplicial complex. The idea is to give the reader the basic idea, for a more in detail treatment of topology see \cite{munkres1984elements}, \cite{hatcher2001} and for an introduction to topological data analysis see \cite{carlsson2009topology} and \cite{wasserman2016topological}. 
-
+Here, we start by providing some definitions of topology, topological space and simplicial complex. The idea is to give the reader the basic idea, for a more in detail treatment of topology see \cite{munkres1984elements}, \cite{hatcher2001} and for an introduction to topological data analysis see \cite{carlsson2009topology} and \cite{wasserman2016topological}. 
 
 Let X be a set of points, a topology of X is a collection of subsets of X called open sets. The union and the intersection of open sets are also open sets.
 Formally, a topology on a point set X is a collection U of subsets of X, called open sets, such that X and the empty set are open and the intersection and union of subsets are open.
@@ -95,17 +79,15 @@ For example, the plane (set of points X) together with the topology generated by
 
 A set X, together with the topology is called a topological space. Topological spaces are continuous models of reality. If we are only interested in connectedness, topological spaces are, in practical terms, similar to graphs.
 Once we have defined topological space, we can study the relationships between data points, that is, which points are close to each other, and how this relationships are structured. For example, two points are topologically close if the are in the same neighborhood and the neighborhood of a point is an open set that contains that point. 
-Three points close to each other are said to be coactive (more on this in section \reg{se:}).
+Three points close to each other are said to be coactive (more on this in section ).
 
 %X e.g. the temporal series of n electrodes, $x_i ... x_n$ located in different brain areas.
 %Crucially, a topology allows us to establish which points are near without having to specify how close they are from each other. 
 
- 
 %A neighborhood is an open disk centered in the point. 
 
 \subsection{Simplicial complex} 
 %Simplicial complex is an object from algebraic topology that deals satisfactorily with this problem.
-
 %The boundary of a simplex consists of all possible subsets of its constituent vertices, called its faces. 
 
 %A simplicial complex encodes polyadic relations through its simplices.
@@ -116,7 +98,7 @@ Three points close to each other are said to be coactive (more on this in sectio
 The are two main approaches in the study of algebraic topology: one is to decompose the topological space into many but simple pieces and the other is to deal with only a few but complicated pieces. Computational topologists find more interesting the first approach -many simple pieces- and the  the simplicial complex is the prime example. The second approach -few but complicated pieces- is of more interest for those looking for aesthetically pleasing shapes \cite{edelsbrunner2010computational}. 
 
 A simplicial complex is a decomposition of a topological space into simple pieces  which are topologically simple and their common intersections are lower-dimensional pieces of the same kind. Formally, an (abstract) simplicial complex X, is a pair of sets: $V_X$ of vertices and $S_X$ of simplices. Each simplex in the set of simplices $S_X$ is a subset of the vertices $V_X$ plus the condition that if $\sigma$ is in $S_X$ then every subset $\tau$, $\tau \in \sigma$ is also in $S_X$, $\tau \in \S_X$.
-A simplex with n elements (vertices) is called a $(n-1)-$simplex or what is the same the convex hull of n vertices. Simplices of small dimensions have proper names, a vertice is a 0-simplex, an edge is a 1-simplex, a triangle or face is a 2-simplex and a tetrahedron is a 3-simplex. A graph is a particular case of a simplex, a vertice in a graph is a 0-simplex and edges is a 1-simplex. In the same way as one can represent a graph as a collection of points and line segments between them, one can represent the simplices in a simplicial complex as a collection of solid regions spanning vertices.
+A simplex with n elements (vertices) is called a $(n-1)-$simplex or what is the same the convex hull of n vertices. Simplices of small dimensions have proper names, a vertice is a 0-simplex, an edge is a 1-simplex, a triangle or face is a 2-simplex and a tetrahedron is a 3-simplex \footnote{YS: Platonic forms}. A graph is a particular case of a simplex, a vertice in a graph is a 0-simplex and edges is a 1-simplex. In the same way as one can represent a graph as a collection of points and line segments between them, one can represent the simplices in a simplicial complex as a collection of solid regions spanning vertices.
 % and subsets $\tau \in \sigma$ are faces of $\sigma$.
 
 %Isabel K. Darcy simplicial complex from data https://www.youtube.com/watch?v=E7d7LHb6PLc&t=902s
@@ -439,16 +421,21 @@ and remove the percent signs.
 
 % BibTeX users please use
 \bibliographystyle{spmpsci}
-\bibliography{C:/workspace/github/bibliography-jgr/bibliojgr}   % name your BibTeX data base
+\bibliography{..bibliography-jgr/bibliojgr}   % name your BibTeX data base
 
 \end{document}
 % end of file template.tex
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Appendix}
 %Examples of simplicial complexes%%%%
+
+%Poincaré argues that what science can attain is not the things themselves,
+%as the naive dogmatists think, but only the relations between the things. Outside of these relations there is no knowable reality.
+%Since the interaction with the world is described by information, it is by dealing with information that these systems most effectively persist.
+
+%Researchers in big data applied to biomedicine are always trying to come to terms with the huge data flow available. However, the pressure for having better diagnosis and personalized treatment will be too strong to ignore. This customer's pressure will translate from clinicians to researchers, already is.
 Examples of simplicial complexes applied to brain data are the clique complex, the concurrence complex \cite{ellis2012describing}; \cite{curto2008cell}; Dowker 1952), its Dowker dual (Dowker 1952), and the independence complex (Kozlov 2007).
 Of course, a graph is a simplicial complex. Graphs are good for encoding dyadic relationships, Clique Complex can do polyadic canonical extension of graphs, Concurrence/Dual complex is good at capturing relationships between two variables of interest eg: time and activity or activity in two distant regions and  Independence 
 
