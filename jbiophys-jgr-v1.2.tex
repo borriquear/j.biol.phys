@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 \documentclass[onecollarge,runningheads]{svjour2}
 % 4 July 2017
+=======
+\documentclass[onecollarge,runningheads]{svjour2} 
+% 19 Feb 2017
+>>>>>>> 8619b36aecee516473757c3fb8dc89e5b95cb5d3
 \smartqed  % flush right qed marks, e.g. at end of proof
 \usepackage{graphicx}
 \journalname{Journal of Biological Physics}
@@ -17,7 +22,7 @@
 \institute{The Hospital for Sick Children \at
 			  Department of Neuroscience and Mental Health \\	              
               Bay, 686 Toronto Canada   \\
-              \email{jaime.gomez-remirez@sickkids.ca}           %  \\
+              \email{jaime.gomez-ramirez@sickkids.ca}           %  \\
 %             \emph{Present address:} of F. Author  %  if needed
            \and
            S. Author \at
@@ -28,143 +33,105 @@
 \maketitle
 
 \begin{abstract}
-The pace at which data is being produced poses important challenges at either conceptual and computational level. The high dimensionality, heterogeneity and complexity of biological data has deeply transformed the way in which life scientists work. Network theory, machine learning and stochastic modeling are now standard de facto in systems biology and neuroscience. Mathematics is however protean and new languages that deal with the curse of dimensionality problem and the network threshold selection problem are available. Here we introduce a new multiscale network framework based on algebraic topology and category theory, able to effectively deal with the shortcomings of network theory and clustering.
+The pace at which data is being produced poses important challenges at either conceptual and computational level. The high dimensionality, heterogeneity and complexity of biological data has deeply transformed the way in which life scientists work. Network theory, machine learning and stochastic modeling are now standard de facto in systems biology and neuroscience. Mathematics is however protean and new languages that deal with the curse of dimensionality problem and the network threshold selection problem are available. We introduce a new multiscale network framework based on algebraic topology and category theory able to effectively deal with the shortcomings of network theory and clustering.
 
-\keywords{ metabolic network systems biology \and Category Theory  \and Graph Theory \and Functor\and emergent properties\and Graph Theory\and Algebraic topology \and Persistent homology \and Causality}
+\keywords{metabolic network systems biology \and Category Theory  \and Graph Theory \and Functor\and emergent properties\and Graph Theory\and Algebraic topology \and Persistent homology \and Causality}
 \end{abstract}
 
 
 \section{Introduction}
 
-Data points are each a collection of properties (e.g. coordinates for space location, weight, age, time series etc) how the data points are related to each other is based on the distance which can be defined quite liberally. 
-%The closeness is always built upon the properties of the data points and requires a threshold. Thus, two points are close to each other when the distance among them is within a certain threshold.
-Data points are related based on its "closeness" which can be defined quite liberally depending on any idea that is relevant for the problem at hand. Thus, data points are related through a distance, for example a metric distance, a correlation coefficient or a coherency coefficient when the data points represent time series. The choice of the threshold makes factual the relationship between data points. Two or more points are close to each other when the distance is within a certain threshold. 
-%Threshold
-Thresholding or selecting significance level is problematic, particularly when the underlying system it not scale invariant. Small world or clusterness are joint measures and can change very drastically depending on the choice of the threshold. Furthermore, by adopting a threshold, we may be loosing important information, for example it may occur that some small-scale features are noise artifacts while other are critically important.  
+% The ontological primacy of relations
+Following the steps of Poincar{\'e}, modern physics teaches us that 
+what science can attain is not the things themselves but only the relations between the things \cite{Poincare:1952}. The physical world is a network of interacting systems with reciprocal information and satisfactory understanding of how this interaction evolves is the primordial goal of science \cite{rovelli2015relative}.
+ 
+%Poincaré argues that what science can attain is not the things themselves,
+%as the naive dogmatists think, but only the relations between the things. Outside of these relations there is no knowable reality.
+%Since the interaction with the world is described by information, it is by dealing with information that these systems most effectively persist.
+
+%Researchers in big data applied to biomedicine are always trying to come to terms with the huge data flow available. However, the pressure for having better diagnosis and personalized treatment will be too strong to ignore. This customer's pressure will translate from clinicians to researchers, already is.
+
+The interaction is described by information which can be quantified as a correlation or distance measure between two variables.
+For the sake of clarity and without loss of generality we frame the problem using statistical terminology.
+For a given data set each data point represents a collection of properties, for example, spatial coordinates, weight, age, temperature, pressure, time series etc.
+
+Data points are related to each other based on a distance measure which can be defined quite liberally depending on the needs of the problem at hand. For example, the "closeness" of two data points can be expressed, among others, as a metric distance, a correlation coefficient or a coherency coefficient when the data points represent time series.
+The closeness is always built upon the properties of the data points and requires a threshold. Thus, two points are close to each other when the distance among them is within a certain threshold. The choice of the threshold makes factual the relationship between data points. Two or more points are close to each other when the distance is within a certain threshold.
 
 Network modeling has became a standard de facto to study the spatial properties of biological systems. 
 Although we must be prudent in using the term paradigm shift, the wealth of studies linking network models with a range of phenomena as wide as genetic marker, genetic regulatory processes, viral evolution, neural coding, synaptic plasticity. cognition, neurodegenerative disorders and even consciousness, underlie the inescapability of network modeling.  
 It is worth pointing out, however, that a graph is a set of nodes or vertices, some of them connected forming edges or links. Graphs are built by connecting pair of elements, that is to say, the only type of relationship possible is between pairs. The limitation of having only dyadic (or bivariate in statistics jargon) relationships have important limitations that should not be overlooked.
 
-Algebraic topology provide a language and a methodology to overcome those limitations.
-% Give some references, some context
-The small field of topological biology has already produced: the discovery of new genetic markers for breast cancer survival (Nicolau et al. 2011), measurement of structure and stability of biomolecules (Gameiro et al. 2013; Xia et al. 2015), new frameworks for understanding viral evolution (Chan et al. 2013), characterization of dynamics in gene regulatory networks (Boczko et al. 2005), quantification of contagion spread in social networks (Taylor et al. 2015), characterization of structure in networks of coupled oscillators (Stolz 2014), the study of phylogenic trees (Miller et al. 2015), and the classification of dicotyledonous leaves (Katifori and Magnasco 2012). 
-%YS Ojo literal
+Binary or unweighted  networks are the result of thresholding or selecting the significance level. This is problematic, particularly when the underlying system it not scale invariant. Small world or clusterness are joint measures and can change very drastically depending on the choice of the threshold \cite{toppi2012statistica}. Furthermore, by adopting a threshold, we may be loosing important information, for example, it may occur that some small-scale features are noise artifacts while other are critically important \cite{fallani2014graph}, \cite{papo2014complex}.
 
+Algebraic topology \cite{munkres1984elements} provide a language and a methodology to overcome these limitations.
+% Give some references, some context
 The main goal of this paper is to introduce this new language and explain what has to offer to mathematical biologists, biophysicists or anybody interested in modeling spatio-temporal patterns in biological systems.
 In particular, we describe simplicial complexes a generalization of graphs able to capture polyadic or multiple coactivity patterns and the Rips complex an algebraic formalism that captures the invariance in network dynamics.
 
-In the next section we justify the need of a multiscale framework by exposing the inherent difficulties of the existing paradigm to deal with the threshold selection problem and to encoding multiple coactivity patterns.
-Section provides an introduction to algebraic topology, specifically simplicial complexes and the rips filtration and functorality.
-We conclude with a discussion on the future of this approach and its implications in a causal theory of biological function.
+Section \ref{sec:1} provides an introduction to algebraic topology, specifically simplicial complexes and the rips filtration and functorality. In section \ref{sec:1} we justify the need of a multiscale framework by exposing the inherent difficulties of the existing paradigm to deal with the threshold selection problem and to encoding multiple coactivity patterns.
+We conclude (section \ref{sec:1}) with a discussion on the future of algebraic topology in biological systems modeling and its implications in a causal theory of biological function.
 
+\section{Algebraic topology for biologists}
+\label{se:s1}
+%%%%
+The small field of topological biology has already produced: the discovery of new genetic markers for breast cancer survival (Nicolau et al. 2011), measurement of structure and stability of biomolecules (Gameiro et al. 2013; Xia et al. 2015), new frameworks for understanding viral evolution (Chan et al. 2013), characterization of dynamics in gene regulatory networks (Boczko et al. 2005), quantification of contagion spread in social networks (Taylor et al. 2015), characterization of structure in networks of coupled oscillators (Stolz 2014), the study of phylogenic trees (Miller et al. 2015), and the classification of dicotyledonous leaves (Katifori and Magnasco 2012). 
+%YS Ojo literal
 
-\section{Limitations of the geometric network approach}
-We refer to Geometric Network approach to the design of networks with an unique threshold of choice. This is contrast with the algebraic topological approach which as we will show is better equipped to model complex biological networks. 
-
-\subsection{The curse of dimensionality}
-The curse of dimensionality refers to the situation in which the larger is the dataset the more sparse the data become. The rationale for this phenomenon is simple. For a 1-dimensional space, let us say that I need n random points to guarantee that they are separated a distance d. For a 2-dimensional space, I will need $n^2$ random points to guarantee a separation d, and for a 3 dimensional space $n^3$ and so on. Thus, the amount of data needed grows exponentially with the dimensionality. Technically speaking, this can be rephrased as local smoothing methods tend to perform poorly for multivariate data \citep{stone1982optimal},\citep{lavergne2008breaking}.  
-%YS put a chart?
-
-\subsection{Clustering}
-
-Cluster analysis or clustering is the mapping of a measurement set into subsets called clusters, so that observations in the same cluster are similar (points within each cluster are similar to each other and points from different clusters are dissimilar).
-The notion of similarity can be defined quite liberally with the selection of a distance between any two data points. Thus, a measurement set $X$ and a distance $d$ form a metric space $(X,d)$. 
-A distance $d$ between two vectors $x,y$ in order to be such (metric) needs to fulfill the requirements: $d(x,y)$ is real non-negative and finite, is symmetric $d(x,y)=d(y,x)$, is unique $d(x,y)=0$ only if $x=y$ and holds the triangle inequality $d(x,z) \leq  d(x,y) + d(y,z)$.
-There are many algorithms that construct clusterings on the metric space, for example k-means, fuzzy C-means, hierarchical clustering, spectral clustering etc. 
-
-Although cluster analysis has become a principle technique of knowledge discovery in a wide range of fields, including social networks, microarray gene expression \citep{nugent2010overview} and classification of brain disorders \citep{arbabshirani2017single} to cite a few, its implementation is not free of pitfalls and ambiguities \citep{carlsson2009topology}, \citep{ronan2016avoiding}.
-For example, the arbitrariness in the choice of the threshold result in the lack of robustness in the data partition. Indeed, little is known
-about consistency of most clustering algorithms \citep{von2008consistency}.
-% functoriality
-
-A clustering function f takes a metric space $(\mathcal{X},d)$ and returns a partition of the underlying set $\mathcal{X}$, $f:(\mathcal{X},d) \to \prod(\mathcal{X},d)$. Kleinberg's impossibility theorem for clustering demonstrates that there is no clustering function satisfying three simple properties: scale-invariance, richness and consistency \footnote{The Arrow's impossibility theorem is another example of an axiomatic approach,in this case in the social science. Arrow's impossibility theorem states that 
- no rank-order voting system can be designed that always satisfies three fairness criteria \citep{arrow1950difficulty}}:
- % 
-\begin{enumerate}
-\item[i] Scale-invariance: An ideal clustering function does not change its result when the data are scaled. For example, by changing the metric distance from miles to kilometers the clustering function $f$ produces same result of for any scale $ f(d) = f(\alpha d)$.
-\item[ii] Richness: Any partition of a finite set of points $\mathcal{X}$, $\prod(\mathcal{X},d$ can be created for some metric $d$ on $\mathcal{X}$ 
-\item[iii] Consistency:  If we stretch the data so that the distances between clusters increases and/or the distances within clusters decreases, then  the clustering function produces the same result. Formally, let $d$ and $d'$ be two distance function, then if for any pair of points $(i,j)$ in the same cluster,$d(i,f) \geq d'(i,j)$ and for every pair in different clusters $d(i,f) \leq d'(i,j)$ then clustering does not change, $f(d)= f(d')$
-\end{enumerate}
-% YS : Draw chart
-%http://alexhwilliams.info/itsneuronalblog/2015/10/01/clustering2/ 
-What this important result teaches us is that no clustering function that satisfies the axioms of scale-invariance, richness and consistency.
-Why this theorem is so poorly known, we do not know. It certainly shed light in the limitation and drawbacks of clustering algorithms. 
-For example, in k-means, one of the most important clustering methods, the number of clusters is fixed to k, that is, there is no a "natural" number of clusters to be discovered, it is rather an assumption externally imposed by the modeler. Having the Kleinberg's theorem in mind, we can see that the question of how many clusters do the data set needs is ill-posed. It is similar to asking how many scales exist in the data. The answer is that unless there is  scale-invariance, structure emerges at different scales. 
-
-\subsection{Dyadic relationship}
-A graph consists of a set of vertices and a specified collection of pairs of vertices, called edges. An edge between two vertices exist when the distance between the relevant properties of those vertices within a certain threshold. Thus, a graph is a system of dyadic relationships and, very importantly, is unable to encode higher order interactions. For example, three nodes in a graph can work as a pacemaker or be simultaneously active and there is nothing in the graph-theoretic formalism that will tell the difference.
-% put Chart
-
-One could argue that this is not exactly true if we define the distance using coherency.
-% formula of coherency
-Coherency will identify the phase-lag and will distinguish between the pacemarker model (time-lag) and the simultaneous (zero-lag). %YS
-Coherency analysis is capable of characterize coactivity, but we still have a problem when   when we want to express the relationship in networks. Because a network can only describe dyadic relationships between population elements, any binary coactivity network constructed from such observations would necessarily be identical. 
-It does not matter which distance is used, correlation, coherency etc. at the end the network formalism will force us to build dyadic relationships.
-
-The crux of the matter is to have available a mathematical formalism able that capture higher order interactions. More versatile versatile language able to explicitly encoding the multiple (other than double, triple etc.) coactivity pattern (Fig 1e) exist. 
-The next section will introduce the simplicial complex, a model capable of encoding higher order interactions.% YS kind of literal, reformular
- 
-\section{Methods}
-%Alegebraic topology
-
-Geometric questions have been pondered since the Greeks or even before, however, topological ones are only one century old \citep{edelsbrunner2010computational}. 
+%Geometric questions have been pondered since the Greeks or even before, however, topological ones are only one century old \cite{edelsbrunner2010computational}. 
 %Why weneed topology
 %https://elifesciences.org/content/3/e03476
-A topological space defines a set of qualitative relationships between its parts: adjacency, containment, connectedness, overlap, cover, etc. (Aleksandrov, 1965; Poincaré, 1895). These qualitative relations stand in contrast to metrical (geometric), quantitative features such as distances, angles, and shapes.
+%A topological space defines a set of qualitative relationships between its parts: adjacency, containment, connectedness, overlap, cover, etc. (Aleksandrov, 1965; Poincaré, 1895). These qualitative relations stand in contrast to metrical (geometric), quantitative features such as distances, angles, and shapes.
+%Note that all space is characterized by both qualitative and quantitative (topological and geometric) features, but the relation between these aspects of space is asymmetrical: qualitative spatial relationships are easy to deduce if the identity, shapes, and sizes of specific regions in the environment are known. 
+%The converse is not true: topological relationships do not define the shape or scale of either the parts. For example, the fact one region is adjacent to or overlaps with another region says nothing about the shapes or sizes of the regions. 
+% The latter are defined via geometric measures (distances, areas, angles, etc.), and the relationships that are built on them.
 
-Note that all space is characterized by both qualitative and quantitative (topological and geometric) features, but the relation between these aspects of space is asymmetrical: qualitative spatial relationships are easy to deduce if the identity, shapes, and sizes of specific regions in the environment are known. 
-The converse is not true: topological relationships do not define the shape or scale of either the parts. For example, the fact that region x is adjacent to or overlaps with region y says nothing about the shapes or sizes of x or y. The latter are defined via geometric measures (distances, areas, angles, etc.), and the relationships that are built on them.
+Here we start by providing some definitions of topology, topological space and simplicial complex. The idea is to give the reader the basic idea, for a more in detail treatment of topology see \cite{munkres1984elements}, \cite{hatcher2001} and for an introduction to topological data analysis see \cite{carlsson2009topology} and \cite{wasserman2016topological}. 
 
-Let X be a set of points, e.g. the temporal series of n electrodes, $x_i ... x_n$, a topology of X is a collection of subsets called open sets. The union and the intersection of open sets are also open sets.
-Thus, a set X, together with the topology is called a topological space. Topological spaces are continuous models of reality, topological spaces may be seem similar to graphs if we are only interested in connectedness.
 
-A topology is a way to say which points are near without having to specify how close they are from each other. In topology two points are close if the are in the same neighborhood. Neighborhood are open disks centered in the point. By a neighborhood of a point we mean an open set that contains that point. 
-Concretely, a topology on a point set X is a collection U of subsets of X, called open sets, such that X and the empty set are open and the intersection and union of subsets are open.
+Let X be a set of points, a topology of X is a collection of subsets of X called open sets. The union and the intersection of open sets are also open sets.
+Formally, a topology on a point set X is a collection U of subsets of X, called open sets, such that X and the empty set are open and the intersection and union of subsets are open.
 For example, the plane (set of points X) together with the topology generated by the Euclidean metric (pairs of points) is a topological space. To construct it, we call the set of points at distance less than $r, r > 0$ from a point $x \in R^2$ an open disk. Taking finite intersections and arbitrary unions of open disks, we get a collection of open sets that satisfies the conditions of topological spaces. 
 
-Once we have a topological space defined we need to translate the relationships between data points, that is, which points are close to each other, and how this relatihips are structured, for example, if three points are close to each other, are they coactive.
-Simplicial complex is an object from algebrain topology that deals satisfactorily with this problem.
+A set X, together with the topology is called a topological space. Topological spaces are continuous models of reality. If we are only interested in connectedness, topological spaces are, in practical terms, similar to graphs.
+Once we have defined topological space, we can study the relationships between data points, that is, which points are close to each other, and how this relationships are structured. For example, two points are topologically close if the are in the same neighborhood and the neighborhood of a point is an open set that contains that point. 
+Three points close to each other are said to be coactive (more on this in section \reg{se:}).
+
+%X e.g. the temporal series of n electrodes, $x_i ... x_n$ located in different brain areas.
+%Crucially, a topology allows us to establish which points are near without having to specify how close they are from each other. 
+
  
+%A neighborhood is an open disk centered in the point. 
 
 \subsection{Simplicial complex} 
+%Simplicial complex is an object from algebraic topology that deals satisfactorily with this problem.
 
-A graph consists on a ser of vertices an a set of edges or pair of vertices. A simplicial complex, consists of a set of vertices, and a collection of simplices — finite sets of vertices with the additional property that any subset of a simplex is also a simplex.
-Edges are examples of very small simplices, making every graph a particularly simple simplicial complex. A graph is a particular case of a simplex. In a graph we find vertices  which are 0-simplex and edges which are 1-simplex.
+%The boundary of a simplex consists of all possible subsets of its constituent vertices, called its faces. 
 
-The boundary of a simplex consists of all possible subsets of its constituent vertices, called its faces. In the same way as one can represent a graph as a collection of points and line segments between them, one can represent the simplices in a simplicial complex as a collection of solid regions spanning vertices.
-A simplicial complex encodes polyadic relations through its simplices.
-Because any given simplex is required to “contain all of its faces”, it suffices to specify only the maximal simplices, those which do not appear as faces of another simplex (Fig. 4c). This dramatically reduces the amount of data necessary to specify a simplicial complex, which helps make both conceptual work and computations feasible.
+%A simplicial complex encodes polyadic relations through its simplices.
+%Because any given simplex is required to “contain all of its faces”, it suffices to specify only the maximal simplices, those which do not appear as faces of another simplex (Fig. 4c). This dramatically reduces the amount of data necessary to specify a simplicial complex, which helps make both conceptual work and computations feasible.
 %YS: ojo literal
 
-Formally, an (abstract) simplicial complex X, is a pair of sets: $V_X$ called the vertices and $S_X$ called the simplices each of which (called simplex \footnote{A simplex is a subset of affinely independent points.}) is a subset of $V_X$ plus the condition that if $\sigma$ is in $S_X$ then every subset $\tau$, $\tau \in \signa$ is also in $S_X$, $\tau \in \S_X$.
-A simplex with n elements (vertices) is called a $(n-1)-$simplex or what is the same a n-simplex is the convex hull of (n+1) vertices. Simplexes of small dimensions have proper names, a vertice is a 0-simplex and an edge is a 1-simplex, a triangle or face is a 2-simplex and a tetrahedron is a 3-simplex. 
+%(called simplex \footnote{A simplex is a subset of affinely independent points.})
+The are two main approaches in the study of algebraic topology: one is to decompose the topological space into many but simple pieces and the other is to deal with only a few but complicated pieces. Computational topologists find more interesting the first approach -many simple pieces- and the  the simplicial complex is the prime example. The second approach -few but complicated pieces- is of more interest for those looking for aesthetically pleasing shapes \cite{edelsbrunner2010computational}. 
+
+A simplicial complex is a decomposition of a topological space into simple pieces  which are topologically simple and their common intersections are lower-dimensional pieces of the same kind. Formally, an (abstract) simplicial complex X, is a pair of sets: $V_X$ of vertices and $S_X$ of simplices. Each simplex in the set of simplices $S_X$ is a subset of the vertices $V_X$ plus the condition that if $\sigma$ is in $S_X$ then every subset $\tau$, $\tau \in \sigma$ is also in $S_X$, $\tau \in \S_X$.
+A simplex with n elements (vertices) is called a $(n-1)-$simplex or what is the same the convex hull of n vertices. Simplices of small dimensions have proper names, a vertice is a 0-simplex, an edge is a 1-simplex, a triangle or face is a 2-simplex and a tetrahedron is a 3-simplex. A graph is a particular case of a simplex, a vertice in a graph is a 0-simplex and edges is a 1-simplex. In the same way as one can represent a graph as a collection of points and line segments between them, one can represent the simplices in a simplicial complex as a collection of solid regions spanning vertices.
 % and subsets $\tau \in \sigma$ are faces of $\sigma$.
 
-
-A simplicial complex is a decomposition of a topological space into simple pieces in which pieces are topologically simple and their common intersections are lower-dimensional pieces of the same kind. The two most obvious or extreme choices of complex are: a few complicated pieces or many simple pieces. Computational topologists find more interesting many simple pieces, the simplicial complex is the prime example. The first, few complicated pieces, is of more interest for those looking for aesthetically pleasing shapes (Birkhoff on aesthetics book).
-Thus, here we focus on simplicial complexes as the main structure to study topological spaces. 
-% YS rephrase this, is from the algebraic toplogy book
-
-Examples of simplicial complexes applied to brain data are the clique complex, the concurrence complex \citep{ellis2012describing}; \citep{curto2008cell}; Dowker 1952), its Dowker dual (Dowker 1952), and the independence complex (Kozlov 2007).
-Of course, a graph is a simplicial complex. Graphs are good for encoding dyadic relationships, Clique Complex can do polyadic canonical extension of graphs, Concurrence/Dual complex is good at capturing relationships between two variables of interest eg: time and activity or activity in two distant regions and  Independence 
-
-Clique complex:  a clique is all-to-all connected subgraph. Given a graph,replace every vertice replaces every clique by a simplex on the vertices participating in the clique. This procedure produces a clique complex that has been used for neural analysis of hippocapal cells in both spatial and non spatial behavior \citep{giusti2015clique} and in general for correlation and coherence maps of for example fMRI data.
-%This application demonstrates that simplicial complexes are sensitive to organizational principles that are hidden to graph statistics, and can be used to infer parsimonious rules for information encoding in neural systems. 
-Thus, Clique complexes precisely encode the topological features present in a graph, so clique complexes "complete" graphs providing new views on the topological properties of graphs.
-However, other types of simplicial complexes can be used to represent information that cannot be so encoded in a graph.
-
-There are other complexes, like concurrent complexes (for coactivation but I dont see how they give more than coherence matrices) or Independence complex (hypergraph) to study system’s community structure (Bassett).
-
-
-\subsubsection{How do we measure the structure of simplicial complexes?}
 %Isabel K. Darcy simplicial complex from data https://www.youtube.com/watch?v=E7d7LHb6PLc&t=902s
-Data points are each a collection of properties (e.g. coordinates for space location, weight, age, time series..) then we need to relate the data points based on its closeness (which can be defined quite liberally) any idea of closeness that is relevant for our application, for example correlation (the closeness is always built upon the properties of the data points or vertices or 0-simplices). We add an edge (1-semplices) when they are "close", the edge makes factual the relationship. To define close we always need a threshold, so by adding edges (condition holds) we have our data cast into disjoint sets or clusters all simplices of dimension 1.
-%clustering as it is done now is building 1-simplices, or connecting dots that are close in space, but why to stop there and do not study clustering (shape) at higher dimensions
-How to grow simplices of higher order? If we have a triangle we fill in the triangle and we get the "side" 2-simplex, 3 simplex thetaedrom etc.
+Let us see with an example. Given a set of data points shown in \ref{fig:} where each point is, for example, a time series measured at a particular region of interest. Each point is also a 0-simplex, in order to study the structure of the data set we need to relate the points based on any idea of closeness that is relevant for our application, for example the correlation between two time series.
+%How to grow simplices of higher order? 
+The first step is to connect the points that are close to each other according to a threshold, for example  significant correlation level. We draw an edge or 1-simplex for every two close data points that are close to each other. As a result, we have  cast the dataset into two disjoint sets or clusters of 1-simplices. The resulting clustering is based on one dimensional simplices. But why to stop there and do not study clustering (shape) at higher dimensions
+The next step is to find 2-simplices, when a triangle can be we filled in we get the "side" or a 2-simplex. We can continue finding 3 dimensional simplices or tetrahedron and so on.
 
-With n points that are closed together, I can form a n-1 simplex. So a data point is a 0-simplex, when we build a relationship we have 1-simplex and whenever we have a triangle we add 2-simplices, whenever we have a tetrahedron (4 points close together.  tetrahedron is the Platonic solid $P_5$ with four polyhedron vertices, six polyhedron edges, and four equivalent equilateral triangular faces) we have a 3-simplex, when 5 points are lose together we add 4 -simplex and so on.
-It is in reality a two steps process, one we connect the points and two we build a n-complex for each group of n+1 points.
+% YS here goes the figure with an example on how to build a measure the structure of simplicial complexes
+% figure cation {With n points that are closed together, I can form a n-1 simplex. So a data point is a 0-simplex, when we build a relationship we have 1-simplex and whenever we have a triangle we add 2-simplices, whenever we have a tetrahedron (4 points close together.  tetrahedron is the Platonic solid $P_5$ with four polyhedron vertices, six polyhedron edges, and four equivalent equilateral triangular faces) we have a 3-simplex, when 5 points are lose together we add 4 -simplex and so on. It is in reality a two steps process, one we connect the points and two we build a n-complex for each group of n+1 points.}
+
+% A graph consists on a set of vertices and a set of edges or pair of vertices. A simplicial complex, on the other hand, consists of a set of vertices and a collection of simplices where a simplex is a finite set of vertices with the additional property that any subset of a simplex is also a simplex.
+
+%\subsubsection{How do we measure the structure of simplicial complexes?}
+
 
 The choice of the threshold affects the kind of simplicial complex that we get, since choosing one in particular is hardly justifiable, we choose all possible thresholds. By increasing the threshold eventually all the data points will be part of the same simplex, one component.
 
@@ -181,14 +148,14 @@ In addition to these more or less straight extensions of quantitative graph meas
 A filtration of complexes can be constructed by consecutively applying each of the weights as thresholds in turn, constructing an unweighted simplicial complex whose simplices are precisely those whose weight exceeds the threshold, and labeling each such complex by the weight at which it was binarized. However, it is also the case that these unweighted complexes are related to one another, and more sophisticated measurements of structure, like homology, can exploit these relations to extract much finer detail of the evolution of the complexes as the threshold varies.
 Filtrations can be used to assess the dynamics of neural processes.
 
-With optogenetics, DBS, TMS etc one can stimulate single neurons or specific groups of neurons to control their function. To meet this need, one can construct a different type of filtration \citep{taylor2015topological} that construct a sequence of simplicial complexes with a time parameter, labeling each simplex as “on” or “off” at each time, and require that once simplices “turn on” they remain so indefinitely. This type of filtration is of use in  diffusion model of fronto-temporal dementia and in contagion models (Taylor et al. 2015), where a simplex becomes active once sufficiently many nearby simplices are active.
+With optogenetics, DBS, TMS etc one can stimulate single neurons or specific groups of neurons to control their function. To meet this need, one can construct a different type of filtration \cite{taylor2015topological} that construct a sequence of simplicial complexes with a time parameter, labeling each simplex as “on” or “off” at each time, and require that once simplices “turn on” they remain so indefinitely. This type of filtration is of use in  diffusion model of fronto-temporal dementia and in contagion models (Taylor et al. 2015), where a simplex becomes active once sufficiently many nearby simplices are active.
 
 Persistent homology:  the sequence of complexes in the filtration is transformed by homology into an inter-related family of evolving cycles.
 
 Computational problems: computing the persistent homology from correlation data of 100 neurons leads to a simplicial complex with approximately 107 4-simplices, while the same computation for a population of 200 neurons involves two orders of magnitude more.
 To mitigate this combinatorial growth in complexity, use reduction algorithms as a sort of preprocessing to collapse the size of the complex.
 Another approach is to use the fact that homology can be computed locally and then aggregated, allowing for distributed computation over multiple processors and memory cores (Bauer et al. 2014). Finally, computing approximate homology further reduces complexity in difficult cases while still providing useful statistical information (Sheehy 2013). 
-For a review in the state of the art of computational methods in topological analysis (persistent homology) \citep{otter2015roadmap}.
+For a review in the state of the art of computational methods in topological analysis (persistent homology) \cite{otter2015roadmap}.
 
 Persistent homology (PH) is a method used in topological data analysis (TDA) to study qualitative features of data that persist across multiple scales. It is robust to perturbations of input data, independent of dimensions and coordinates, and provides a compact representation of the qualitative features of the input. (Python Mapper software) 
 % www.ams.org/journals/bull/2009-46-02/S0273-0979-09-01249-X/ http://diglib.eg.org/handle/10.2312/SPBG.SPBG07.091-100
@@ -204,7 +171,7 @@ Given a topological space, its homology is a formal, algebraic way to talk about
 %NETWORK COMPARISON WITH FREQUENCY DOMAIN PERSISTENT HOMOLOGY. Ben Cassidy, Caroline Rae, Victor Solo
 Thresholding (or selecting significance level) is problematic, particularly when the underlying system has a combination of small-scale features, some of which are noise artifacts, and some of which are critically important.  %YS bar code built with honology  help in that, short bars are noise, long ones are persistent features. 
 % the approach of my eo ec paper:
-One method for working around this difficulty is filtrations, which record the results of every possible binarization of the network (simplicial complexes building by doing incremental threhold or ball size), along with the associated threshold values. With this approach we can use first order measure of structure in networks (or simplicial complexes) and  “second order” measures as functions of edge weight. Such functions carry information, for example, in their rate of change, where sudden phase transitions in network structure as one varies the threshold can indicate the presence of modules or rich clubs in networks. The area under such curves can help us characterize the geometric structure in the activity of (hippocampal) neural populations, without appealing to external stimuli or receptive field ( \citep{giusti2015clique})
+One method for working around this difficulty is filtrations, which record the results of every possible binarization of the network (simplicial complexes building by doing incremental threhold or ball size), along with the associated threshold values. With this approach we can use first order measure of structure in networks (or simplicial complexes) and  “second order” measures as functions of edge weight. Such functions carry information, for example, in their rate of change, where sudden phase transitions in network structure as one varies the threshold can indicate the presence of modules or rich clubs in networks. The area under such curves can help us characterize the geometric structure in the activity of (hippocampal) neural populations, without appealing to external stimuli or receptive field ( \cite{giusti2015clique})
 
 Dynamic network data are easily available from multiple disciplines, not only the life science (genomic) but specially from the social science, for example finances, social networks. A new approach for network comparison is persistent homology. Persistent homology is the analysis of the connectivity pattern as the threshold varies. Thus, it avoids the ad-hoc specification of a threshold for the study of the overlapping network patterns and the rates at which they vary.
 
@@ -255,19 +222,78 @@ d_{}(X,Y) = \frac{1}{2}_{x_i \in X, y_j \in Y} max |d_X(x_i,x_j) - d_Y(y_i,y_j))
 % Gromov distance in python http://stackoverflow.com/questions/30706079/hausdorff-distance-between-3d-grids
 
 
-\section{Applications}
 
+
+
+
+
+\section{Limitations of the geometric network approach}
+\label{se:s2}
+We refer to Geometric Network approach to the design of networks with an unique threshold of choice. This is contrast with the algebraic topological approach which as we will show is better equipped to model complex biological networks. 
+
+\subsection{The curse of dimensionality}
+The curse of dimensionality refers to the situation in which the larger is the dataset the more sparse the data become. The rationale for this phenomenon is simple. For a 1-dimensional space, let us say that I need n random points to guarantee that they are separated a distance d. For a 2-dimensional space, I will need $n^2$ random points to guarantee a separation d, and for a 3 dimensional space $n^3$ and so on. Thus, the amount of data needed grows exponentially with the dimensionality. Technically speaking, this can be rephrased as local smoothing methods tend to perform poorly for multivariate data \cite{stone1982optimal},\cite{lavergne2008breaking}.  
+%YS put a chart?
+
+\subsection{Clustering}
+
+Cluster analysis or clustering is the mapping of a measurement set into subsets called clusters, so that observations in the same cluster are similar (points within each cluster are similar to each other and points from different clusters are dissimilar).
+The notion of similarity can be defined quite liberally with the selection of a distance between any two data points. Thus, a measurement set $X$ and a distance $d$ form a metric space $(X,d)$. 
+A distance $d$ between two vectors $x,y$ in order to be such (metric) needs to fulfill the requirements: $d(x,y)$ is real non-negative and finite, is symmetric $d(x,y)=d(y,x)$, is unique $d(x,y)=0$ only if $x=y$ and holds the triangle inequality $d(x,z) \leq  d(x,y) + d(y,z)$.
+There are many algorithms that construct clusterings on the metric space, for example k-means, fuzzy C-means, hierarchical clustering, spectral clustering etc. 
+
+Although cluster analysis has become a principle technique of knowledge discovery in a wide range of fields, including social networks, microarray gene expression \cite{nugent2010overview} and classification of brain disorders \cite{arbabshirani2017single} to cite a few, its implementation is not free of pitfalls and ambiguities \cite{carlsson2009topology}, \cite{ronan2016avoiding}.
+For example, the arbitrariness in the choice of the threshold result in the lack of robustness in the data partition. Indeed, little is known
+about consistency of most clustering algorithms \cite{von2008consistency}.
+% functoriality
+
+A clustering function f takes a metric space $(\mathcal{X},d)$ and returns a partition of the underlying set $\mathcal{X}$, $f:(\mathcal{X},d) \to \prod(\mathcal{X},d)$. Kleinberg's impossibility theorem for clustering demonstrates that there is no clustering function satisfying three simple properties: scale-invariance, richness and consistency \footnote{The Arrow's impossibility theorem is another example of an axiomatic approach,in this case in the social science. Arrow's impossibility theorem states that 
+ no rank-order voting system can be designed that always satisfies three fairness criteria \cite{arrow1950difficulty}}:
+ % 
+\begin{enumerate}
+\item[i] Scale-invariance: An ideal clustering function does not change its result when the data are scaled. For example, by changing the metric distance from miles to kilometers the clustering function $f$ produces same result of for any scale $ f(d) = f(\alpha d)$.
+\item[ii] Richness: Any partition of a finite set of points $\mathcal{X}$, $\prod(\mathcal{X},d$ can be created for some metric $d$ on $\mathcal{X}$ 
+\item[iii] Consistency:  If we stretch the data so that the distances between clusters increases and/or the distances within clusters decreases, then  the clustering function produces the same result. Formally, let $d$ and $d'$ be two distance function, then if for any pair of points $(i,j)$ in the same cluster,$d(i,f) \geq d'(i,j)$ and for every pair in different clusters $d(i,f) \leq d'(i,j)$ then clustering does not change, $f(d)= f(d')$
+\end{enumerate}
+% YS : Draw chart
+%http://alexhwilliams.info/itsneuronalblog/2015/10/01/clustering2/ 
+What this important result teaches us is that no clustering function that satisfies the axioms of scale-invariance, richness and consistency.
+Why this theorem is so poorly known, we do not know. It certainly shed light in the limitation and drawbacks of clustering algorithms. 
+For example, in k-means, one of the most important clustering methods, the number of clusters is fixed to k, that is, there is no a "natural" number of clusters to be discovered, it is rather an assumption externally imposed by the modeler. Having the Kleinberg's theorem in mind, we can see that the question of how many clusters do the data set needs is ill-posed. It is similar to asking how many scales exist in the data. The answer is that unless there is  scale-invariance, structure emerges at different scales. 
+
+\subsection{Dyadic relationship}
+A graph consists of a set of vertices and a specified collection of pairs of vertices, called edges. An edge between two vertices exist when the distance between the relevant properties of those vertices within a certain threshold. Thus, a graph is a system of dyadic relationships and, very importantly, is unable to encode higher order interactions. For example, three nodes in a graph can work as a pacemaker or be simultaneously active and there is nothing in the graph-theoretic formalism that will tell the difference.
+% put Chart
+
+One could argue that this is not exactly true if we define the distance using coherency.
+% formula of coherency
+Coherency will identify the phase-lag and will distinguish between the pacemarker model (time-lag) and the simultaneous (zero-lag). %YS
+Coherency analysis is capable of characterize coactivity, but we still have a problem when   when we want to express the relationship in networks. Because a network can only describe dyadic relationships between population elements, any binary coactivity network constructed from such observations would necessarily be identical. 
+It does not matter which distance is used, correlation, coherency etc. at the end the network formalism will force us to build dyadic relationships.
+
+The crux of the matter is to have available a mathematical formalism able that capture higher order interactions. More versatile versatile language able to explicitly encoding the multiple (other than double, triple etc.) coactivity pattern (Fig 1e) exist. 
+The next section will introduce the simplicial complex, a model capable of encoding higher order interactions.% YS kind of literal, reformular
+ 
+\section{}
+\label{se:s3}
+%Alegebraic topology
+
+
+
+
+\section{Applications}
+\label{se:s4}
 
 \subsubsection*{Time series}   
 The computation of distances between nodes when they represent time series needs special consideration. Time-series networks where each node has a record of scalar time series is pervasive in brain functioning modeling, for example electrophysiology (EEG) and functional magnetic resonance imaging (fMRI).
 Metric distance between nodes is unsuited for networks of autocorrelated time-series. 
 % YS: why?because they are autocorrelated?
 
-The most basic distance between two nodes or recorded time series is $d(x,y) = \sqrt(1 - \rho_{x,y})$, where $\rho_{x,y}=\fraq{cov(x,y)}{var(x)var(y)}$. From a signal processing point of view, we can calculate the distance as the closeness or how well can we predict one with the other, eg. predicting $y_t$ from $x_t$ (regression problem). The prediction error is $e_{y|x} = y_t - \alpha x_t$, where alpha $\fraq{cov(x,y)}{var(x)}$.
+The most basic distance between two nodes or recorded time series is $d(x,y) = \sqrt{1 - \rho_{x,y}}$, where $\rho_{x,y}=\frac{cov(x,y)}{var(x)var(y)}$.  From a signal processing point of view, we can calculate the distance as the closeness or how well can we predict one with the other, eg. predicting $y_t$ from $x_t$ (regression problem). The prediction error is $e_{y|x} = y_t - \alpha x_t$, where alpha $\frac{cov(x,y)}{var(x)}$.
 The next step is to capture autocorrelation using pointwise frequency coherence measures.
 
-For Cassidy, Rae and Solo there are two type of distances, marginal and joint distances. Marginal distances, for example, the Mahalanobis distance is based on marginal distribution statistics such as means, covariances and densities. For example, a marginal distance between two nodes of recorded time series $(x,y)$ can be calculated as, $d(x,y) = \sqrt(1 - \rho_{x,y})$, where $\rho_{x,y}=\fraq{cov(x,y)}{var(x)var(y)}$. 
-From a signal processing point of view, we can calculate the distance as the closeness or how well can we predict one with the other, e.g. predicting $y$ from $x$ (regression problem). The prediction error is $e_{y|x} = y- \alpha x$, where alpha $\fraq{cov(x,y)}{var(x)}$. For network comparison, marginal distances are inappropriate because the data are collected jointly. To understand this point we need to have present that marginal probability may be thought of as an unconditional probability. 
+For Cassidy, Rae and Solo there are two type of distances, marginal and joint distances. Marginal distances, for example, the Mahalanobis distance is based on marginal distribution statistics such as means, covariances and densities. For example, a marginal distance between two nodes of recorded time series $(x,y)$ can be calculated as, $d(x,y) = \sqrt{1 - \rho_{x,y}}$, where $\rho_{x,y}=\frac{cov(x,y)}{var(x)var(y)}$. 
+From a signal processing point of view, we can calculate the distance as the closeness or how well can we predict one with the other, e.g. predicting $y$ from $x$ (regression problem). The prediction error is $e_{y|x} = y - \alpha x$, where alpha $\frac{cov(x,y)}{var(x)}$. For network comparison, marginal distances are inappropriate because the data are collected jointly. To understand this point we need to have present that marginal probability may be thought of as an unconditional probability. 
 Marginal distance are unaffected by the threshold choice we can't explain away the other variables as marginal probability assumes.
 %YS: put example
 
@@ -276,7 +302,7 @@ Causal notions are spurious correlations (volume conduction), randomization, con
 
 
 Topological neuroscience is an untapped resource for empirical neuroscientists.
-Roughly speaking, the uses of topology in neuroscience can be categorized into three (overlapping) themes: (i) traditional topological data analysis applied to neuroscience; (ii) an upgrade to network science; and (iii) understanding the neural code \citep{curto2016can}.
+Roughly speaking, the uses of topology in neuroscience can be categorized into three (overlapping) themes: (i) traditional topological data analysis applied to neuroscience; (ii) an upgrade to network science; and (iii) understanding the neural code \cite{curto2016can}.
 
 \begin{enumerate}
 \item  Calculate the statistics of the shape of point cloud data and more importantly the persistent homology (simplicial complex captures the information of intersecting balls, the simplicial complex can be Cech complex and Rips complex).
@@ -294,12 +320,12 @@ We know about the neural coding of neurons but not much abut the neural coding o
 For place cells, when simultaneous recordings of place cells became possible, it was shown via statistical inference (using previously measured place fields) that the animal's position could indeed be inferred from population place cell activity. The place cell code, thus, naturally reflects the topology of the represented space.
 
 % Curto review for neural coding (place cells)
-\citep{curto2016can} Some have argued that hippocampal place cell code is fundamentally topological in nature [12, 6] while others have argued that considerable geometric information is also present and can be extracted using topological methods [9, 18]. Dabaghian have worked towards disambiguate geometric and topological information: the place fields respected topological aspects of the environment more than metric features \citep{dabaghian2014reconceiving}. Also, about the grid cells, it turns out that the space represented by grid cells is not the full environment, but a torus.
+\cite{curto2016can} Some have argued that hippocampal place cell code is fundamentally topological in nature [12, 6] while others have argued that considerable geometric information is also present and can be extracted using topological methods [9, 18]. Dabaghian have worked towards disambiguate geometric and topological information: the place fields respected topological aspects of the environment more than metric features \cite{dabaghian2014reconceiving}. Also, about the grid cells, it turns out that the space represented by grid cells is not the full environment, but a torus.
 
-\citep{giusti2016two} The use of networks is predicated on a critical simplifying assumption: that the quintessential unit of interest in the brain is a dyad – two nodes (neurons or brain regions) connected by an edge. While rarely mentioned, this fundamental assumption inherently
+\cite{giusti2016two} The use of networks is predicated on a critical simplifying assumption: that the quintessential unit of interest in the brain is a dyad – two nodes (neurons or brain regions) connected by an edge. While rarely mentioned, this fundamental assumption inherently
 limits the types of neural structure and function that graphs can be used to model. Simplicial complexes (algebraic topology) is a generalization of graphs that overcomes these limitations.
 
-The wealth of studies linking network models with cognition, disease \citep{stefan2013epileptic}, \citep{stam2014modern} and novel biomarkers points out to a paradigm shift in systems, cognitive, and clinical neuroscience: namely, that brain function and alteration are inherently networked phenomena.
+The wealth of studies linking network models with cognition, disease \cite{stefan2013epileptic}, \cite{stam2014modern} and novel biomarkers points out to a paradigm shift in systems, cognitive, and clinical neuroscience: namely, that brain function and alteration are inherently networked phenomena.
 % Dialectics, so far focus on one side, the bivariate, next step is the poly variate, when we master that, interventional attack will make sense (causal)
 % the road towards causation pass by mastering the polyadic structure of the system
 % Dyadic/Polyadic, bivariate/multivariate.
@@ -310,7 +336,7 @@ Using the simple observation that place fields corresponding to nearby locations
 Using the aptly (but coincidentally) named “Nerve Theorem” from algebraic topology, one can work backward from observed coactivity patterns to recover the intersection pattern of the receptive fields, describing a topological map of the animal’s environment.
 The topological approach serve to decode maps of the environment from observed cell activity.
 
-Dabaghian \citep{dabaghian2014reconceiving} shows that hippocampal place cells may ultimately be interested in a space's topological qualities (its connectivity) more than its geometry (distances and angles). After deforming an U track, the resulting place fields preserved the relative sequence of places visited along the track but did not vary with the metrical features of the track or the direction of the rat's movement.
+Dabaghian \cite{dabaghian2014reconceiving} shows that hippocampal place cells may ultimately be interested in a space's topological qualities (its connectivity) more than its geometry (distances and angles). After deforming an U track, the resulting place fields preserved the relative sequence of places visited along the track but did not vary with the metrical features of the track or the direction of the rat's movement.
 Dabaghian claims that the paper provides evidence that hippocampal networks represent spatial contiguities and not 2D Cartesian maps created by path integration. The experiment directly pitted against one another these two hypotheses by having rats run in a variable shaped track in the near-dark, and CA1 place cells tracked the linear contiguities much better than the 2D shapes created by various configurations. 
 
 In (Ellis and Klein 2014), the authors study the frequency of observation of coactivity patterns in fMRI recordings to extract fundamental computational units. Even when those regions which are coactive will change dynamically over time, cohesive functional units will appear more often than those that happen coincidental, though it is impossible to set an a priori threshold for the significance of such observations.
@@ -320,7 +346,7 @@ Real geometry is that that persist against changes of scale to understand the sh
 
 
 Dotko and Markram use methods from algebraic topology that can deal more effectively with he immense complexity of biological networks 
-as exemplified in the reconstruction and simulation of neocortical microcircuitry, comprising 8 million connections between 31,000 neurons \citep{markram2015reconstruction}. Dotko and Markram is the first algebraic topological analysis of structural connectomics and connectomics-based spatio-temporal activity in a biologically realistic neural microcircuit.  
+as exemplified in the reconstruction and simulation of neocortical microcircuitry, comprising 8 million connections between 31,000 neurons \cite{markram2015reconstruction}. Dotko and Markram is the first algebraic topological analysis of structural connectomics and connectomics-based spatio-temporal activity in a biologically realistic neural microcircuit.  
 
 \section{Discussion}
 % Krakauer
@@ -355,7 +381,7 @@ Causal effects in observational studies can only be substantiated from a combina
 %Comparing structural equation models to the potential-outcome framework, Sobel (2008) asserts that “in general (even in randomized studies), the structural and causal parameters are not equal, implying that the structural parameters should not be interpreted as effect.”
 Rubin and Sobel are from the potential-outcome framework. also Paul Holland which states that the equation $y = a +bx+ \epsilon$ what really means is a way to expresses the $p(y|x)$. But for Pearl, the  structural interpretation of this equation has nothing to do with the conditional distribution of ${y}$ given  ${x}$ ; rather, it conveys causal information that is orthogonal to the statistical properties of  ${x}$  and  ${y}$. For Pearl, the SEM language in its nonparametric form offers a mathematically equivalent alternative to the potential-outcome framework that Holland and Sobel advocate for causal inference. This explains why SEM retains its status as the prime language for causal and counterfactual analysis.
 
-\citep{wiedermann2016statistics}
+\cite{wiedermann2016statistics}
 Not to confuse X(correlation) with Y(causation) falls a little flat, specially since we dont know what causation means, correlation on the other hand we know many, maybe too many ways to calculate ad plot it in Matlab,R, SPSS or any of the plethora of statistical modeling software available these days. 
 The counterfactual or “interventionist” account lead by Woodward and Pearl is gaining momentum.
 
@@ -364,7 +390,7 @@ In cell biology causality networks are also called gene regulatory networks. In 
 %Andrew Lo physics envy https://arxiv.org/pdf/1003.2688.pdf
 \subsubsection{Approaches for the reconstruction of the causal relations}
 Hypergraphs, can record any possible collection of relations but it is precisely this degree of generality leads to a combinatorial explosion in systems of modest size. 
-Giusti et al, argues that simplicial complexes gives a compact and computable encoding of relations between arbitrarily large subgroups while retaining access to a host of quantitative tools for detecting and analyzing the structure of the systems they encode. In particular, the homology \footcite{Names of topological objects have a seemingly pathological tendency to conflict with terms in biology, so long have the two subjects been separated. Mathematical homology has no a priori relationship to the usual biological notion of homology} of a simplicial complex is a collection of topological features called cycles that one can extract from the complex.
+Giusti et al, argues that simplicial complexes gives a compact and computable encoding of relations between arbitrarily large subgroups while retaining access to a host of quantitative tools for detecting and analyzing the structure of the systems they encode. In particular, the homology \footnote{Names of topological objects have a seemingly pathological tendency to conflict with terms in biology, so long have the two subjects been separated. Mathematical homology has no a priori relationship to the usual biological notion of homology} of a simplicial complex is a collection of topological features called cycles that one can extract from the complex.
 
 In 1969 Granger introduced a method to quantify temporal-causal relations among time series measurements. He introduced Wiener’s concept of causality into the analysis of time series (Wiener,1956)
 %Wiener, N. (1956) The theory of prediction, in Modern Mathematics for Engineers
@@ -377,8 +403,8 @@ However, there need to be nothing causal about a regular sequence of events and,
 
 
 The bivariate model is:
-$y_t = a_0 \sum_{k=1}^{L}b_{1k}y_{t-k} \sum_{k=1}^{L}b_{2k}x_{t-k} + \vhi_t$
-where $\vhi_t$ are uncorrelated random  variables of mean 0 and variance $\sigma^2$, L is the time lag and tells us the number of past values taken into consideration. The null hypothesis that $x_t$ does not Granger cause $y_t$, that is,$b_{2k} = 0$ for $k=1..L$.
+$y_t = a_0 \sum_{k=1}^{L}b_{1k}y_{t-k} \sum_{k=1}^{L}b_{2k}x_{t-k} + \phi_t$
+where $\phi_t$ are uncorrelated random  variables of mean 0 and variance $\sigma^2$, L is the time lag and tells us the number of past values taken into consideration. The null hypothesis that $x_t$ does not Granger cause $y_t$, that is,$b_{2k} = 0$ for $k=1..L$.
 
 It can be straightforwardly extended to p-dimensional multivariate time series $x_t \in R^{p \times l }$ (p number of variables, for example, space locations (roi) l is the length of the time series).
 Hume cause must precede the effect.
@@ -404,7 +430,7 @@ This is precisely why we need a mathematical language other than sets (networks)
 fmri reveals only correlations. Just because an area is active when one experiences fear, it doesn't mean that that region is necessarily involved in the experience of fear. Causal necessity can be demonstrated only by manipulating the function of a brain region, either through brain stimulation or the study of brain lesions. For instance, many studies show that the ventromedial prefrontal cortex (important in value-based decision-making) is activated when research participants are considering how much they are willing to pay for consumer goods. But recent work has found that some people with lesions to this area show no impairment in such abilities (A. R. Vaidya and L. K. Fellows Nature Commun. 6, 10120; 2015).
 %future works
 Signal processing in graphs: The emerging field of signal processing on graphs merges algebraic and spectral graph theoretic concepts with computational harmonic analysis to process such signals on graphs. 
-\citep{shuman2013emerging}
+\cite{shuman2013emerging}
 
 \begin{acknowledgements}
 If you'd like to thank anyone, place your comments here
@@ -422,8 +448,16 @@ and remove the percent signs.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Appendix}
-%
+%Examples of simplicial complexes%%%%
+Examples of simplicial complexes applied to brain data are the clique complex, the concurrence complex \cite{ellis2012describing}; \cite{curto2008cell}; Dowker 1952), its Dowker dual (Dowker 1952), and the independence complex (Kozlov 2007).
+Of course, a graph is a simplicial complex. Graphs are good for encoding dyadic relationships, Clique Complex can do polyadic canonical extension of graphs, Concurrence/Dual complex is good at capturing relationships between two variables of interest eg: time and activity or activity in two distant regions and  Independence 
 
+Clique complex:  a clique is all-to-all connected subgraph. Given a graph,replace every vertice replaces every clique by a simplex on the vertices participating in the clique. This procedure produces a clique complex that has been used for neural analysis of hippocapal cells in both spatial and non spatial behavior \cite{giusti2015clique} and in general for correlation and coherence maps of for example fMRI data.
+%This application demonstrates that simplicial complexes are sensitive to organizational principles that are hidden to graph statistics, and can be used to infer parsimonious rules for information encoding in neural systems. 
+Thus, Clique complexes precisely encode the topological features present in a graph, so clique complexes "complete" graphs providing new views on the topological properties of graphs.
+However, other types of simplicial complexes can be used to represent information that cannot be so encoded in a graph.
+
+There are other complexes, like concurrent complexes (for coactivation but I dont see how they give more than coherence matrices) or Independence complex (hypergraph) to study system’s community structure (Bassett).
 %Topological Data analysis (TDA) provides geometric summaries of our data. Data has shape and shape has meaning.
 %Topology is about shape, and shape is the global realization of local constraints. %YS this is problematic because if topology is about shape why it is hard to get the shape from the topological properties. This motto cant referred to shape as geometric shape . all boils down to how you define the relationships, if a metric (euclidean) or some sort of similarity, in that last case one couldnt possibly reconstruct the shape
 
@@ -431,7 +465,7 @@ and remove the percent signs.
 %Given a metric on the rows, and the columns are the features and we can work our shape with the metric, but note that we can relax the study of shape and use similarity rather than metric.
 %Once you have a metric + a threshold of statistical relevance the data has a (topological) shape, they occupy parts in the metric space, there is gaps, holes, flairs, bubbles...and with this we can stop and ask what the shape we just devised tells us about the data.
 %Since traditional graph-theoretical methods may not be sufficient to understand the immense complexity of such a biological network, we explored whether methods from algebraic topology could provide a new perspective on its structural and functional organization. 
-%An extension of this ideas is directedness of information flow has been used to investigate the relationship between simulated structural and functional neural networks \citep{dotko2016topological}. % Markram
+%An extension of this ideas is directedness of information flow has been used to investigate the relationship between simulated structural and functional neural networks \cite{dotko2016topological}. % Markram
 
 
 Convex hull or convex envelope is the smallest convex set that contains all points in set X. Computing the convex hull means constructing an unambiguous, efficient representation of the required convex shape. The convex hull of the given points is identical to the set of all their convex combinations.
