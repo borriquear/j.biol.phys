@@ -95,7 +95,7 @@ Three points close to each other are said to be coactive (more on this in sectio
 %YS: ojo literal
 
 %(called simplex \footnote{A simplex is a subset of affinely independent points.})
-The are two main approaches in the study of algebraic topology: one is to decompose the topological space into many but simple pieces and the other is to deal with only a few but complicated pieces. Computational topologists find more interesting the first approach -many simple pieces- and the  the simplicial complex is the prime example. The second approach -few but complicated pieces- is of more interest for those looking for aesthetically pleasing shapes \cite{edelsbrunner2010computational}. 
+The are two main approaches in the study of algebraic topology: one is to decompose the topological space into many but simple pieces and the other is to deal with only a few but complicated pieces. Computational topologists find more interesting the first approach -many simple pieces- and the simplicial complex is the prime example. The second approach -few but complicated pieces- is of more interest for those looking for aesthetically pleasing shapes \cite{edelsbrunner2010computational}. %algebraic geometry
 
 A simplicial complex is a decomposition of a topological space into simple pieces  which are topologically simple and their common intersections are lower-dimensional pieces of the same kind. Formally, an (abstract) simplicial complex X, is a pair of sets: $V_X$ of vertices and $S_X$ of simplices. Each simplex in the set of simplices $S_X$ is a subset of the vertices $V_X$ plus the condition that if $\sigma$ is in $S_X$ then every subset $\tau$, $\tau \in \sigma$ is also in $S_X$, $\tau \in \S_X$.
 A simplex with n elements (vertices) is called a $(n-1)-$simplex or what is the same the convex hull of n vertices. Simplices of small dimensions have proper names, a vertice is a 0-simplex, an edge is a 1-simplex, a triangle or face is a 2-simplex and a tetrahedron is a 3-simplex \footnote{YS: Platonic forms}. A graph is a particular case of a simplex, a vertice in a graph is a 0-simplex and edges is a 1-simplex. In the same way as one can represent a graph as a collection of points and line segments between them, one can represent the simplices in a simplicial complex as a collection of solid regions spanning vertices.
@@ -114,10 +114,9 @@ The next step is to find 2-simplices, when a triangle can be we filled in we get
 
 %\subsubsection{How do we measure the structure of simplicial complexes?}
 
-
 The choice of the threshold affects the kind of simplicial complex that we get, since choosing one in particular is hardly justifiable, we choose all possible thresholds. By increasing the threshold eventually all the data points will be part of the same simplex, one component.
 
-Simplicial complexes encode diverse neural data modalities. Simplicial complexes is a generalization of graphs from the field of algebraic topology.  After choosing the complex of interest, quantitative and theoretical tools can be used to describe, compare, and explain the statistical properties of their structure in a manner analogous to graph statistics or network diagnostics.
+Simplicial complexes encode diverse neural data modalities. Simplicial complexes is a generalization of graphs from the field of algebraic topology. After choosing the complex of interest, quantitative and theoretical tools can be used to describe, compare, and explain the statistical properties of their structure in a manner analogous to graph statistics or network diagnostics.
 % filtration to binarize rather than thresholding
 The filtration of the complex is the method by which the complex is reduced into its constituent pieces. Filtrations reveal more detailed structure in the complex, and provide tools for understanding how that structure arises and can be seen as an alternative to thresholding a weighted complex, providing a principled approach to binarizing.
 
@@ -202,12 +201,6 @@ The Gramov-Hausdorff distance allows us to measure the distance between two metr
 d_{}(X,Y) = \frac{1}{2}_{x_i \in X, y_j \in Y} max |d_X(x_i,x_j) - d_Y(y_i,y_j))|
 \end{equation} 
 % Gromov distance in python http://stackoverflow.com/questions/30706079/hausdorff-distance-between-3d-grids
-
-
-
-
-
-
 
 \section{Limitations of the geometric network approach}
 \label{se:s2}
