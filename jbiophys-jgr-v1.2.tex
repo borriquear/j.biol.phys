@@ -3,7 +3,9 @@
 % 4 July 2017
 \smartqed  % flush right qed marks, e.g. at end of proof
 \usepackage{graphicx}
+\usepackage{amssymb}
 \journalname{Journal of Biological Physics}
+%\newcommand{\nexists}{\not\exists}
 \begin{document}
 \title{Insert your title here%\thanks{Grants or other notes
 %about the article that should go on the front page should be
@@ -52,6 +54,9 @@ Binary or unweighted networks are the result of thresholding or selecting the si
 
 Algebraic topology \cite{munkres1984elements} provide a language and a methodology to overcome these limitations.
 % Give some references, some context
+%https://elifesciences.org/content/3/e03476   %PUT REFS Ojo esto viene casi tal cual del papaer de Giusti
+The emerging field of topological biology has already produced important insights, including among others, the discovery of new genetic markers for breast cancer survival \cite{nicolau2011topology}, measurement of structure and stability of biomolecules (Gameiro et al. 2013; Xia et al. 2015), new frameworks for understanding viral evolution (Chan et al. 2013), characterization of dynamics in gene regulatory networks \cite{boczko2005structure} quantification of contagion spread in social networks (Taylor et al. 2015), characterization of structure in networks of coupled oscillators (Stolz 2014), the study of phylogenic trees (Miller et al. 2015), and the classification of dicotyledonous leaves (Katifori and Magnasco 2012). 
+
 The main goal of this paper is to introduce this new language and explain what has to offer to mathematical biologists, biophysicists or anybody interested in modeling spatio-temporal patterns in biological systems.
 We describe simplicial complexes, a generalization of graphs able to capture polyadic or multiple coactivity patterns and the Rips complex, an algebraic formalism that captures the invariance in network dynamics. %Funtors category theory?
 Section \ref{sec:s1} provides an introduction to algebraic topology, specifically simplicial complexes and the rips filtration and functorality. In section \ref{sec:1} we justify the need of a multiscale framework by exposing the inherent difficulties of the existing paradigm to deal with the threshold selection problem and to encoding multiple coactivity patterns.
@@ -59,46 +64,65 @@ We conclude (section \ref{sec:1}) with a discussion on the future of algebraic t
 
 \section{Algebraic topology for biologists}
 \label{se:s1}
-%YS Ojo literal
-Geometric questions have been pondered since the Greeks or even before, however, topological ones are only one century old  \cite{edelsbrunner2010computational}.  A geometric space is defined via geometric measures (distances, areas, angles, etc.), and the relationships that are built on them. A topological space, on the other hand, defines a set of qualitative relationships between its parts: adjacency, containment, connectedness, overlap, cover, etc. \cite{aleksandrov1999mathematics}. Thus, geometric space is defined in terms of quantitative features and the topological space uses  
-in terms of qualitative relationships.  Both set of features, the metrical and the topological are related but the relation is asymetrical, that is, topological (qualitative) features can be deduced from metrical (quantitative) ones but the inverse is not true.   For example, knowing the location and length of two segments we know if they overlap, but knowing that one segment is adjacent to another one does not say nothing about where are they located or their length. 
 
-%https://elifesciences.org/content/3/e03476   %PUT REFS
-The small field of topological biology has already produced important insights, including among others, the discovery of new genetic markers for breast cancer survival (Nicolau et al. 2011), measurement of structure and stability of biomolecules (Gameiro et al. 2013; Xia et al. 2015), new frameworks for understanding viral evolution (Chan et al. 2013), characterization of dynamics in gene regulatory networks (Boczko et al. 2005), quantification of contagion spread in social networks (Taylor et al. 2015), characterization of structure in networks of coupled oscillators (Stolz 2014), the study of phylogenic trees (Miller et al. 2015), and the classification of dicotyledonous leaves (Katifori and Magnasco 2012). 
+In this section we will provide some definitions and provide examples to make the concepts clear to the reader, specially for those not familiar with the field of topology. In particular, we provide definitions of alegraic topology, topology, topological space and simplicial complex. The idea is to give the reader the basic idea, for a more in detail treatment of algebraic topology see \cite{munkres1984elements}, \cite{hatcher2001} and for an introduction to topological data analysis see \cite{carlsson2009topology} and \cite{wasserman2016topological}. The reader familiar with these terms can directly skip to section \ref{}.
 
-% A geometric space is defined via geometric measures (distances, areas, angles, etc.), and the relationships that are built on them.
-%A topological space defines a set of qualitative relationships between its parts: adjacency, containment, connectedness, overlap, cover, etc. (Aleksandrov, 1965; Poincaré, 1895). These qualitative relations stand in contrast to metrical (geometric), quantitative features such as distances, angles, and shapes.
-%Note that all space is characterized by both qualitative and quantitative (topological and geometric) features, but the relation between these aspects of space is asymmetrical: qualitative spatial relationships are easy to deduce if the identity, shapes, and sizes of specific regions in the environment are known. 
-%The converse is not true: topological relationships do not define the shape or scale of either the parts. For example, the fact one region is adjacent to or overlaps with another region says nothing about the shapes or sizes of the regions. 
+Algebraic topology is the study of topological spaces using abstract algebra. The goal is to classify topological spaces up to homeomorphism, that is, find the intrinsic qualitative aspects of spatial objects that remain invariant under homeomorphic transformations. Definitions of homeomorphism, continuous maps and related terms can be find in the Appendix.
+The are two main approaches in the study of algebraic topology: one is to decompose the topological space into many but simple pieces and the other is to deal with only a few but complicated pieces. Computational topologists find more interesting the first approach -many simple pieces- and the simplicial complex is the prime example. The second approach -few but complicated pieces- is of more interest for those looking for aesthetically pleasing shapes \cite{edelsbrunner2010computational}. %algebraic geometry
 
-Here, we start by providing some definitions of topology, topological space and simplicial complex. The idea is to give the reader the basic idea, for a more in detail treatment of topology see \cite{munkres1984elements}, \cite{hatcher2001} and for an introduction to topological data analysis see \cite{carlsson2009topology} and \cite{wasserman2016topological}. 
+Since the goal of algebraic topology is to classify topological spaces we need to know first what a topological spaces is and for that we need to define topology.
 
-Let X be a set of points, a topology of X is a collection of subsets of X called open sets. The union and the intersection of open sets are also open sets.
-Formally, a topology on a point set X is a collection U of subsets of X, called open sets, such that X and the empty set are open and the intersection and union of subsets are open.
-For example, the plane (set of points X) together with the topology generated by the Euclidean metric (pairs of points) is a topological space. To construct it, we call the set of points at distance less than $r, r > 0$ from a point $x \in R^2$ an open disk. Taking finite intersections and arbitrary unions of open disks, we get a collection of open sets that satisfies the conditions of topological spaces. 
+%Definition of Topology. A topology is a set of sets
+Let M be a set, a topology O is a subset of the power set of M, $O \subseteq \mathcal{P}(M)$ iff O  satisfies three axioms:
+\begin{itemize}
+\item[i] $\emptyset \subseteq O, M \subseteq O$
+\item[ii] $U \exists O, V \subseteq O$, then, $U \cap V \subseteq O$
+\item[iii] $U_i \subseteq O, \bigcup  U_i \subseteq O$
+\end{itemize}
+The first axiom states that the empty set and the set M are in the topology O, the second axiom that for any two subsets of O the intersection also exists in the topology O, and the third axiom that the union of any of subset of O, also belongs to O. 
 
-A set X, together with the topology is called a topological space. Topological spaces are continuous models of reality. If we are only interested in connectedness, topological spaces are, in practical terms, similar to graphs.
-Once we have defined topological space, we can study the relationships between data points, that is, which points are close to each other, and how this relationships are structured. For example, two points are topologically close if the are in the same neighborhood and the neighborhood of a point is an open set that contains that point. 
-Three points close to each other are said to be coactive (more on this in section ).
+Example 1: Let $M = \{a,b,c\}$ and $O = \{\emptyset, \{a,b,c\}\}$. O is a topology since it holds the three axioms.
+Example 2: Let $M = \{a,b,c\}$ and $O = \{\emptyset, \{a\}, \{b\}\}$. O is not a topology since axiom ii does not hold true, $\{a\} \cup \{b\} \nsubseteq O$.
 
-%X e.g. the temporal series of n electrodes, $x_i ... x_n$ located in different brain areas.
-%Crucially, a topology allows us to establish which points are near without having to specify how close they are from each other. 
+For any given set M, the topologies on the set M are bounded. Thus, the topology with the fewest number of elements is $O = \{\emptyset, M\}$ (chaotic topology), and the topology with the maximum number of elements is $O = P(M)$ (discrete topology). 
+%A more useful topology is the standard topology which is defined as follows. For a set $M = \mathbb{R}^d = \mathbb{R} \times \mathbb{R} \times \mathbb{R} ... \mathbb{R}$, $O \exists \mathcal{P}(\mathbb{R}^d)$. The soft ball for any number $r \exists \mathbb{R}^+$ and point $p \exists  \mathbb{R}^d$, $B_r(p) = \{q_1...q_d\}| \sum_{i=1}^{d}(q_i - p_i)^2 < r^2$.
 
-%A neighborhood is an open disk centered in the point. 
+%Example  min 24 %https://www.youtube.com/watch?v=7G4SqIboeig
+
+%The goal of defining topologies on a set is to add structure to that set, in particular, continuity. Sets are collection points lacking structure, in order to study how the objects in a set are related data, for example who is connected with who, we need to find continuity maps. 
+
+A topological space is a set with the structure provided by the chosen topology. Topological spaces are continuous models of reality. Of note, if we are only interested in connectedness, topological spaces are, in practical terms, similar to graphs.
+Topological spaces are the most general mathematical space, for instance, metric spaces are specializations of topological spaces equipped with extra structure or constraints.  
+Topological spaces allows for the study of connectivity and continuity. For example, two points are topologically close if the are in the same neighborhood and the neighborhood of a point is an open set that contains that point. 
+
+Formally, a topological space is an ordered pair or tuple consisting in a set M (ZFC axioms for example) and a topology O, (M,O). The topology O is a  a collection of subsets of M, satisfying the axioms defined above.
+The elements of the topology O are called open sets. Formally, if the subset U, $U \subseteq M$ and U is in the topology O, $U \exists O$, then U is called an open set. 
+%If the complement of A, $M\A$, belongs to the topology O, $M\A \exists O$, then A  is a closed set. 
+% of course (A \exists M)
+In conclusion, a topology on a point set M is a collection of subsets of M, called open sets, such that M and the empty set are open and the intersection and union of subsets are open as well. For example, the set of points in the plane $M \subseteq \mathbb{R}^2$ together with the topology generated by the Euclidean metric (pairs of points) is a topological space. To construct it, we call the set of points at distance less than $r, r > 0$ from a point $x \subseteq \mathbb{R}^2$ an open disk. Taking finite intersections and arbitrary unions of open disks, we get a collection of open sets that satisfies the conditions of topological space. A neighborhood is an open disk centered in the point. 
+
+Importantly, the notion of an open set allows us to predicate on the nearness of points in a topological space, without explicitly having a concept of distance defined, that is, without imposing, for example, an euclidean distance between the data points. Once a choice of the topology is made, directly given by the open set notion, it becomes possible to study the properties of continuity, connectedness, and compactness of the data set. 
+%Three points close to each other are said to be coactive (more on this in section ).
+%Each choice of open sets for a space is called a topology.
 
 \subsection{Simplicial complex} 
 %Simplicial complex is an object from algebraic topology that deals satisfactorily with this problem.
 %The boundary of a simplex consists of all possible subsets of its constituent vertices, called its faces. 
-
 %A simplicial complex encodes polyadic relations through its simplices.
 %Because any given simplex is required to “contain all of its faces”, it suffices to specify only the maximal simplices, those which do not appear as faces of another simplex (Fig. 4c). This dramatically reduces the amount of data necessary to specify a simplicial complex, which helps make both conceptual work and computations feasible.
 %YS: ojo literal
 
 %(called simplex \footnote{A simplex is a subset of affinely independent points.})
-The are two main approaches in the study of algebraic topology: one is to decompose the topological space into many but simple pieces and the other is to deal with only a few but complicated pieces. Computational topologists find more interesting the first approach -many simple pieces- and the simplicial complex is the prime example. The second approach -few but complicated pieces- is of more interest for those looking for aesthetically pleasing shapes \cite{edelsbrunner2010computational}. %algebraic geometry
+Once we have defined topological space we can define simplicial complex. 
+A simplicial complex is an algebraic topology object and is a generalization of graph.
+A simplicial complex is a decomposition of a topological space into (topologically) simple pieces and their common intersections are lower-dimensional pieces of the same kind. 
+Formally, an (abstract) simplicial complex X, is a pair of sets: $V_X$ of vertices and $S_X$ of simplices. Each simplex in the set of simplices $S_X$ is a subset of the vertices $V_X$ plus the condition that if $\sigma$ is in $S_X$ then every subset $\tau$, $\tau \in \sigma$ is also in $S_X$, $\tau \in \S_X$. 
 
-A simplicial complex is a decomposition of a topological space into simple pieces  which are topologically simple and their common intersections are lower-dimensional pieces of the same kind. Formally, an (abstract) simplicial complex X, is a pair of sets: $V_X$ of vertices and $S_X$ of simplices. Each simplex in the set of simplices $S_X$ is a subset of the vertices $V_X$ plus the condition that if $\sigma$ is in $S_X$ then every subset $\tau$, $\tau \in \sigma$ is also in $S_X$, $\tau \in \S_X$.
-A simplex with n elements (vertices) is called a $(n-1)-$simplex or what is the same the convex hull of n vertices. Simplices of small dimensions have proper names, a vertice is a 0-simplex, an edge is a 1-simplex, a triangle or face is a 2-simplex and a tetrahedron is a 3-simplex \footnote{YS: Platonic forms}. A graph is a particular case of a simplex, a vertice in a graph is a 0-simplex and edges is a 1-simplex. In the same way as one can represent a graph as a collection of points and line segments between them, one can represent the simplices in a simplicial complex as a collection of solid regions spanning vertices.
+%YS
+Example 3.
+
+A simplex with n elements (vertices) is called a $(n-1)-$simplex or what is the same the convex hull of n vertices. Simplices of small dimensions have proper names, a vertice is a 0-simplex, an edge is a 1-simplex, a triangle or face is a 2-simplex and a tetrahedron is a 3-simplex \footnote{YS: Platonic forms}. A graph is a particular case of a simplex, a vertice in a graph is a 0-simplex and an edge is a 1-simplex. In the same way as one can represent a graph as a collection of points and line segments between them, one can represent the simplices in a simplicial complex as a collection of solid regions spanning vertices.
+% A graph consists on a set of vertices and a set of edges or pair of vertices. A simplicial complex, on the other hand, consists of a set of vertices and a collection of simplices where a simplex is a finite set of vertices with the additional property that any subset of a simplex is also a simplex. YS: Captioin of figure
 % and subsets $\tau \in \sigma$ are faces of $\sigma$.
 
 %Isabel K. Darcy simplicial complex from data https://www.youtube.com/watch?v=E7d7LHb6PLc&t=902s
@@ -107,30 +131,32 @@ Let us see with an example. Given a set of data points shown in \ref{fig:} where
 The first step is to connect the points that are close to each other according to a threshold, for example  significant correlation level. We draw an edge or 1-simplex for every two close data points that are close to each other. As a result, we have  cast the dataset into two disjoint sets or clusters of 1-simplices. The resulting clustering is based on one dimensional simplices. But why to stop there and do not study clustering (shape) at higher dimensions
 The next step is to find 2-simplices, when a triangle can be we filled in we get the "side" or a 2-simplex. We can continue finding 3 dimensional simplices or tetrahedron and so on.
 
-% YS here goes the figure with an example on how to build a measure the structure of simplicial complexes
-% figure cation {With n points that are closed together, I can form a n-1 simplex. So a data point is a 0-simplex, when we build a relationship we have 1-simplex and whenever we have a triangle we add 2-simplices, whenever we have a tetrahedron (4 points close together.  tetrahedron is the Platonic solid $P_5$ with four polyhedron vertices, six polyhedron edges, and four equivalent equilateral triangular faces) we have a 3-simplex, when 5 points are lose together we add 4 -simplex and so on. It is in reality a two steps process, one we connect the points and two we build a n-complex for each group of n+1 points.}
+Figure Simplex (1 threshold)
 
-% A graph consists on a set of vertices and a set of edges or pair of vertices. A simplicial complex, on the other hand, consists of a set of vertices and a collection of simplices where a simplex is a finite set of vertices with the additional property that any subset of a simplex is also a simplex.
+% YS here goes the figure with an example on how to build a measure the structure of simplicial complexes
+% figure caption {With n points that are closed together, I can form a n-1 simplex. So a data point is a 0-simplex, when we build a relationship we have 1-simplex and whenever we have a triangle we add 2-simplices, whenever we have a tetrahedron (4 points close together.  tetrahedron is the Platonic solid $P_5$ with four polyhedron vertices, six polyhedron edges, and four equivalent equilateral triangular faces) we have a 3-simplex, when 5 points are lose together we add 4 -simplex and so on. It is in reality a two steps process, one we connect the points and two we build a n-complex for each group of n+1 points.}
 
 %\subsubsection{How do we measure the structure of simplicial complexes?}
-
 The choice of the threshold affects the kind of simplicial complex that we get, since choosing one in particular is hardly justifiable, we choose all possible thresholds. By increasing the threshold eventually all the data points will be part of the same simplex, one component.
 
-Simplicial complexes encode diverse neural data modalities. Simplicial complexes is a generalization of graphs from the field of algebraic topology. After choosing the complex of interest, quantitative and theoretical tools can be used to describe, compare, and explain the statistical properties of their structure in a manner analogous to graph statistics or network diagnostics.
-% filtration to binarize rather than thresholding
-The filtration of the complex is the method by which the complex is reduced into its constituent pieces. Filtrations reveal more detailed structure in the complex, and provide tools for understanding how that structure arises and can be seen as an alternative to thresholding a weighted complex, providing a principled approach to binarizing.
+Figure Simplicial Complex (All thresholds)
 
-Just as with network models, once we have effectively encoded neural data in a simplicial complex, it is necessary to find useful quantitative measurements of the resulting structure to draw conclusions about the neural system of interest.
-
-First, we can generalize familiar graph statistics to the world of simplicial complexes. The simplest local measure of structure – the degree of a vertex – naturally becomes a vector-measurement whose entries are the number of maximal simplices of each size in which the vertex participates, this vector is more intuitively thought of as a generalization of the clustering coefficient of the vertices. Other local and global statistics such as efficiency and path length can be generalized by considering paths through simplices of some fixed size, which provides a notion of robust connectivity between vertices of the system (Dlotko et al. 2016).
-
+\subsubsection{Filtration of simplicial complexes} 
+%Simplicial complexes encode diverse neural data modalities. After choosing the complex of interest, quantitative and theoretical tools can be used to describe, compare, and explain the statistical properties of their structure in a manner analogous to graph statistics or network diagnostics.
+Just as with network models, once we have effectively encoded the data of interest in a simplicial complex, it is necessary to find useful quantitative measurements of the resulting structure to draw conclusions about the system from which the data were collected.
+We start by generalizing familiar graph statistics to be used in simplicial complexes. The simplest local measure of structure – the degree of a vertex – naturally becomes a vector-measurement whose entries are the number of maximal simplices of each size in which the vertex participates, this vector is more intuitively thought of as a generalization of the clustering coefficient of the vertices. Other local and global statistics such as efficiency and path length can be generalized by considering paths through simplices of some fixed size, which provides a notion of robust connectivity between vertices of the system (Dlotko et al. 2016).
 In addition to these more or less straight extensions of quantitative graph measure into simplicial complexes, however the power of algebraic topology comes with the use of algebraic topology for example, homology of the complex to identify homology cycles.
 
+% filtration to binarize rather than thresholding
+The filtration of the complex is the method by which the complex is reduced into its constituent pieces. Filtrations can be used to assess the dynamics of neural processes. Filtrations reveal more detailed structure in the complex, and provide tools for understanding how that structure arises and can be seen as an alternative to thresholding a weighted complex, providing a principled approach to binarizing graphs.
 A filtration of complexes can be constructed by consecutively applying each of the weights as thresholds in turn, constructing an unweighted simplicial complex whose simplices are precisely those whose weight exceeds the threshold, and labeling each such complex by the weight at which it was binarized. However, it is also the case that these unweighted complexes are related to one another, and more sophisticated measurements of structure, like homology, can exploit these relations to extract much finer detail of the evolution of the complexes as the threshold varies.
-Filtrations can be used to assess the dynamics of neural processes.
 
-With optogenetics, DBS, TMS etc one can stimulate single neurons or specific groups of neurons to control their function. To meet this need, one can construct a different type of filtration \cite{taylor2015topological} that construct a sequence of simplicial complexes with a time parameter, labeling each simplex as “on” or “off” at each time, and require that once simplices “turn on” they remain so indefinitely. This type of filtration is of use in  diffusion model of fronto-temporal dementia and in contagion models (Taylor et al. 2015), where a simplex becomes active once sufficiently many nearby simplices are active.
+YS: Example of filtration 
 
+With optogenetics, DBS, TMS etc. one can stimulate single neurons or specific groups of neurons to control their function. To meet this need, one can construct a different type of filtration \cite{taylor2015topological} that construct a sequence of simplicial complexes with a time parameter, labeling each simplex as “on” or “off” at each time, and require that once simplices “turn on” they remain so indefinitely. This type of filtration is of use in  diffusion model of fronto-temporal dementia and in contagion models (Taylor et al. 2015), where a simplex becomes active once sufficiently many nearby simplices are active.
+
+\subsection{Persistent homology}
+\label{sec:1}
 Persistent homology:  the sequence of complexes in the filtration is transformed by homology into an inter-related family of evolving cycles.
 
 Computational problems: computing the persistent homology from correlation data of 100 neurons leads to a simplicial complex with approximately 107 4-simplices, while the same computation for a population of 200 neurons involves two orders of magnitude more.
@@ -143,11 +169,11 @@ Persistent homology (PH) is a method used in topological data analysis (TDA) to 
 % $MapperGUI.py
 
 
-\subsection{Persistent homology}
-\label{sec:1}
 A homeomorphism between two topological spaces X,Y is a bijective function such that $f:X \to Y$ and $f^{-1}$ are both continuous. If topological spaces are homeomorphic then they are topologically equivalent, that is, have the same topology type.
 
-The basic question in topology is to classify spaces up to topology type.
+The basic question in topology is to classify spaces up to topology type. 
+Note that the problem of classification is ill-defined it depends on what we have in mind we want and how to classify, classification or clustering is subjective science, despite these problems we still need to classify because this is the only way we can understand reality. %min 7. https://vimeo.com/105644331
+
 Given a topological space, its homology is a formal, algebraic way to talk about its connectivity.
 %NETWORK COMPARISON WITH FREQUENCY DOMAIN PERSISTENT HOMOLOGY. Ben Cassidy, Caroline Rae, Victor Solo
 Thresholding (or selecting significance level) is problematic, particularly when the underlying system has a combination of small-scale features, some of which are noise artifacts, and some of which are critically important.  %YS bar code built with honology  help in that, short bars are noise, long ones are persistent features. 
@@ -324,6 +350,10 @@ Dotko and Markram use methods from algebraic topology that can deal more effecti
 as exemplified in the reconstruction and simulation of neocortical microcircuitry, comprising 8 million connections between 31,000 neurons \cite{markram2015reconstruction}. Dotko and Markram is the first algebraic topological analysis of structural connectomics and connectomics-based spatio-temporal activity in a biologically realistic neural microcircuit.  
 
 \section{Discussion}
+%YS Ojo literal
+Geometric questions have been pondered since the Greeks or even before, however, topological ones are only one century old  \cite{edelsbrunner2010computational}.  A geometric space is defined via geometric measures (distances, areas, angles, etc.), and the relationships that are built on them. A topological space, on the other hand, defines a set of qualitative relationships between its parts: adjacency, containment, connectedness, overlap, cover, etc. \cite{aleksandrov1999mathematics}. Thus, geometric space is defined in terms of quantitative features and the topological space uses  
+in terms of qualitative relationships.  Both set of features, the metrical and the topological are related but the relation is asymetrical, that is, topological (qualitative) features can be deduced from metrical (quantitative) ones but the inverse is not true. For example, knowing the location and length of two segments we know if they overlap, but knowing that one segment is adjacent to another one does not say nothing about where are they located or their length. 
+
 % Krakauer
 %With the advent of high-throughput genomics, transcriptomics, proteomics, and metabolomics, and functional imaging we have witnessed a technological revolution in biology have gone hand by hand with the rise of bioinformatics and ML prediciton.
 %But there has been a lack of complementary conceptual theory that could help us organize the flood of facts. An emphasis on models, rather than theory.
@@ -414,7 +444,7 @@ and remove the percent signs.
 
 % BibTeX users please use
 \bibliographystyle{spmpsci}
-\bibliography{..bibliography-jgr/bibliojgr}   % name your BibTeX data base
+\bibliography{../bibliography-jgr/bibliojgr}   % name your BibTeX data base
 
 \end{document}
 % end of file template.tex
@@ -422,6 +452,41 @@ and remove the percent signs.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Appendix}
+Definitions:
+
+%%%%% Lecture on Topology %https://www.youtube.com/watch?v=7G4SqIboeig Begin 
+%at the coarsest level spaceset is a set, that is, it consists on a set of points,but this is not enough, something needs to ber added if we want to talk about for example continuity. We need to add structure on set to be able to work with continuity. The weakkes structure that can be establish in a set that allows a good definition of ciontinuity of maps, this minimal structure is topology. (motivation for using topology)
+Definition -- Power set
+The power set of a M is the set containing all subsets of M, including the empty set and M itself. For example, the power set of $M={1,2}$ is $ \mathcal{P}(M) = \{\emptyset, \{1\},\{2\},\{1,2\}\}$.
+ 
+The axioms that define topological space can be given in terms of open sets or using the concept of neighborhood. Here we define topological space using open sets, for the neighborhood definition see \cite{brown2006topology}.
+
+Definition -- homeomorphism
+An homeomorphism is a continuous map that establishes a one-to-one correspondence between two objects. Two objects are homeomorphic if they can be deformed into each other by a continuous, invertible mapping.
+A  map $f:M \to N$ is continuous iff the preimage of any open set is open.
+
+The preimage or invserve image of a set V, $V \exists N$ defined in the map $f:M \to N$ is the set of elements in the domain M that land in V.
+Example Draw figure 
+
+Definition -- Continuous map:
+To build a map we just need two sets, but to answer the question is the map continuous, we need topology. Whether a map, $f: M \to N$  is continuous depends on which topologies are chosen on both the domain set M and the target set N.
+
+Definition: Let the topological spaces,  $(M,O_m)$ and $(N,O_N)$ and the map, $f:M \to N$ is called continuous with respect to the topology of $O_M$ and $O_N$ if for every set that is open in the target, $\forall \exists O_N$, the preimage is an open set in the domain, $preim_f(V) \exists O_M$ (the preimage(V) is the set of elements in the domain that land in V)
+
+%min 52
+Example: Check whether the map is continuous with respect tot he chosen topologies, we find the primages of the target
+The composition of continuous maps is also continuous
+
+Definition -- Convex Hull
+Convex hull or convex envelope is the smallest convex set that contains all points in set X. Computing the convex hull means constructing an unambiguous, efficient representation of the required convex shape. The convex hull of the given points is identical to the set of all their convex combinations.
+A convex combination is a linear combination of points (which can be vectors, scalars, or more generally points in an affine space) where all coefficients are non-negative and sum to 1. Formally give n points in real vector space, $x_1, ... x_n$ a convex combination is a point $y=a_{1}x_1 + ... + a_{n}x_n$ such that the sum of the weights is 1, $\sum a_i = 1$. We can also by the same token obtain the convex combination of probability distributions. 
+
+For example, every convex combination of two points lies on the line segment between the points, then in an edge we have the convex hull or the 2-1(=1)-simplex. For three points, every convex combination will lie in the area, so the triangle is a convex hull or a 3-1(=2)-complex. %YS dont see this, why every linear combination must lie in the straight line or in the triangle for 3points?
+% https://en.wikipedia.org/wiki/Convex_combination
+%mean corrected (Scanner drift is corrected by detrending and mean correction is the simplest way to detrend data -normalizing to the mean signal intensity of each run other more complicated forms of detreanding is wavelets, polinomial interpolation etc.)
+
+
+
 %Examples of simplicial complexes%%%%
 
 %Poincaré argues that what science can attain is not the things themselves,
@@ -448,12 +513,7 @@ There are other complexes, like concurrent complexes (for coactivation but I don
 %An extension of this ideas is directedness of information flow has been used to investigate the relationship between simulated structural and functional neural networks \cite{dotko2016topological}. % Markram
 
 
-Convex hull or convex envelope is the smallest convex set that contains all points in set X. Computing the convex hull means constructing an unambiguous, efficient representation of the required convex shape. The convex hull of the given points is identical to the set of all their convex combinations.
-A convex combination is a linear combination of points (which can be vectors, scalars, or more generally points in an affine space) where all coefficients are non-negative and sum to 1. Formally give n points in real vector space, $x_1, ... x_n$ a convex combination is a point $y=a_{1}x_1 + ... + a_{n}x_n$ such that the sum of the weights is 1, $\sum a_i = 1$. We can also by the same token obtain the convex combination of probability distributions. 
 
-For example, every convex combination of two points lies on the line segment between the points, then in an edge we have the convex hull or the 2-1(=1)-simplex. For three points, every convex combination will lie in the area, so the triangle is a convex hull or a 3-1(=2)-complex. %YS dont see this, why every linear combination must lie in the straight line or in the triangle for 3points?
-% https://en.wikipedia.org/wiki/Convex_combination
-%mean corrected (Scanner drift is corrected by detrending and mean correction is the simplest way to detrend data -normalizing to the mean signal intensity of each run other more complicated forms of detreanding is wavelets, polinomial interpolation etc.)
  
 "Marginal" distance because they used to be found by summing values in a table along rows or columns, and writing the sum in the margins of the table. 
 %http://www.statisticshowto.com/marginal-distribution/  https://en.wikipedia.org/wiki/Marginal_distribution
