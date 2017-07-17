@@ -62,11 +62,22 @@ We describe simplicial complexes, a generalization of graphs able to capture pol
 Section \ref{sec:s1} provides an introduction to algebraic topology, specifically simplicial complexes and the rips filtration and functorality. In section \ref{sec:1} we justify the need of a multiscale framework by exposing the inherent difficulties of the existing paradigm to deal with the threshold selection problem and to encoding multiple coactivity patterns.
 We conclude (section \ref{sec:1}) with a discussion on the future of algebraic topology in biological systems modeling and its implications in a causal theory of biological function.
 
+%Statistical shape theory, Darcy Thompson, finite configuration of points in euclidean space. Euclidean space imposes a choice in the form of Euclidean distance from the axioms or the corpus, but is not necessarily the only possible distance, for example, in genomics one may want ot use Hamming distance (between sequences of memeber of an alphabet). But all this is not useful for large set of data and Gromov-Hausdorff distance is very difficult to compute, so one if often looking for some kind of qualitative features. Note that metrics are useful but sometimes reflect an intuitive notion of similarity, close are similar, far apart are different. Distances are quite arbitrary. Gemoetry can be defined as the study of metrics and topology studies proeprties of geometric obects that remain after one allows oneself to stretch and deform the object without tearing it. 
+%A ball has B0 =1 (one connected component), B1 = 0 (no holes), B2 = 1, torus is 1,2,1 a double torus 
+%The homology that persists (the cycles) across epsilon is what we are looking for
 \section{Algebraic topology for biologists}
-\label{se:s1}
+\label{se:at}
 
 In this section we will provide some definitions and provide examples to make the concepts clear to the reader, specially for those not familiar with the field of topology. In particular, we provide definitions of alegraic topology, topology, topological space and simplicial complex. The idea is to give the reader the basic idea, for a more in detail treatment of algebraic topology see \cite{munkres1984elements}, \cite{hatcher2001} and for an introduction to topological data analysis see \cite{carlsson2009topology} and \cite{wasserman2016topological}. The reader familiar with these terms can directly skip to section \ref{}.
 
+%AT branch of math concerbed with prperties of geometric objects taht are invariant under continuous deformations (bending, twisting, stretching, but not tearing). A dought and a coffe mug is the same but an eight an a donught are "unrelated" i can not make one the other, because an eight has 2 holes. Thus, the key property invariant under continuous deformation is the presence of holes. So, AT is alrgekly concerned with formalizing the notion of a hole in a geometric object. i-dimensional holes.
+%0-D holes are connected components of geometric objects, 1-D hole in 3-D objects are holes you can see through (cheese holes) a 2-D in a 3-D object is a hollow space, for instance a ballon, you cant see through but there is a hole, the ballon traps air inside
+%AT provides a mechanism for counting holes, which is Betti numbers. For a dimensional object $\mathcal{X}$, we define $B_i($\mathcal{X}$)$, the ith Betti number of $\mathcal{X}$ to be the number of i-dimensional holes in $\mathcal{X}$.
+%For example a double donught (eight), $B_0(X) = 1$, one connected component, $B_1(X)=2$, hole I can see through and $B_2(X)=0$, no hollow spaces.
+%For discretely represented geometric objects, $B_i(X)$, is easily computable via linear algebra.
+%For every space X and integer k, get a boolean vector space $H_k(X)$, dimension of H_0 is the number of connected components, and dimension of $H_k$ counts the number of k-dimensional holes., the dimension oif K_k is called Betti numberA continuous map f induces linear transformation (fucntoriality)
+
+ 
 Algebraic topology is the study of topological spaces using abstract algebra. The goal is to classify topological spaces up to homeomorphism, that is, find the intrinsic qualitative aspects of spatial objects that remain invariant under homeomorphic transformations. Definitions of homeomorphism, continuous maps and related terms can be find in the Appendix.
 The are two main approaches in the study of algebraic topology: one is to decompose the topological space into many but simple pieces and the other is to deal with only a few but complicated pieces. Computational topologists find more interesting the first approach -many simple pieces- and the simplicial complex is the prime example. The second approach -few but complicated pieces- is of more interest for those looking for aesthetically pleasing shapes \cite{edelsbrunner2010computational}. %algebraic geometry
 
@@ -155,8 +166,48 @@ YS: Example of filtration
 
 With optogenetics, DBS, TMS etc. one can stimulate single neurons or specific groups of neurons to control their function. To meet this need, one can construct a different type of filtration \cite{taylor2015topological} that construct a sequence of simplicial complexes with a time parameter, labeling each simplex as “on” or “off” at each time, and require that once simplices “turn on” they remain so indefinitely. This type of filtration is of use in  diffusion model of fronto-temporal dementia and in contagion models (Taylor et al. 2015), where a simplex becomes active once sufficiently many nearby simplices are active.
 
+\subsection{Topological data analysis (TDA)}
+\label{sec:tda}
+%https://www.youtube.com/watch?v=8IUtUSwEOCo   (Michael Lesnick )
+TDA is a relatively new branch of statistics (15 years old or so). The  goal of TDA is to apply topology (an older and mature mathematics) to study qualitative features of data. 
+Of course, data means very different things depending on the context, in TDA data refers to any of this 2 things. A data cloud, which is  a finite set of points is $\mathcal{R}^n$  or any set of points with some notion of distance embedded and Functions, in particular functions that take values in the Real line, $f:\mathcal{X} \to \mathcal{R}, \mathcal{X}$ is any space.
+
+Qualitative features refers to coarse-scale, global geometric features. Examples of qualitative features of point cloud data are Clusters, Cycles, Tendrils/Flares, Graph structure.  Our interest is in partitioning the data into data structures and very specially in the presence of low density noise. We can also find the analogue of these features in functions, Modes (peaks of the function) is the analogue of clusters, Craters is the analogue of cycles in the data (R2 to R, a volcano)...
+TDA provides formal definition of those features, the computational tools for detecting such features and very importantly when the data is noisy, a methodology for quantifying the statistical significance of such features.
+
+The key premise of this method and of any unsupervised learning method, since this is what this thing is, is that getting insight into the shape of scientific data will likely give us insight into the science itself or the processes that generated those data.
+Data has shape, and shape has meaning.
+
+
+%https://www.oreilly.com/ideas/data-has-a-shape(Data has shape, and shape has a meaning)
+%Connection between topology and ML
+Topology studies the mapping of one space into another through continuous deformations.
+Machine learning algorithms produce functional mappings from an input space to an output space and lend themselves to be understood using the formalisms of topology. A topological approach allows you to study data sets without assuming a shape beforehand and to combine various machine learning techniques while maintaining guarantees about the underlying shape of the data.  In standard machine learning, the shape of the data is usually an afterthought. Topology puts the shape front and center — i.e., as being the most important aspect of your data.
+
+Applications of TDA: biophysics of proteins (compressibility of proteins) , genomics and virus evolution, astronomy (large scale organization of galaxies), coverage detection in wireless sensor networks, shape segmentation, shape comparison, basketball analytics (revealed 13 new basketball positions) %https://www.wired.com/2012/04/analytics-basketball/
+
+%Algebraic Topology --- Holes qualitative features of data--(problems) -- PH
+% Metric data set (high dimensional space) -- Build geometric filtered complex on top of data -- compute persistent homology of the complex
 \subsection{Persistent homology}
-\label{sec:1}
+\label{sec:pj}
+%https://www.youtube.com/watch?v=XOZN3XZdoO0 (Chad Giusti)
+
+%Holes
+In section \ref{se:at} we comment on the hole detection mechanism in Algebraic Topology. Persistent homology provides robust computational methods for studying qualitative features of data. PH was created in 2000 to detect the intrinsic structure of a manifold underlying point cloud data. PH produces simple descriptors of qualitative features of data called barcodes (are nothing but closed intervals in a line $\mathcal{R}$).
+%IT is easy to see the cycle in a 2D image, but what if it seats ina  20 dimensional space? we can not see it, sop we need PH
+The intuitive idea is to choose a real positive number, $r > 0$ (r is a thickening parameter) and let $U(X,r)$ denote the union of balls of radius r centered at the points of X and then calculate the Betti number $B_i(U(X,r))$ of this object (for some choice of r). %min 25 see the example
+When X is nice enough for a good choice of r $B_1$ detects the cycle in X. 
+Problems:
+Choosing r is not straightforward, and furthermore, the invariant may  be instable with respect to perturbation of data (noise) or small changes in r., it doesn't distinguish large from small holes, and the invariant is very sensitive to outliers.
+%Multiscale multidensity%
+The solution is not single choice of radius but all choices of r at once, do this via Filtrations: a  filtration is a 1-parameter family of geometric objects
+$F(X) = \{U(X, r)\}_{r  0, \infty}$, a union of balls with varying radius. Holes is then predicated in an ensemble of objects (as the radius increases) rather than for an individual object. For each $i \geq 0$, we can define barcdode $B_i(X)$, a set of closed intervals in R.
+
+
+Persistent homology (PH) is a method used in topological data analysis (TDA) to study qualitative features of data that persist across multiple scales. It is robust to perturbations of input data, independent of dimensions and coordinates, and provides a compact representation of the qualitative features of the input. (Python Mapper software) 
+% www.ams.org/journals/bull/2009-46-02/S0273-0979-09-01249-X/ http://diglib.eg.org/handle/10.2312/SPBG.SPBG07.091-100
+% $MapperGUI.py
+
 Persistent homology:  the sequence of complexes in the filtration is transformed by homology into an inter-related family of evolving cycles.
 
 Computational problems: computing the persistent homology from correlation data of 100 neurons leads to a simplicial complex with approximately 107 4-simplices, while the same computation for a population of 200 neurons involves two orders of magnitude more.
@@ -164,9 +215,7 @@ To mitigate this combinatorial growth in complexity, use reduction algorithms as
 Another approach is to use the fact that homology can be computed locally and then aggregated, allowing for distributed computation over multiple processors and memory cores (Bauer et al. 2014). Finally, computing approximate homology further reduces complexity in difficult cases while still providing useful statistical information (Sheehy 2013). 
 For a review in the state of the art of computational methods in topological analysis (persistent homology) \cite{otter2015roadmap}.
 
-Persistent homology (PH) is a method used in topological data analysis (TDA) to study qualitative features of data that persist across multiple scales. It is robust to perturbations of input data, independent of dimensions and coordinates, and provides a compact representation of the qualitative features of the input. (Python Mapper software) 
-% www.ams.org/journals/bull/2009-46-02/S0273-0979-09-01249-X/ http://diglib.eg.org/handle/10.2312/SPBG.SPBG07.091-100
-% $MapperGUI.py
+
 
 
 A homeomorphism between two topological spaces X,Y is a bijective function such that $f:X \to Y$ and $f^{-1}$ are both continuous. If topological spaces are homeomorphic then they are topologically equivalent, that is, have the same topology type.
