@@ -153,11 +153,12 @@ A graph consists on a set of vertices and a set of edges or pair of vertices. A 
 %Isabel K. Darcy simplicial complex from data https://www.youtube.com/watch?v=E7d7LHb6PLc&t=902s
 Let us see with an example. Given a set of data points shown in \ref{fig:vrcomplex} where each point is a particular region of interest in the human brain, each point is also a 0-simplex. For the sake simplicity the vertices are just anatomical locations, however, other choices are possible, for example, a time series measured at regiosn of interest extracted from fMRI data (T2* signal).
 In order to study the structure of the data set we need to relate the points based on some idea of closeness that is relevant for us. For example, the euclidean distance between points or if we are dealing with fMRI data, the correlation between two time series extracted from the T2* signal at two regions of interest.
-
 %How to grow simplices of higher order? 
 The first step is to connect the points that are close to each other according to a threshold, for example, a significant correlation level. We draw an edge or 1-simplex for every two data points that are close to each other. Our choice for similarity between points is the quantity $\epsilon$. Two points, u,v, are connected if their euclidean distance is less than the threshold $\epsilon$ , $d(u,v) < \epsilon$. 
 As a result, we have cast the dataset into four disjoint sets or clusters of 1-simplices or edges. The next step is to add higher dimensional simplices. To find 2-simplices, we need to build triangles by filling the space defined by three edges or 1-dimensional simplices to get a "side" or a 2-simplex. We can continue finding 3-dimensional simplices or tetrahedron whose boundary is the four faces given by 2-simplices and so on for even higher dimensions that nevertheless, can not be easily visualized. 
-%The idea behind the cionstruction of simplicial complex is that with n points that are closed together, one can form a n-1 simplex. So a data point is a 0-simplex, when we build a relationship we have 1-simplex and whenever we have a triangle we add 2-simplices, whenever we have a tetrahedron (4 points close together.  tetrahedron is the Platonic solid $P_5$ with four polyhedron vertices, six polyhedron edges, and four equivalent equilateral triangular faces) we have a 3-simplex, when 5 points are lose together we add 4 -simplex and so on. It is in reality a two steps process, one we connect the points and two we build a n-complex for each group of n+1 points.
+
+The idea behind the construction of simplicial complex depicted in Figure \ref{fig:vrcomplex} is that with n points that are closed together, one can form a n-1 simplex. So a data point is a 0-simplex, when we establish a relationship between two points or 0-simplices we have 1-simplex and whenever we have a triangle or 2-simplex we are putting together two 1-simplices or edges, whenever we have a tetrahedron or 3-simplex, we are adding 4 2-simplices or triangles, similarly for 4 -simplex and so on. 
+%It is in reality a two steps process, one we connect the points and two we build a n-complex for each group of n+1 points.
 
 %1-simplex from brain
 \begin{figure}[h]
@@ -169,9 +170,35 @@ As a result, we have cast the dataset into four disjoint sets or clusters of 1-s
 
 \subsubsection{Filtration of simplicial complexes} 
 %Simplicial complexes encode diverse neural data modalities. After choosing the complex of interest, quantitative and theoretical tools can be used to describe, compare, and explain the statistical properties of their structure in a manner analogous to graph statistics or network diagnostics.
-The choice of the threshold affects the kind of simplicial complex that we get, since choosing one in particular is hardly justifiable, we choose all possible thresholds. By increasing the threshold eventually all the data points will be part of the same simplex, one component.
+We have shown above how to build the Vietoris Rips simplicial complex from a point cloud data set. The choice of the threshold $\epsilon$ is the key factor and determines the final simplicial complex. The election of one threshold in particular is usually ad-hoc and made and hardly justifiable. A alternative to overcome this difficulty is to select all possible threshold. This process is called filtration.
+The filtration of the complex is the method by which the complex is reduced into its constituent pieces by consecutively applying different thresholds to build  simplicial complex whose simplices represent data points that are closed enough given the actual threshold. 
+Crucially, filtrations reveal more detailed structure in the complex, and provide tools for understanding how that structure arises and can be seen as an alternative to thresholding, providing a principled approach to binarizing graphs.
+Filtrations can be used to assess the dynamics of neural processes \cite{•},  \cite{•}, \cite{•}. 
+
+
+Figure \ref{} shows an example of a Filtration of simplicial complex.
+
+
+
+%Figure
+
+By increasing the threshold eventually all the data points will be part of the same simplex, one component.
 
 Figure Simplicial Complex (All thresholds)
+
+
+However, it is also the case that these unweighted complexes are related to one another, and more sophisticated measurements of structure, like homology, can exploit these relations to extract much finer detail of the evolution of the complexes as the threshold varies.
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -180,8 +207,7 @@ We start by generalizing familiar graph statistics to be used in simplicial comp
 In addition to these more or less straight extensions of quantitative graph measure into simplicial complexes, however the power of algebraic topology comes with the use of algebraic topology for example, homology of the complex to identify homology cycles.
 
 % filtration to binarize rather than thresholding
-The filtration of the complex is the method by which the complex is reduced into its constituent pieces. Filtrations can be used to assess the dynamics of neural processes. Filtrations reveal more detailed structure in the complex, and provide tools for understanding how that structure arises and can be seen as an alternative to thresholding a weighted complex, providing a principled approach to binarizing graphs.
-A filtration of complexes can be constructed by consecutively applying each of the weights as thresholds in turn, constructing an unweighted simplicial complex whose simplices are precisely those whose weight exceeds the threshold, and labeling each such complex by the weight at which it was binarized. However, it is also the case that these unweighted complexes are related to one another, and more sophisticated measurements of structure, like homology, can exploit these relations to extract much finer detail of the evolution of the complexes as the threshold varies.
+
 
 YS: Example of filtration 
 
