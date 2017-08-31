@@ -11,6 +11,16 @@ Aleksandrov, A.D., Lavrent'ev, M.A., et~al.: Mathematics: Its content, methods
   and meaning.
 \newblock Courier Corporation (1999)
 
+\bibitem{babichev2016topological}
+Babichev, A., Cheng, S., Dabaghian, Y.A.: Topological schemas of cognitive maps
+  and spatial learning.
+\newblock Frontiers in computational neuroscience \textbf{10} (2016)
+
+\bibitem{bendich2016persistent}
+Bendich, P., Marron, J.S., Miller, E., Pieloch, A., Skwerer, S.: Persistent
+  homology analysis of brain artery trees.
+\newblock The annals of applied statistics \textbf{10}(1), 198 (2016)
+
 \bibitem{boczko2005structure}
 Boczko, E.M., Cooper, T.G., Gedeon, T., Mischaikow, K., Murdock, D.G., Pratap,
   S., Wells, K.S.: Structure theorems and the dynamics of nitrogen catabolite
@@ -18,19 +28,74 @@ Boczko, E.M., Cooper, T.G., Gedeon, T., Mischaikow, K., Murdock, D.G., Pratap,
 \newblock Proceedings of the National Academy of Sciences of the United States
   of America \textbf{102}(16), 5647--5652 (2005)
 
+\bibitem{cang2015topological}
+Cang, Z., Mu, L., Wu, K., Opron, K., Xia, K., Wei, G.W.: A topological approach
+  for protein classification.
+\newblock Molecular Based Mathematical Biology \textbf{3}(1) (2015)
+
 \bibitem{carlsson2009topology}
 Carlsson, G.: Topology and data.
 \newblock Bulletin of the American Mathematical Society \textbf{46}(2),
   255--308 (2009)
 
+\bibitem{cassidy2015brain}
+Cassidy, B., Rae, C., Solo, V.: Brain activity: Conditional dissimilarity and
+  persistent homology.
+\newblock In: Biomedical Imaging (ISBI), 2015 IEEE 12th International Symposium
+  on, pp. 1356--1359. IEEE (2015)
+
+\bibitem{chan2013topology}
+Chan, J.M., Carlsson, G., Rabadan, R.: Topology of viral evolution.
+\newblock Proceedings of the National Academy of Sciences \textbf{110}(46),
+  18,566--18,571 (2013)
+
+\bibitem{chen2014neural}
+Chen, Z., Gomperts, S.N., Yamamoto, J., Wilson, M.A.: Neural representation of
+  spatial topology in the rodent hippocampus.
+\newblock Neural computation \textbf{26}(1), 1--39 (2014)
+
+\bibitem{chung2009persistence}
+Chung, M.K., Bubenik, P., Kim, P.T.: Persistence diagrams of cortical surface
+  data.
+\newblock In: International Conference on Information Processing in Medical
+  Imaging, pp. 386--397. Springer (2009)
+
+\bibitem{chung2015persistent}
+Chung, M.K., Hanson, J.L., Ye, J., Davidson, R.J., Pollak, S.D.: Persistent
+  homology in sparse regression and its application to brain morphometry.
+\newblock IEEE transactions on medical imaging \textbf{34}(9), 1928--1939
+  (2015)
+
 \bibitem{curto2016can}
 Curto, C.: What can topology tell us about the neural code?
 \newblock arXiv preprint arXiv:1605.01905  (2016)
+
+\bibitem{curto2017can}
+Curto, C.: What can topology tell us about the neural code?
+\newblock Bulletin of the American Mathematical Society \textbf{54}(1), 63--78
+  (2017)
+
+\bibitem{curto2017makes}
+Curto, C., Gross, E., Jeffries, J., Morrison, K., Omar, M., Rosen, Z., Shiu,
+  A., Youngs, N.: What makes a neural code convex?
+\newblock SIAM Journal on Applied Algebra and Geometry \textbf{1}(1), 222--238
+  (2017)
 
 \bibitem{dabaghian2014reconceiving}
 Dabaghian, Y., Brandt, V.L., Frank, L.M.: Reconceiving the hippocampal map as a
   topological template.
 \newblock Elife \textbf{3}, e03,476 (2014)
+
+\bibitem{dabaghian2012topological}
+Dabaghian, Y., M{\'e}moli, F., Frank, L., Carlsson, G.: A topological paradigm
+  for hippocampal spatial map formation using persistent homology.
+\newblock PLoS computational biology \textbf{8}(8), e1002,581 (2012)
+
+\bibitem{dotko2016topological}
+Dotko, P., Hess, K., Levi, R., Nolte, M., Reimann, M., Scolamiero, M., Turner,
+  K., Muller, E., Markram, H.: Topological analysis of the connectome of
+  digital reconstructions of neural microcircuits.
+\newblock arXiv preprint arXiv:1601.01580  (2016)
 
 \bibitem{edelsbrunner2010computational}
 Edelsbrunner, H., Harer, J.: Computational topology: an introduction.
@@ -47,9 +112,38 @@ Giusti, C., Ghrist, R., Bassett, D.S.: Two's company, three (or more) is a
   in neural data.
 \newblock arXiv preprint arXiv:1601.01704  (2016)
 
+\bibitem{giusti2015clique}
+Giusti, C., Pastalkova, E., Curto, C., Itskov, V.: Clique topology reveals
+  intrinsic geometric structure in neural correlations.
+\newblock Proceedings of the National Academy of Sciences \textbf{112}(44),
+  13,455--13,460 (2015)
+
 \bibitem{hatcher2001}
 Hatcher, A.: Algebraic Topology, vol.~1.
 \newblock Cambridge University Press (2001)
+
+\bibitem{hoffman1966lie}
+Hoffman, W.C.: The lie algebra of visual perception.
+\newblock Journal of Mathematical Psychology \textbf{3}(1), 65--98 (1966)
+
+\bibitem{kovacev2016using}
+Kovacev-Nikolic, V., Bubenik, P., Nikoli{\'c}, D., Heo, G.: Using persistent
+  homology and dynamical distances to analyze protein binding.
+\newblock Statistical applications in genetics and molecular biology
+  \textbf{15}(1), 19--38 (2016)
+
+\bibitem{lee2017integrated}
+Lee, H., Kang, H., Chung, M.K., Lim, S., Kim, B.N., Lee, D.S.: Integrated
+  multimodal network approach to pet and mri based on multidimensional
+  persistent homology.
+\newblock Human brain mapping \textbf{38}(3), 1387--1402 (2017)
+
+\bibitem{lord2016insights}
+Lord, L.D., Expert, P., Fernandes, H.M., Petri, G., Van~Hartevelt, T.J.,
+  Vaccarino, F., Deco, G., Turkheimer, F., Kringelbach, M.L.: Insights into
+  brain architectures from the homological scaffolds of functional connectivity
+  networks.
+\newblock Frontiers in systems neuroscience \textbf{10} (2016)
 
 \bibitem{markram2015reconstruction}
 Markram, H., Muller, E., Ramaswamy, S., Reimann, M.W., Abdellah, M., Sanchez,
@@ -77,13 +171,35 @@ Otter, N., Porter, M.A., Tillmann, U., Grindrod, P., Harrington, H.A.: A
 Papo, D., Buld{\'u}, J.M., Boccaletti, S., Bullmore, E.T.: Complex network
   theory and the brain (2014)
 
+\bibitem{petri2014homological}
+Petri, G., Expert, P., Turkheimer, F., Carhart-Harris, R., Nutt, D., Hellyer,
+  P.J., Vaccarino, F.: Homological scaffolds of brain functional networks.
+\newblock Journal of The Royal Society Interface \textbf{11}(101), 20140,873
+  (2014)
+
+\bibitem{pirino2015topological}
+Pirino, V., Riccomagno, E., Martinoia, S., Massobrio, P.: A topological study
+  of repetitive co-activation networks in in vitro cortical assemblies.
+\newblock Physical biology \textbf{12}(1), 016,007 (2015)
+
 \bibitem{Poincare:1952}
 Poincaré, H.: Science and Hypothesis.
 \newblock Dover Publications, New York, NY, USA (1952)
 
+\bibitem{reimann2017cliques}
+Reimann, M.W., Nolte, M., Scolamiero, M., Turner, K., Perin, R., Chindemi, G.,
+  D{\l}otko, P., Levi, R., Hess, K., Markram, H.: Cliques of neurons bound into
+  cavities provide a missing link between structure and function.
+\newblock Frontiers in Computational Neuroscience \textbf{11}, 48 (2017)
+
 \bibitem{rovelli2015relative}
 Rovelli, C.: Relative information at the foundation of physics.
 \newblock In: It From Bit or Bit From It?, pp. 79--86. Springer (2015)
+
+\bibitem{singh2008topological}
+Singh, G., Memoli, F., Ishkhanov, T., Sapiro, G., Carlsson, G., Ringach, D.L.:
+  Topological analysis of population activity in visual cortex.
+\newblock Journal of vision \textbf{8}(8), 11--11 (2008)
 
 \bibitem{stam2014modern}
 Stam, C.J.: Modern network science of neurological disorders.
@@ -98,6 +214,12 @@ Stefan, H., Lopes Da~Silva, F.H.: Epileptic neuronal networks: methods of
 Suppes, P.: Axiomatic set theory.
 \newblock Courier Corporation (1960)
 
+\bibitem{taylor2015topological}
+Taylor, D., Klimm, F., Harrington, H.A., Kram{\'a}r, M., Mischaikow, K.,
+  Porter, M.A., Mucha, P.J.: Topological data analysis of contagion maps for
+  examining spreading processes on networks.
+\newblock Nature communications \textbf{6} (2015)
+
 \bibitem{toppi2012statistical}
 Toppi, J., de~Vico~Fallani, F., Vecchiato, G., Maglione, A.G., Cincotti, F.,
   Mattia, D., Salinari, S., Babiloni, F., Astolfi, L.: How the statistical
@@ -109,5 +231,15 @@ Toppi, J., de~Vico~Fallani, F., Vecchiato, G., Maglione, A.G., Cincotti, F.,
 \bibitem{wasserman2016topological}
 Wasserman, L.: Topological data analysis.
 \newblock arXiv preprint arXiv:1609.08227  (2016)
+
+\bibitem{xia2014persistent}
+Xia, K., Wei, G.W.: Persistent homology analysis of protein structure,
+  flexibility, and folding.
+\newblock International journal for numerical methods in biomedical engineering
+  \textbf{30}(8), 814--844 (2014)
+
+\bibitem{zeeman:1962}
+Zeeman, E.C.: The Topology of the Brain and Visual Perception.
+\newblock Prentice-Hall, New York (1962)
 
 \end{thebibliography}
