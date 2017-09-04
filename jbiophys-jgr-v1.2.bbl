@@ -106,6 +106,18 @@ Fallani, F.D.V., Richiardi, J., Chavez, M., Achard, S.: Graph analysis of
   functional brain networks: practical issues in translational neuroscience.
 \newblock Phil. Trans. R. Soc. B \textbf{369}(1653), 20130,521 (2014)
 
+\bibitem{gameiro2015topological}
+Gameiro, M., Hiraoka, Y., Izumi, S., Kramar, M., Mischaikow, K., Nanda, V.: A
+  topological measurement of protein compressibility.
+\newblock Japan Journal of Industrial and Applied Mathematics \textbf{32}(1),
+  1--17 (2015)
+
+\bibitem{ghrist2005coverage}
+Ghrist, R., Muhammad, A.: Coverage and hole-detection in sensor networks via
+  homology.
+\newblock In: Information Processing in Sensor Networks, 2005. IPSN 2005.
+  Fourth International Symposium on, pp. 254--260. IEEE (2005)
+
 \bibitem{giusti2016two}
 Giusti, C., Ghrist, R., Bassett, D.S.: Two's company, three (or more) is a
   simplex: Algebraic-topological tools for understanding higher-order structure
@@ -122,9 +134,20 @@ Giusti, C., Pastalkova, E., Curto, C., Itskov, V.: Clique topology reveals
 Hatcher, A.: Algebraic Topology, vol.~1.
 \newblock Cambridge University Press (2001)
 
+\bibitem{hausmann1995vietoris}
+Hausmann, J.C., et~al.: On the vietoris-rips complexes and a cohomology theory
+  for metric spaces.
+\newblock Annals of Mathematics Studies \textbf{138}, 175--188 (1995)
+
 \bibitem{hoffman1966lie}
 Hoffman, W.C.: The lie algebra of visual perception.
 \newblock Journal of Mathematical Psychology \textbf{3}(1), 65--98 (1966)
+
+\bibitem{kim2014morphological}
+Kim, E., Kang, H., Lee, H., Lee, H.J., Suh, M.W., Song, J.J., Oh, S.H., Lee,
+  D.S.: Morphological brain network assessed using graph theory and network
+  filtration in deaf adults.
+\newblock Hearing research \textbf{315}, 88--98 (2014)
 
 \bibitem{kovacev2016using}
 Kovacev-Nikolic, V., Bubenik, P., Nikoli{\'c}, D., Heo, G.: Using persistent
@@ -171,6 +194,12 @@ Otter, N., Porter, M.A., Tillmann, U., Grindrod, P., Harrington, H.A.: A
 Papo, D., Buld{\'u}, J.M., Boccaletti, S., Bullmore, E.T.: Complex network
   theory and the brain (2014)
 
+\bibitem{perea2015sliding}
+Perea, J.A., Harer, J.: Sliding windows and persistence: An application of
+  topological methods to signal analysis.
+\newblock Foundations of Computational Mathematics \textbf{15}(3), 799--838
+  (2015)
+
 \bibitem{petri2014homological}
 Petri, G., Expert, P., Turkheimer, F., Carhart-Harris, R., Nutt, D., Hellyer,
   P.J., Vaccarino, F.: Homological scaffolds of brain functional networks.
@@ -183,7 +212,7 @@ Pirino, V., Riccomagno, E., Martinoia, S., Massobrio, P.: A topological study
 \newblock Physical biology \textbf{12}(1), 016,007 (2015)
 
 \bibitem{Poincare:1952}
-Poincaré, H.: Science and Hypothesis.
+Poincarï¿½, H.: Science and Hypothesis.
 \newblock Dover Publications, New York, NY, USA (1952)
 
 \bibitem{reimann2017cliques}
@@ -195,6 +224,12 @@ Reimann, M.W., Nolte, M., Scolamiero, M., Turner, K., Perin, R., Chindemi, G.,
 \bibitem{rovelli2015relative}
 Rovelli, C.: Relative information at the foundation of physics.
 \newblock In: It From Bit or Bit From It?, pp. 79--86. Springer (2015)
+
+\bibitem{schmidt2011disease}
+Schmidt, S., Post, T.M., Boroujerdi, M.A., van Kesteren, C., Ploeger, B.A.,
+  Della~Pasqua, O.E., Danhof, M.: Disease progression analysis: towards
+  mechanism-based models.
+\newblock In: Clinical trial simulations, pp. 433--455. Springer (2011)
 
 \bibitem{singh2008topological}
 Singh, G., Memoli, F., Ishkhanov, T., Sapiro, G., Carlsson, G., Ringach, D.L.:
