@@ -16,6 +16,12 @@ Babichev, A., Cheng, S., Dabaghian, Y.A.: Topological schemas of cognitive maps
   and spatial learning.
 \newblock Frontiers in computational neuroscience \textbf{10} (2016)
 
+\bibitem{bendich2010computing}
+Bendich, P., Edelsbrunner, H., Kerber, M.: Computing robustness and persistence
+  for images.
+\newblock IEEE transactions on visualization and computer graphics
+  \textbf{16}(6), 1251--1260 (2010)
+
 \bibitem{bendich2016persistent}
 Bendich, P., Marron, J.S., Miller, E., Pieloch, A., Skwerer, S.: Persistent
   homology analysis of brain artery trees.
@@ -100,6 +106,11 @@ Dotko, P., Hess, K., Levi, R., Nolte, M., Reimann, M., Scolamiero, M., Turner,
 \bibitem{edelsbrunner2010computational}
 Edelsbrunner, H., Harer, J.: Computational topology: an introduction.
 \newblock American Mathematical Soc. (2010)
+
+\bibitem{ellis2014describing}
+Ellis, S.P., Klein, A.: Describing high-order statistical dependence using"
+  concurrence topology", with application to functional mri brain data.
+\newblock Homology, Homotopy and Applications \textbf{16(1)} (2014)
 
 \bibitem{fallani2014graph}
 Fallani, F.D.V., Richiardi, J., Chavez, M., Achard, S.: Graph analysis of
