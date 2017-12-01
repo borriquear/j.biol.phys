@@ -69,23 +69,24 @@ An application of persistent homology using resting state fMRI brain connectivy 
 %A ball has B0 =1 (one connected component), B1 = 0 (no holes), B2 = 1, torus is 1,2,1 a double torus
 %The homology that persists (the cycles) across epsilon is what we are looking for
 
-\section{Algebraic topology}  % for biologists}
+\section{Algebraic topology}  % for biologists
 \label{se:at}
 
-In this section we will provide some definitions and examples to make some key concepts clear to the reader, specially for those not familiar with the field of topology. In particular, we provide definitions of algebraic topology, topology, topological space, simplicial complex, filtration and persistent homology. The idea is to provide a smooth entry point to these techniques. For a more in detail treatment of algebraic and computational topology, see \cite{munkres1984elements}, \cite{hatcher2001} and for an introduction to topological data analysis see \cite{carlsson2009topology} and \cite{wasserman2016topological}. The reader familiar with the theory can directly skip to section \ref{se:tda}.
+In this section we will provide some definitions and examples to make some key concepts clear to the reader, specially for those not familiar with the field of topology. In particular, we provide definitions of algebraic topology, topological space, simplicial complex, filtration and persistent homology. The idea is to provide a smooth entry point to these techniques. For a more in detail treatment, see \cite{munkres1984elements}, \cite{hatcher2001} and for an introduction to topological data analysis see \cite{carlsson2009topology} and \cite{wasserman2016topological}. The reader familiar with the theory can directly skip to section \ref{se:tda}.
 
-We will proceed providing the due definitions in this order: \emph{algebraic topology}, \emph{topology}, \emph{topological space}, \emph{simplicial complex} and its constituent parts called \emph{simplices} to finally study the \emph{persistent homology} method. Simplical complex and persistent homology will be studied in Section \ref{se:tda} by examples.
+We will proceed providing the due definitions in this order: \emph{algebraic topology}, \emph{topology}, \emph{topological space}, \emph{simplicial complex} and its constituent parts called \emph{simplices} to finally study the \emph{persistent homology} method. 
+%Simplical complex and persistent homology will be studied in Section \ref{se:tda} by examples.
 
 \begin{definition}
 Algebraic topology is the study of topological spaces using abstract algebra.
 \end{definition}
-The goal is to classify topological spaces up to homeomorphism, that is, find the intrinsic qualitative aspects of spatial objects that remain invariant under homeomorphic transformations. Definitions of homeomorphism, continuous maps and related terms can be find in the Appendix.
 
-The are two main approaches in the study of algebraic topology: one is to decompose the topological space into many but simple pieces and the other is to deal with only a few but complicated pieces. Computational topologists favour the first approach -many simple pieces- and the simplicial complex is the prime example. The second approach -few but complicated pieces- is of more interest for those looking for aesthetically pleasing shapes \cite{edelsbrunner2010computational}. %algebraic geometry
+There are two main approaches in the study of algebraic topology: \emph{i} decompose the topological space into many but simple pieces and \emph{ii} deal with only a few but complicated pieces. Computational topologists favour the first approach -many simple pieces- and the simplicial complex is the prime example of this. The second approach -few but complicated pieces- is of more interest for those looking for aesthetically pleasing shapes \cite{edelsbrunner2010computational}.
 
-Algebraic Topology is concerned with properties of geometric objects that are invariant under continuous deformations i.e. bending, twisting and stretching, but not tearing.
+The goal of algebraic topology is to classify topological spaces up to homeomorphism, that is, find the intrinsic qualitative aspects of spatial objects that remain invariant under homeomorphic transformations. Definitions of homeomorphism, continuous maps and related terms can be find in the Appendix. Algebraic Topology is concerned with properties of geometric objects that are invariant under continuous deformations i.e. bending, twisting and stretching, but not tearing.
 For example, a torus and a coffee mug are topologically equivalent both have one hole and it is always possible to get a coffee mug from a torus and viceversa via continuous transformations. On the other hand, a torus and a double torus (a sphere with two handles and two holes) are not homeomorphic because they have different number of holes.
-It follows that the presence of holes in a geometric figure is the key property, that is, invariant under continuous deformation. The notion of a i-dimensional hole or cavity in a geometric object is formalized using algebraic topology. For example, given a 3-dimensional geometric object, finding a 0-dimensional hole entails that the geometric object has a connected component, a 1-dimensional hole is a hole that one can see through e.g. the hole in a doughnut or a cheese hole and a 2-dimensional hole is a hollow space, e.g. a balloon one can't see through but there is air trap inside the surface. See Figure \ref{fig:iholes} for an example.
+It follows that the presence of holes in a geometric figure is the key property studied in algebraic topology, that is, the invariant under continuous deformation. 
+Algebraic topology formalizes the notion i-dimensional hole or cavity. For example, given a 3-dimensional geometric object, finding a 0-dimensional hole entails that the geometric object has one connected component. A 1-dimensional hole is a cavity that one can see through e.g. the hole in a doughnut or a cheese hole. A 2-dimensional hole is a hollow space, e.g. a balloon one can't see through but there is air trap inside the surface (Figure \ref{fig:iholes})
 
 % to draw figures use TikZ
 % sphere, https://tex.stackexchange.com/questions/42812/3d-bodies-in-tikz
@@ -96,44 +97,14 @@ It follows that the presence of holes in a geometric figure is the key property,
         \centering
         \includegraphics[width=0.1\linewidth]{../figures/800px-Double_torus_wiki}
         \caption{The figure shows the number of i-dimensional holes (i=0,1,2) for a compact sphere, a torus, a double torus and a balloon.
-        Let $B_i$ the number of i-dimensional holes be . For (a), $B_0=1, B_1=0, B_2=0$ (a compact sphere has one connected component and no holes in it); (b) $B_0=1, B_1=1, B_2=0$ (a torus has one connected component, one holes where one can see through and no hollow spaces); (c) $B_0=0, B_1=2, B_2=0$ (a double torus has one connected component, two holes where one can see through and no hollow spaces.) and (d) $B_0=1, B_1=0, B_2=1$ (a balloon has one connected component, no holes where one can see through and one hollow spaces).
+        Let $B_i$ ne the number of i-dimensional holes. For (a), $B_0=1, B_1=0, B_2=0$, a compact sphere has one connected component and no holes in it; (b) $B_0=1, B_1=1, B_2=0$, a torus has one connected component, one hole where one can see through and no hollow spaces; (c) $B_0=0, B_1=2, B_2=0$, a double torus has one connected component, two holes where one can see through and no hollow spaces and (d) $B_0=1, B_1=0, B_2=1$; a balloon has one connected component, no holes where one can see through and one hollow spaces.
         }
 \label{fig:iholes}
 \end{figure}
 
-Since the goal of algebraic topology is to classify topological spaces, we need to know first what a topological spaces is and for that we need to define topology. It is worth reminding that sets are collection of points lacking structure, in order to study how the objects (data points) in a set are related, for example, who is connected with who, we need to find continuity maps. The goal of defining topologies on a set is to add structure to that set, in particular, continuity.
+Since the goal of algebraic topology is to classify topological spaces. A formal definition of topology with examples is given in the appendix. It is worth reminding that sets are collection of points lacking structure, in order to study how the objects (data points) in a set are related, for example, who is connected with who, we need to find continuity maps. The goal of defining topologies in a set is to add structure, in particular, continuity.
+A topological space can be understood as a set with the structure provided by the chosen topology. Formally,  
 
-\begin{definition}
-Let M be a set, a topology O is a subset of the power set of M, $O \subseteq \mathcal{P}(M)$ iff O  satisfies three axioms:
-\begin{itemize}
-\item[i] $\emptyset \subseteq O, M \subseteq O$
-\item[ii] $U \subseteq  O, V \subseteq O$, then, $U \cap V \subseteq O$
-\item[iii] $U_i \subseteq O, \bigcup  U_i \subseteq O$
-\end{itemize}
-\label{def:topology}
-\end{definition}
-
-The first axiom states that the empty set and the set M are in the topology O, the second axiom that for any two subsets of O the intersection also exists in the topology O, and the third axiom that the union of any subset of O also belongs to O.
-
-\begin{example}
-%Example 1
-Let $M = \{a,b,c\}$ and $O = \{\emptyset, \{a,b,c\}\}$. O is a topology since it holds the three axioms.
-\label{ex:1}
-\end{example}
-%Example 2
-\begin{example}
-Let $M = \{a,b,c\}$ and $O = \{\emptyset, \{a\}, \{b\}\}$. O is not a topology since axiom ii does not hold true, $\{a\} \cup \{b\} \nsubseteq O$.
-\label{ex:2}
-\end{example}
-%Example 3
-\begin{example}
-Let $M = \{a,b,c\}$ and $O = \{\emptyset, \{a\}, \{b\}, \{c\}, \{a,b\},\{b,c\},\{a,c\},\{a,b,c\}\}$. O is a topology, the three axioms are true.
-\label{ex:3}
-\end{example}
-%Open set definition to Appendix
-For any given set M, the topologies on the set M are bounded. Thus, the topology with the fewest number of elements is $O = \{\emptyset, M\}$ is called chaotic topology (Example \ref{ex:1}), and the topology with the maximum number of elements is $O = P(M)$ is called discrete topology (Example \ref{ex:3}).
-
-Having defined topology we can now define topological space as a set with the structure provided by the chosen topology. Formally,
 \begin{definition}
 %Topological space
 A topological space, T=(M,O), is an ordered pair or tuple consisting in a set M (for example, under the ZFC axioms \cite{suppes1960axiomatic}) and a topology O. %The topology O is a collection of subsets of M, satisfying the axioms in Definition \ref{def:topology}.
@@ -141,7 +112,7 @@ A topological space, T=(M,O), is an ordered pair or tuple consisting in a set M 
 
 Topological spaces offer continuous models of reality and are the most general mathematical space, for instance, metric spaces are specializations of topological spaces equipped with extra structure or constraints.
 %if we are only interested in connectedness, topological spaces are, in practical terms, similar to graphs.
-For example, the set of points in the plane $M \subseteq \mathbb{R}^2$ together with the topology generated by the Euclidean metric (pairs of points) is a topological space. To construct the topology, we call the set of points at distance less than $r, r > 0$ from a point $x \subseteq \mathbb{R}^2$ an open disk. Taking finite intersections and arbitrary unions of open disks, we get a collection of open sets that satisfies the conditions of topological space.
+For example, the set of points in the plane $M \subseteq \mathbb{R}^2$ together with the topology generated by the Euclidean metric is a topological space. To construct the topology, we call the set of points at distance less than $r, r > 0$ from a point $x \subseteq \mathbb{R}^2$ an open disk. Taking finite intersections and arbitrary unions of open disks, we get a collection of open sets that satisfies the conditions of topological space.
 %A neighborhood is an open disk centered in the point.
 
 %\subsection{Simplicial complex}
@@ -152,21 +123,19 @@ For example, the set of points in the plane $M \subseteq \mathbb{R}^2$ together 
 %Because any given simplex is required to “contain all of its faces”, it suffices to specify only the maximal simplices, those which do not appear as faces of another simplex (Fig. 4c). This dramatically reduces the amount of data necessary to specify a simplicial complex, which helps make both conceptual work and computations feasible.
 %YS: ojo literal
 
-Once we have defined topological space we can define simplicial complex. A simplicial complex is a decomposition of a topological space into (topologically) simple pieces and their common intersections are lower-dimensional pieces of the same kind.
-
-It is possibly easier to grasp the concept of simpicial complex by means of analogy with graph, because  simplicial complex generalizes graphs.
+Once we have defined topological space we can define simplicial complex. A simplicial complex is a decomposition of a topological space into (topologically) simple pieces and their common intersections are lower-dimensional pieces of the same kind. Since simplicial complex generalizes graphs it is possibly easier to grasp the concept of simpicial complex by means of analogy with graph. 
 A graph consists of a set of vertices and a set of edges forming a list of pair of vertices. A simplicial complex, on the other hand, is a set of vertices and a collection of simplices where a simplex is a finite set of vertices with the additional property that any subset of a simplex is also a simplex. In the same way as one can represent a graph as a collection of points and line segments (edges) between them, one can represent the simplices in a simplicial complex as a collection of solid regions spanning vertices. Formally,
 
 \begin{definition}
-An (abstract) simplicial complex X, is a pair of sets: $V_X$ of vertices and $S_X$ of simplices, $X=(V_X,S_X)$. Each simplex in the set of simplices $S_X$ is a subset of the vertices $V_X$ plus the condition that if $\sigma$ is in $S_X$ then every subset $\tau$, $\tau \in \sigma$ is also in $S_X$, $\tau \in S_X$.
+An (abstract) simplicial complex X is a pair of sets: $V_X$ of vertices and $S_X$ of simplices, $X=(V_X,S_X)$. Each simplex in the set of simplices $S_X$ is a subset of the vertices $V_X$ plus the condition that if $\sigma$ is in $S_X$ then every subset $\tau$, $\tau \in \sigma$ is also in $S_X$, $\tau \in S_X$.
 \end{definition}
 
-A simplex with n elements (vertices) is called a $(n-1)-$simplex or what is the same the convex hull of n vertices (See Appendix for the definition of convex hull). Simplices of small dimensions have proper names: a vertice is a 0-simplex, an edge is a 1-simplex, a triangle or face is a 2-simplex and a tetrahedron is a 3-simplex \footnote{Tetrahedron is the Platonic solid $P_5$ with four polyhedron vertices, six polyhedron edges, and four equivalent equilateral triangular faces}.
+A simplex with n elements (vertices) is called a $(n-1)-$simplex or what is the same the convex hull of n vertices (Convex hull is defined in the Appendix section). Simplices of small dimensions have proper names: a vertice is a 0-simplex, an edge is a 1-simplex, a triangle or face is a 2-simplex and a tetrahedron is a 3-simplex \footnote{Tetrahedron is the Platonic solid $P_5$ with four polyhedron vertices, six polyhedron edges, and four equivalent equilateral triangular faces}.
 
 %construction of simplicial complex
-Figure \ref{fig:vrcomplex} shows the construction of the Vietoris-Rips simplicial complex \cite{hausmann1995vietoris} which is the less demanding, computationally speaking, simplicial complex. The Vietoris-Rips complex is a two step process, first we connect the vertices (or data points) and second we build a n-complex for each group of n+1 points. The first step is to connect the points that are close to each other according to a threshold ($\epsilon$), drawing an edge (1-simplex) for every two data points whose distance is within the threshold. For example, two vertices (or data points) $u,v$ are connected if the euclidean distance (or any other similarity metric) is within the threshold $\epsilon$ , $d(u,v) < \epsilon$. At each step in the process we always want to add the higher dimensional simplex possible. Thus, the next step is to find 2-simplices, for that we need to build triangles by filling the space defined by three edges (1-dimensional simplices) in order to get a "side" or a 2-simplex. We can continue finding 3-dimensional simplices or tetrahedron whose boundary is the four faces given by 2-simplices and so on for higher dimensions that nevertheless, can not be easily visualized.
+Figure \ref{fig:vrcomplex} shows the construction of the Vietoris-Rips simplicial complex \cite{hausmann1995vietoris} which is the less demanding, computationally speaking, simplicial complex. The Vietoris-Rips complex is a two step process, first we connect the vertices (or data points) and second we build a n-complex for each group of n+1 points. The first step consists in connecting the points that are close to each other according to a threshold ($\epsilon$), drawing an edge (1-simplex) for every two data points whose distance is within the threshold. For example, two data points $u,v$ are connected if the euclidean distance (or any other similarity metric) is within the threshold $\epsilon$ , $d(u,v) < \epsilon$. At each step in the process we always want to add the higher dimensional simplex possible. Thus, in the next step we need to find 2-simplices, for that we need to build triangles by filling the space defined by three edges (1-dimensional simplices) in order to get a "side" or a 2-simplex. We can continue finding 3-dimensional simplices or tetrahedron whose boundary is the four faces given by 2-simplices and so on for higher dimensions that nevertheless, can not be easily visualized.
 
-The idea behind the construction of the simplicial complexes depicted in Figure \ref{fig:vrcomplex} is that with n points that are closed together, one can form a n-1 simplex. Thus, when we establish a relationship between two vertices or two 0-simplex we have a 1-simplex (Figure \ref{fig:vrcomplex}(b)) and whenever we have a triangle or 2-simplex we are putting together three edges or 1-simplex (Figure \ref{fig:vrcomplex}(c)), whenever we have a tetrahedron or 3-simplex, we are adding four 2-simplices or triangles (Figure \ref{fig:vrcomplex}(d)), similarly for 4 -simplex and so on.
+The idea behind the construction of the simplicial complexes depicted in Figure \ref{fig:vrcomplex} is that one can form a n-1 simplex with n points that are closed together. By the same token, a relationship between two vertices or two 0-simplex forms a 1-simplex (Figure \ref{fig:vrcomplex}(b)), a triangle or 2-simplex consists in putting together three edges or 1-simplex (Figure \ref{fig:vrcomplex}(c)), a tetrahedron or 3-simplex ifs defined by four 2-simplices or triangles (Figure \ref{fig:vrcomplex}(d)), similarly for 4-simplex and so on.
 %Simplicial complexes encode diverse neural data modalities. After choosing the complex of interest, quantitative and theoretical tools can be used to describe, compare, and explain the statistical properties of their structure in a manner analogous to graph statistics or network diagnostics. (Giusti)
 
 \begin{figure}[h]
@@ -175,16 +144,20 @@ The idea behind the construction of the simplicial complexes depicted in Figure 
 % n different graphs provide n diffrent scs
         \centering
         \includegraphics[width=0.1\linewidth]{../figures/800px-Double_torus_wiki}
-        \caption{The figure shows the simplicial complex obtained from different graphs and a fixed threshold, $\epsilon$ (our definition of similarity) such that two vertices, $u, v$, are connected if the distance between u and v is less than the threshold, $d(u,v) < \epsilon$. Figure \ref{fig:vrcomplex}(a) shows a 0-dimensional simplicial complex from one vertice. (b) shows 1-dimensional simplicial complex obtained by connecting two vertices with an edge.  (c) depicts a 3 vertices networks all connected forming a 2-dimensional simplicial complex (triangle). (d) depicts a 4 vertices all connected forming a 3-dimensional simplicial complex (tetrahedron) the four 2-dimensional complexes are "faces" of the tetrahedron.}
+        \caption{The figure shows the simplicial complex obtained from different graphs and a fixed threshold, $\epsilon$ such that two vertices, $u, v$, are connected if the distance between u and v is less than the threshold, $d(u,v) < \epsilon$. Figure \ref{fig:vrcomplex}(a) shows a 0-dimensional simplicial complex from one vertice. (b) shows 1-dimensional simplicial complex obtained by connecting two vertices with an edge.  (c) depicts a 3 vertices networks all connected forming a 2-dimensional simplicial complex (triangle). (d) depicts a 4 vertices all connected forming a 3-dimensional simplicial complex (tetrahedron) the four 2-dimensional complexes are "faces" of the tetrahedron.}
 \label{fig:vrcomplex}
 \end{figure}
 
 % Persistent Homology
-The simplicial complex generalizes network models and therefore quantitative measurements of network properties such as clustering, path length etc. can be directly generalized. For example, the clustering coefficient of a node in a network can be translated into the number of simplices of each size in which the node participates, and the path length can be reformulated considering paths through simplices of fixed size \cite{dotko2016topological}. However, extending network metrics into simplicial complexes does not reckon the potential of algebraic topology objects like simplicial complexes to encode data.
-The study of the homology of the complex provides a way to identify structures that are overseen in network theory, specifically cycles, holes and flairs. Persistent homology a recent methodology from algebraic topology, only 20 years old, allows us to investigate qualitative features i.e. holes, of geometric objects. Prior to define persistent homology we need to understand \emph{filtration}, the process in which persistent homology relies upon.
+As it was already mentioned, the simplicial complex generalizes network models and therefore network properties can be directly generalized. For example, the clustering coefficient of a node in a network can be translated into the number of simplices of different sizes in which the node participates, and the path length can be reformulated considering paths through simplices of fixed size \cite{dotko2016topological}. However, extending network metrics into simplicial complexes does not reckon the potential of simplicial complexes to encode data.
 
-Figure \ref{fig:vrcomplex} shows that the choice of the threshold $\epsilon$ is a key factor for the obtention of the simplicial complex, for the same data set, two different threshold may generate different but also the same simplicial complexes. For example, two vertices separated a distance $k$ could be connected or not that is, form a 1-simplex depending on the threshold of choice.
-An alternative to overcome this difficulty is to select all possible threshold. This process is called filtration. The filtration of a complex is the method by which the complex is reduced into its constituent pieces by consecutively applying different thresholds in order to build simplicial complexes whose simplices represent data points that are closed enough given the actual threshold. Formally,
+The study of the homology of simplicial complexes provides a way to identify structures that are overseen in network theory, specifically cycles, holes and flairs. Persistent homology a recent methodology from algebraic topology, only 20 years old, allows us to investigate qualitative features i.e. holes, of geometric objects. Prior to define persistent homology we need to understand \emph{filtration}, the process in which persistent homology relies upon.
+
+Figure \ref{fig:vrcomplex} shows that  is a key factor for the obtention of the simplicial complex is the choice of the threshold $\epsilon$, for the same data set, two different threshold may generate 
+different but also the same simplicial complexes. For example, two vertices separated a certain distance could be connected or not that is, form a 1-simplex depending on the threshold of choice.
+Thus, depending on the election of the threshold we may get very different structures which is particularly problematic since the threshold is often selected on an ad hoc basis. 
+
+An alternative to overcome this difficulty is to select a large population of threshold values. This process is called filtration. The filtration of a complex is the method by which the complex is reduced into its constituent pieces by consecutively applying different thresholds in order to build simplicial complexes whose simplices represent data points that are closed enough given the actual threshold. Formally,
 \begin{definition}
 Given a simplicial complex K, a filtration is a succession of growing subcomplexes on K or $K_0 \subseteq K_1 ...   \subseteq K_n$ where each subcomplex $K_i$ is the i-th level of the filtration.
 \end{definition}
@@ -194,11 +167,12 @@ Given a simplicial complex K, a filtration is a succession of growing subcomplex
 %correspondiendo cada nivel Ki al estado de dicha construcción en el instante de tiempo i
 
 % (for some choice of $\epsilon$).
-%min 25 see the example
-The intuitive idea behind filtration is to choose a real positive number, $\epsilon > 0$, ($\epsilon$ is a thickening parameter) and let $U(X,\epsilon)$ denote the union of balls of radius $\epsilon$ centered at the points of X and then calculate the Betti number $B_i(U(X,\epsilon))$ of this object (See the Appendix for a definition of Betti numbers). For each $i \geq 0$, we can define a barcode $B_i(X)$, a set of closed intervals in $\mathcal{R}$. For example, for a good choice of $\epsilon$ in the data set $X \subseteq \mathcal{R}^2$, the Betti number 0, $B_0$ detects the connected component in X, and the Betti number 1, $B_1$ detects the cycles in X.
+% min 25 see the example
+The intuitive idea behind filtration is to choose a real positive number, $\epsilon > 0$, ($\epsilon$ is a thickening parameter) and let $U(X,\epsilon)$ denote the union of balls of radius $\epsilon$ centered at the points of X and then calculate the Betti number $B_i(U(X,\epsilon))$ of this object (See the Appendix for a definition of Betti numbers). For each $i \geq 0$, we can define a barcode $B_i(X)$, which is a set of closed intervals in $\mathcal{R}$. For example, for a good choice of $\epsilon$ in the data set $X \subseteq \mathcal{R}^2$, the Betti number 0, $B_0$ detects the connected component in X, and the Betti number 1, $B_1$ detects the cycles in X.
 
-Thresholding (or selecting significance level) is problematic, particularly when the underlying system has a combination of small-scale features, some of which are noise artifacts, and some of which are critically important. Figure \ref{fig:whyweneedfiltration}(a) identifies a cycle in a 2-dimensional image, this is not particularly challenging to see in a low dimensional space like the plane, but what if the data set seats in a let us say, 40-dimensional space?
-The invariant that we are looking for may be unstable with respect to perturbation of data (noise) or small changes in $\epsilon$. For example, $\epsilon$ may not be able to distinguish large from small holes, also the invariant could be very sensitive to outliers. See Figure \ref{fig:whyweneedfiltration}(b) for an illustration of this point.
+Thresholding (or selecting significance level) is problematic, particularly when the underlying system has a combination of small-scale features, some of which are noise artifacts, and some of which are critically important. Figure \ref{fig:whyweneedfiltration} shows an example of a filtration of simplicial complex obtained by changing the $\epsilon$. It shows how to build the Vietoris Rips simplicial complex from a point cloud data set or set of vertices, a cycle or hole is identified in \ref{fig:whyweneedfiltration}(a), in \ref{fig:whyweneedfiltration}(b) using a different significance level teh hole is missed.
+Figure \ref{fig:whyweneedfiltration}(a) identifies a cycle in a 2-dimensional image, this is not particularly challenging to see in a low dimensional space like the plane, but what if the data set seats in a let us say, 40-dimensional space?
+The invariant that we are looking for may be unstable with respect to perturbation of data (noise) or small changes in $\epsilon$. For example, the thickening parameter or threshold of choice $\epsilon$ may not be able to distinguish large from small holes, also the invariant could be very sensitive to outliers. \ref{fig:whyweneedfiltration}(b) is an illustration of this point.
 
 \begin{figure}[h]
 %Figure 3 Why we need to do filtration, fixed epsilon fails to detect features (small holes or noisy data)---Hole detection Example
@@ -207,21 +181,30 @@ The invariant that we are looking for may be unstable with respect to perturbati
 %https://www.youtube.com/watch?v=XOZN3XZdoO0 (Chad Giusti)
         \centering
         \includegraphics[width=0.1\linewidth]{../figures/800px-Double_torus_wiki}
-        \caption{Figure shows the filtration process obtained by changing the $\epsilon$.
-        %The figure exemplifies that the election of one threshold is usually ad-hoc and made and hardly justifiable.
-        The chosen $\epsilon$ fails to detect the cycle or hole in the data set. In \ref{fig:whyweneedfiltration}(a) and in \ref{fig:whyweneedfiltration}(b) we obtain a cycle or hole. Figure \ref{fig:whyweneedfiltration} shows an example of a filtration of simplicial complex obtained by changing the $\epsilon$. We start with 0 dimensional data points and we define closeness between points using a ball having the data point as the center, the threshold is the diameter of the ball and when two balls intersects the two data points are connected. From one unique data cloud when applied different thresholds monotonically increasing we obtain different simplical complexes. By increasing the threshold eventually all the data points will be part of the same simplex, forming one single component. Figure \ref{fig:whyweneedfiltration} shows how to build the Vietoris Rips simplicial complex from a point cloud data set or set of vertices, a cycle or hole is identified.}
+        \captioni{. Figure shows the filtration process obtained by changing the threshold $\epsilon$.
+        The chosen $\epsilon$ in a) allows us to detect cycle or hole in the data set but it fails to detect it in b) . We start with 0 dimensional data points and we define closeness between points using a ball having the data point as the center, the threshold is the diameter of the ball and when two balls intersects the two data points are connected. From one unique data cloud when applied different thresholds monotonically increasing we obtain different simplical complexes. By increasing the threshold eventually all the data points will be part of the same simplex, forming one single component.}
 \label{fig:whyweneedfiltration}
 \end{figure}
 
 %Filtration: Multiscale multidensity%
 Crucially, filtrations reveal additional structure in the complex and provide tools for understanding how that structure arises and can be seen as an alternative to thresholding, providing a principled approach to binarizing graphs. Performing filtration to generate simplicial complexes would be incomplete without the analysis of the features of the data that emerge across the filtration process as a result of varying the closeness parameter ($\epsilon$). Furthermore, it is also the case that the complexes generated via filtration are related to one another and sophisticated measurements of structure i.e. homology, can be used to extract much finer detail of the evolution of the complexes as the threshold varies.
+The idea of persistent homology is to look for features for instance a hole that persist for some range of parameter values. Betti numbers are the most typical feature studied in persistent homology. Typically, features, for example a hole, will appear and disappear as the parameter changes in value. 
+
 %Filtrations can be used to assess the dynamics of neural processes \cite{kim2014morphological}, \cite{giusti2016two}.
 %This graph filtration approach along with the persistent homology framework can be used to differentiate between classes of networks, so it can be a sort of hierarchical classifier. For example, used in differentiating between glucose metabolic network using 102 ROI from FDG-PET from ADHD, ASD and pediatric controls.
 % Here biblio on filtration applied to biology
 
-%PH
-Persistent homology provides robust computational methods for studying qualitative features of data. Persistent homology was created in 2000 to detect the intrinsic structure of a manifold underlying point cloud data. It produces simple descriptors of qualitative features of data called barcodes which are nothing but closed intervals in a line $\mathcal{R}$). Given a topological space, its homology is a formal, algebraic way to talk about its connectivity.
-Persistent homology is computationally very heavy and it has only very recently, thanks to dramatic improvements in processing capabilities of modern computers, that persistent homology methods have been put to use to solve real world problems.
+% https://ncatlab.org/nlab/show/persistent+homology
+\begin{definition}
+Persistent homology is a computational homology theory useful in analyzing large data sets. 
+It identifies a ‘filtration structure’ of the complex by means of keeping track of the homology classes that stay ‘persistent’ upon changes in the data space resolution.
+\end{definition}
+
+
+%Thus, the Betti numbers of the complex X will vary with the parameter p, $B_p(X)$. For example, for p=0 , $B_0(X)$ identifies the number of connected components and $B_1(X)$ the number of holes etc.
+
+Persistent homology was created in 2000 to detect the intrinsic structure of a manifold underlying point cloud data and provides robust computational methods for studying qualitative features. It produces simple descriptors of qualitative features of data called barcodes which are nothing but closed intervals in a line $\mathcal{R}$). Given a topological space, its homology is a formal, algebraic way to talk about its connectivity.
+Persistent homology is computationally very heavy and it has only until very recently, thanks to dramatic improvements in processing capabilities of modern computers, that persistent homology methods have been put to use to solve real world problems.
 However, homology in complex biological systems is still challenging. The computation of the permanent homology from correlation data of 100 neurons leads to a simplicial complex with approximately 107 4-simplices, the same computation for a population of 200 neurons (2x) involves two orders of magnitude more (100x).
 To mitigate this combinatorial growth in complexity, different solutions exist, for a review see \cite{otter2015roadmap}
 
@@ -239,14 +222,13 @@ In table \ref{table:table} we have grouped the concepts defined in this section.
 \hline
  Concept & Definition\\ \hline
 \multirow{3}{*}{Algebraic topology}
- & {} \\
+ %& {} \\
  & {The study of topological spaces using abstract algebra.}  \\
- & {} \\
+ %& {} \\
  \hline
 \multirow{3}{*}{Topological space}
- & { } \\
+ %& { } \\
  & {T=(M,O) is an ordered pair or tuple consisting in a set M and a topology O.}  \\
- & \\
  \hline
  \multirow{3}{*}{Topology}
  & {For a given set M, a topology O is a subset of the power set of M such that} \\
@@ -262,11 +244,10 @@ In table \ref{table:table} we have grouped the concepts defined in this section.
   \multirow{3}{*}{Filtration}
  & {1-parameter family of geometric objects, $F(X) = \{U(X, \epsilon)\}, \epsilon = \{ 0, \infty\}$, that is, }  \\
  & {a union of balls with varying radius.}  \\
- & \\
  \hline\multirow{3}{*}{Persistent Homology}
  & {A method used in topological data analysis (TDA) to study qualitative features of data }  \\
  & {that persist across multiple scales. It is robust to perturbations of input data and  independent}  \\
- & {of dimensions and coordinates} \\
+ & {of dimensions and coordinates.} \\
  \hline
 \end{tabular}
 \label{table:table}
@@ -484,6 +465,39 @@ Dabaghian claims that the paper provides evidence that hippocampal networks repr
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Appendix}
+
+\subsection{Definitions}
+
+\begin{definition}
+Let M be a set, a topology O is a subset of the power set of M, $O \subseteq \mathcal{P}(M)$ iff O  satisfies three axioms:
+\begin{itemize}
+\item[i] $\emptyset \subseteq O, M \subseteq O$
+\item[ii] $U \subseteq  O, V \subseteq O$, then, $U \cap V \subseteq O$
+\item[iii] $U_i \subseteq O, \bigcup  U_i \subseteq O$
+\end{itemize}
+\label{def:topology}
+\end{definition}
+
+The first axiom states that the empty set and the set M are in the topology O, the second axiom that for any two subsets of O the intersection also exists in the topology O, and the third axiom that the union of any subset of O also belongs to O.
+
+\begin{example}
+%Example 1
+Let $M = \{a,b,c\}$ and $O = \{\emptyset, \{a,b,c\}\}$. O is a topology since it holds the three axioms.
+\label{ex:1}
+\end{example}
+%Example 2
+\begin{example}
+Let $M = \{a,b,c\}$ and $O = \{\emptyset, \{a\}, \{b\}\}$. O is not a topology since axiom ii does not hold true, $\{a\} \cup \{b\} \nsubseteq O$.
+\label{ex:2}
+\end{example}
+%Example 3
+\begin{example}
+Let $M = \{a,b,c\}$ and $O = \{\emptyset, \{a\}, \{b\}, \{c\}, \{a,b\},\{b,c\},\{a,c\},\{a,b,c\}\}$. O is a topology, the three axioms are true.
+\label{ex:3}
+\end{example}
+%Open set definition to Appendix
+For any given set M, the topologies on the set M are bounded. Thus, the topology with the fewest number of elements is $O = \{\emptyset, M\}$ is called chaotic topology (Example \ref{ex:1}), and the topology with the maximum number of elements is $O = P(M)$ is called discrete topology (Example \ref{ex:3}).
+
 \subsection{Clustering}
 
 Cluster analysis or clustering is the mapping of a measurement set into subsets called clusters, so that observations in the same cluster are similar (points within each cluster are similar to each other and points from different clusters are dissimilar).
