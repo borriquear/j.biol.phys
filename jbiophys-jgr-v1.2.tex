@@ -300,19 +300,17 @@ The use of networks is predicated on a simplifying assumption: that the quintess
 
 Because a network can only describe dyadic relationships between population elements, any binary coactivity network constructed from such observations would necessarily be identical. It does not matter which distance is used, correlation, mutual information, coherency etc. at the end the network formalism will force us to build dyadic relationships.
 
-The crux of the matter is to have available a mathematical formalism able to capture higher order interactions. More versatile versatile language able to explicitly encoding multiple (other than double, triple etc.) coactivity pattern exist. In \cite{ellis2014describing}, the authors study the frequency of observation of coactivity patterns in fMRI recordings to extract fundamental computational units. Even when those regions which are coactive will change dynamically over time, cohesive functional units will appear more often than those that happen coincidental, though it is impossible to set an a priori threshold for the significance of such observations. Figure \ref{ex:dyadic} provides an illustration of this.
-
+The crux of the matter is to have available a mathematical formalism able to capture higher order interactions. There are however, more versatile versatile forms able to explicitly encoding multiple (other than double, triple etc.) coactivity pattern exist. For instance, concurrence topology, a new nonparametric method for describing high-order dependence has been used to study the frequency of observation of coactivity patterns in fMRI recordings \cite{ellis2014describing}. Ellis and colleagues \cite{ellis2014describing} show that brain regions which are coactive change dynamically over time and that these cohesive functional units will appear more often than those that happen coincidental. This invalidates the method of selcting an a priori threshold to study the significance of the deepndencies among regions, for an illustration of this see Figure \ref{ex:dyadic}.
 % we dont solve here the threshold, selection significance problem, it is in reality a problem of scale?
 %Real geometry is that that persist against changes of scale to understand the shape we need to dynamically change the threshold.
 %https://www.youtube.com/watch?v=kctyag2Xi8o
 
 \begin{figure}[h]
-  %Figure 4 pacemaker coactivity (model geneerated not fMRI)
+  %Figure 4 pacemaker coactivity (model generated not fMRI)
         \centering
         \includegraphics[width=0.1\linewidth]{../figures/800px-Double_torus_wiki}
-        \caption{Example-faces represent coactivity
-        Figure phase lagtime lag and zero lag, show pacemaker 3 or more can be identify with network
-        A graph consists of a set of vertices and a specified collection of pairs of vertices, called edges. An edge between two vertices exist when the distance between the relevant properties of those vertices within a certain threshold. Thus, a graph is a system of dyadic relationships and, very importantly, is unable to encode higher order interactions. For example, three nodes in a graph can work as a pacemaker or be simultaneously active and there is nothing in the graph-theoretic formalism that will tell the difference.}
+        \caption{The figure shows the inadequacy of graph to model high-order dependence among pairs of variables. A graph is a system of dyadic relationships and, very importantly, is unable to encode higher order interactions. In Figure \ref{ex:dyadic} a) theree nodes are connected though edges (1-simplex) denoting that the tree nodes are "connected". In Figure \ref{ex:dyadic} b), the nodes are connected via edges and there is also a face (triangle) which represents coactivity of the three brain regions or nodes. Thus, a) has three 1-simplex or edges that represent dependence among nodes (0-siplex) and b) has one face (2-simplex) which represent coactivity of the three brain regions or nodes. Simplicial complexes allows us to distinguish between having, for example, three connected nodes working as a pacemaker to having nodes tha are simultaneously active, importantly, there is nothing in the graph-theoretic formalism that will tell the difference.
+         }
 \label{ex:dyadic}
 \end{figure}
 
@@ -321,96 +319,66 @@ The crux of the matter is to have available a mathematical formalism able to cap
 %Network comparison with persistent homology
 %3.2.b. relationship between networks as the threshold changes. Filtration is the process of selecting all possible threshold and PH is the method to compute the topological in the resulting topological space (n dimensions))
 
-The standard approach in network analysis consists in deriving a network from the covariance/variance matrix by establishing a threshold of convenience. For example using the distribution of values in the covariance/variance matrix we can make the threshold to be equal to the mean plus one  standard deviation. But it is not only possible but also preferible to study the relationship between networks as the threshold changes, that is, rather than imposing one threshold ad-hoc, we can study the network evolution as the threshold changes.
+The standard approach in network analysis consists in deriving a network from the covariance/variance matrix by establishing a threshold of convenience. For example, the threshold can be be equal to the mean plus one standard deviation of the distribution in the covariance/variance matrix. But it is not only possible but also preferible to study the relationship between networks as the threshold changes, that is, rather than imposing one threshold ad-hoc, we can study the network evolution as the threshold changes. 
 
-
-%Persistent homology allows to study the architecture as it evolves with every new threshold. A pair of nodes a, b are linked if $d(y_a, y_b) \leq \epsilon$. When $\epsilon = 0$ the network is totally disconnected and has N (number of nodes) components, the number of connected components increases as $\epsilon$ increases until the threshold is $\epsilon_{max}$ in which case the network is fully connected. It is the continuous variation of $\epsilon$ what gives us a graph filtration.
-%Figure shows \ref{fig:ph1} how persistent homology can overcome the problem of thresholding (or selecting significance level) when the underlying system has a combination of small-scale features, some of which are noise artifacts, and some of which are critically important.
-
-Thus, for the binary network $B$, we obtain the sequence of networks $\{B_{\epsilon}\}$, where $\epsilon$ is a vector containing all the possible thresholds. For the Rips complex as $\epsilon$ increases the Rips complex becomes larger, that is, $B_{\epsilon_0} \in B_{\epsilon_1} ... B_{\epsilon_n}$, for $\epsilon_0 \leq \epsilon_1 ...\epsilon_n$. As the filtration value $\epsilon$ changes the topological properties of the Rips complex changes.
+Persistent homology allows to study the architecture as it evolves with every new threshold. For a binary network $B$, we obtain the sequence of networks $\{B_{\epsilon}\}$, where $\epsilon$ is a vector containing all the possible thresholds. In particular, for the Rips complex as $\epsilon$ increases the Rips complex becomes larger, that is, $B_{\epsilon_0} \in B_{\epsilon_1} ... B_{\epsilon_n}$, for $\epsilon_0 \leq \epsilon_1 ...\epsilon_n$. As the filtration value $\epsilon$ changes the topological properties of the Rips complex changes with it.
 The connected components are merged during Rips filtration and can be represented with a dendogram, a tree diagram that is commonly used in clustering analysis.
-
 Once the sequence of networks is built, we are left to study their evolution, for that we need to compute their distances. We can compare the networks with graph theoretic measures like assortativity, betweenness centrality etc. However, topological space generalize metric space this makes possible to transcend the standard network analysis.
-The Gramov-Hausdorff distance allows us to measure the distance between two metric spaces. In essence, it just finds the edge that is most different in the two networks. For example, for the node sets X and Y since both are projected to the same template, then the node $x_i \in X$ is simply map to node $y_i \in Y$. The Gramov-Hausdorff distance can be trivially discretized as
-\begin{equation}
-d_{}(X,Y) = \frac{1}{2}_{x_i \in X, y_j \in Y} max |d_X(x_i,x_j) - d_Y(y_i,y_j))|
-\end{equation}
-% Gromov distance in python http://stackoverflow.com/questions/30706079/hausdorff-distance-between-3d-grids
-
-In figure \ref{fig:ph1} we provide an example of network comparison using resting state fMRI data.
-First, we have a measurement set denoted as $X= \{x_1 ... x_p\}$ where $x_i$ refers to the time series associated with a region of interest (ROI) in the resting state fMRI data set (the preprocessing of the image is described in detailin the Appendix section).
-The measurement $x_i$ can be assumed to be normally distributed $x_i ~ N(0,1)$, the distance between two measurements can be, for example, calculated with the Pearson correlation $c_{X}(x_i,x_j)= 1 - corr(x_i,x_j)$ or other form of coupling in frequency domain for example phase coupling, power coupling etc.
-% also Granger causality and other
-%YS cor should be in abs value
-The measurement set $X$ and the distance $c_X$ form the metric space $(X,c_X)$. The network constructed by thresholding the correlation matrix between nodes is as follows: there is a link between two nodes, if $c(x_i,x_j) \leq \epsilon$, otherwise the nodes are not connected.
-
-Figure \ref{fig:ph1} (a) shows the pipeline -the correlation/covariance matrix we perform a filtration process with a vector $\epsilon$ of possible thresholds.
-Figure \ref{fig:ph1} (b) displays the resulting networks of applying each of the possible thresholds contained in the threshold vector $\epsilon= \epsilon_0,... \epsilon_i, ..., \epsilon_n$. Figure \ref{fig:ph1} (c) shows the Gramov-Hausdorff distance between the networks.
-
-% and the network resulting from applying the customary threshold equal to the mean plus one standard deviation, $\epsilon=\mu +\sigma$.
-%and across conditions, do they distinguish something
-% The collection of the edges and the nodes gives us a binary network $B(X,\epsilon)$ for threshold $\epsilon$ which is the same as the network $G(V,E)$. Note that here the threshold is variable not fixed as in the orthodox approach based on graph theory a la Sporns.
-
-\begin{figure}[h]
-%Figure 5. from fMRI
-% Example:  i
-        \centering
-        \includegraphics[width=0.1\linewidth]{../figures/800px-Double_torus_wiki}
-        \caption{(a) pipeline (b) obtention of one network for each threshold (c) the GH distance between networks. the GH differentiates between the 2 conditions? Build Correlation/Covariance matrix for (ieeg and/or fmri). ii) Define the epsilon vector and binarize network for each epsilon, e={} and C(epsilon). iii) Calculate the GH distace betweeen networks and across conditions iv)Calculate the barcodes evolution
-        Binarize networks for different epsilon and calculate the GH distance. d) calculates the barcodes or betti number for the threshold as it varies
-}
-\label{fig:ph1}
-\end{figure}
-
-%YS Network as a SC , comparison.
-%(Python Mapper software).
-Figure \ref{fig:ph1} shows how by varying the threshold we obtain different networks, from totally disconnected to fully connected,  providing a distribution of networks in which distance can be studied, as for example with the Gromov Haussdorf distance. This distance is able to differentiate/or not between the two conditions.
-
-In the next example we go a step beyond to use persistent homology in order to compute the Betti number of the topological space of simplicial complexes. The idea is to study the sequence of complexes in the filtration. %can be transformed via homology into an inter-related family of evolving cycles.
-We calculate the simplicial complexes for metric space $B_\epsilon$ of networks. Remember that as
-we previously stated, every metric space is a topological space.
-For p ROIs there are $2^p$ possible subsets that can be a possible topology, the power set as we saw in definition \ref{def:topology} is a representation of the underlying topology.
-Given a (measurement) set $X$ and a rule of connections, the topological space is a simplicial complex and its elements are simplices. %which element
-The important point is that a binary network is a simplicial complex consisting of 0-simplices (nodes) and 1-simplices (edges). A simplicial complex admits larger dimensions.
-
-%A Rips complex is a kind of simplicial complex.
-Given the set $X$, the Rips complex $R(X,\epsilon)$ is a simplicial complex whose k-simplices correspond to $k+1$-tuples of points that are pairwise within distance $\epsilon$.
-While the binary networks have at most 1-semplices, the Rips complex has at most p-1-simplices, so the Rips complex can have faces as well. Trivially, when we use the same distance to build the metric, we have $B(X,\epsilon) \in R(X,\epsilon)$.
-In Figure \ref{fig:ph1} (d) the x axis represents the threshold  and the y axis contains the number of connected components in the other axis (barcode). The barcode in the two conditions show difference/not.
+Persistent homology can overcome the problem of thresholding (or selecting significance level) when the underlying system has a combination of small-scale features, some of which are noise artifacts, and some of which are critically important. In the next section we will show an application of persistence homology applied to brain connectivity data. 
 
 
 \section{Persistence Homology applied to brain connectivity data}
 \label{se:exa}
 
+Persistent homology allows to study the architecture as it evolves with every new threshold. The idea behind 
+persistent homology is to identify the features of data that persist across multiples scales as revealed in a filtration process. A graph filtration is in essence the outcome of the continuous variation of the threshold $\epsilon$ starting from a fully disconnected graph. Thus, for a given threshold $\epsilon$ two nodes a and b are linked if $d(a, b) \leq \epsilon$. When $\epsilon = 0$ the network is totally disconnected and has N (the number of nodes) components. The number of connected components increases as $\epsilon$ increases until the threshold is $\epsilon_{max}$ in which case the network is fully connected. 
+
+In the following example we study the sequence of complexes in the filtration in order to compute the Betti numbers of the of the simplicial complexes that appear and disappear in the filtration.
+%can be transformed via homology into an inter-related family of evolving cycles.
+We calculate the simplicial complexes for the metric space $B_\epsilon$ of networks. Remember that as
+we previously stated in Section \ref{se:at}, every metric space is a topological space.
+For p regions of interest there are $2^p$ subsets candiates to form a topology. The power set as we saw in definition \ref{def:topology} is a representation of the underlying topology.
+Given a (measurement) set $X$ and a rule of connection, the topological space is a simplicial complex and its elements are simplices. The important point is that a binary network is a simplicial complex consisting of 0-simplices (nodes) and 1-simplices (edges). A simplicial complex on the other hand, admits larger dimensions that can be identified via persistent homology methods such as Betti numbers. 
+
+%A Rips complex is a kind of simplicial complex.
+Given the set $X$, the Rips complex $R(X,\epsilon)$ is a simplicial complex whose k-simplices correspond to $k+1$-tuples of points that are pairwise within distance $\epsilon$.
+While the binary networks have at most 1-semplices, the Rips complex has up to p-1-simplices, so the Rips complex can have faces as well. The Rips complex is the main algebraic representation of the entire brain and the multiscale networks are the Rips filtration which is a sequence of nested Rips complexes over different scales. The Betti numbers e.g. connected components, holes and voids, capture the topological information.
+% Trivially, when we use the same distance to build the metric, we have $B(X,\epsilon) \in R(X,\epsilon)$.
+
+We provide an example of the application of persistence homology applied to resting state functional magnetic resonance imaging data (rsFMRI). First, we have a measurement set denoted as $X= \{X_1 ... X_p\}$ where $x_i$ refers to the time series associated with a region of interest (ROI) in the resting state fMRI data set. The preprocessing specifics of the image are described in the Appendix section. 
+The distance between two time series $X_i$ and $X_j$ extracted at regions $i$ and $j$ can be, for example, calculated using the Pearson correlation, $C_{X}(x_i ,x_j)= 1 - corr(x_i,x_j)$ or other form of coupling in time or frequency domain e.g. phase coupling, Granger causality, trasfer entropy etc.
+% also Granger causality and other
+%YS cor should be in abs value
+The measurement set $X$ and the distance $C_X$ form the metric space $(X,C_X)$. The network constructed by thresholding the correlation matrix between nodes is trivially constructed as follows: if $C(X_i,X_j) \leq \epsilon$ there is a link between two nodes, otherwise the nodes are not connected.
+
+Figure \ref{fig:ph1} shows the filtration process and the resulting Betti numbers. Figure \ref{fig:ph1} (d), shows the  \textit{barcode} which is the visualization of the changes in the Betti number over the Rips filtration. The barcode is thus, the topological invariance representation of the network change over filtration, so it lacks geometric information about the nodes, in order to have that we can incorporate the node information to the barcode to obtain a dendogram. Then we can compare the distance between network by calculating the Gromov distance between dendograms.
+%Figure \ref{fig:ph1} (a) shows the pipeline -the correlation/covariance matrix we perform a filtration process with a vector $\epsilon$ of possible thresholds.
+%Figure \ref{fig:ph1} (b) displays the resulting networks of applying each of the possible thresholds contained in the threshold vector $\epsilon= \epsilon_0,... \epsilon_i, ..., \epsilon_n$. Figure \ref{fig:ph1} (c) shows the Gramov-Hausdorff distance between the networks.
+%In Figure \ref{fig:ph1} (d) the x axis represents the threshold  and the y axis contains the number of connected components in the other axis (barcode). The barcode in the two conditions show difference/not.
+\begin{figure}[h]
+%Figure 5. from fMRI
+        \centering
+        \includegraphics[width=0.1\linewidth]{../figures/800px-Double_torus_wiki}
+        \caption{Binarize networks for different epsilon and calculate the GH distance or network cabnonical metrics and the barcodes or betti number for the threshold as it varies (barcodes evolution).
+}
+\label{fig:ph1}
+\end{figure}
+
+% and the network resulting from applying the customary threshold equal to the mean plus one standard deviation, $\epsilon=\mu +\sigma$.
+% and across conditions, do they distinguish something
+% The collection of the edges and the nodes gives us a binary network $B(X,\epsilon)$ for threshold $\epsilon$ which is the same as the network $G(V,E)$. Note that here the threshold is variable not fixed as in the orthodox approach based on graph theory a la Sporns.
+
 \section{Conclusions and Discussion}
 \label{se:conclusion}
-Here we elaborate on the implications of the examples using resting state connectivity data shown in the previous section.
-%YS
 
-About Figure \ref{fig:ph1} (d), a \textit{barcode} is the visualization of the changes in the Betti number over the Rips filtration. Thus, the barcode is the topological invariance representation of the network change over filtration, so it lacks geometric information about the nodes, in order to have that we can incorporate the node information to the barcode to obtain a dendogram. Then we can compare the distance between network by calculating the Gromov distance between dendograms.
-
-
-%NETWORK COMPARISON WITH FREQUENCY DOMAIN PERSISTENT HOMOLOGY. Ben Cassidy, Caroline Rae, Victor  Solo Thresholding (or selecting significance level) is problematic, particularly  %YS bar code built with honology  help in that, short bars are noise, long ones are persistent features.
-% the approach of my eo ec paper:
-%Thresholding :One method for working around this difficulty is filtrations, which record the results of every possible binarization of the network (simplicial complexes building by doing incremental threhold or ball size), along with the associated threshold values. With this approach we can use first order measure of structure in networks (or simplicial complexes) and  “second order” measures as functions of edge weight. Such functions carry information, for example, in their rate of change, where sudden phase transitions in network structure as one varies the threshold can indicate the presence of modules or rich clubs in networks. The area under such curves can help us characterize the geometric structure in the activity of (hippocampal) neural populations, without appealing to external stimuli or receptive field (\cite{giusti2015clique})
-% www.ams.org/journals/bull/2009-46-02/S0273-0979-09-01249-X/ http://diglib.eg.org/handle/10.2312/SPBG.SPBG07.091-100
-% $MapperGUI.py
-%YS Ojo literal
-
-% Krakauer
-%With the advent of high-throughput genomics, transcriptomics, proteomics, and metabolomics, and functional imaging we have witnessed a technological revolution in biology have gone hand by hand with the rise of bioinformatics and ML prediciton.
-%But there has been a lack of complementary conceptual theory that could help us organize the flood of facts. An emphasis on models, rather than theory.
-%A persistent problem in biology is (contrary to statistichal mechanics) that regularities exist at aggregate levels of description, therefore an qualitatively different theory is required to explain these emergent phenomena than the theory describing the underlying microscopic dynamics (Anderson, 1972).
-%In biology, unlike for traditional physical and chemical phenomena, many of the spatial and temporal scales interact. In physics, nuclear forces can be neglected when calculating plane- tary orbits as these are screened off over large distances. In biology, however, the lowest levels can have a direct impact on the highest levels (and vice versa), as in the case of genes that influence behavior and social structures and behavior that influence gene expression patterns.
-
-%\section{Discussion}
-%\label{se:discuss}
-Geometric questions have been pondered since the Greeks or even before, however, topological ones are only one century old  \cite{edelsbrunner2010computational}. A geometric space is defined via geometric measures (distances, areas, angles, etc.), and the relationships that are built on them. A topological space, on the other hand, defines a set of qualitative relationships between its parts: adjacency, containment, connectedness, overlap, cover, etc. \cite{aleksandrov1999mathematics}. Thus, geometric space is defined in terms of quantitative features and the topological space uses
+Geometric questions have been pondered since the Greeks or even before, however, topological ones are only one century old  \cite{edelsbrunner2010computational}. A geometric space is defined via geometric measures (distances, areas, angles, etc.) and the relationships that are built on them. A topological space, on the other hand, defines a set of qualitative relationships between its parts: adjacency, containment, connectedness, overlap, cover, etc. \cite{aleksandrov1999mathematics}. Thus, A geometric space is defined in terms of quantitative features and the topological space uses
 in terms of qualitative relationships.  Both set of features, the metrical and the topological are related but the relation is asymetrical, that is, topological (qualitative) features can be deduced from metrical (quantitative) ones but the inverse is not true. For example, knowing the location and length of two segments we know if they overlap, but knowing that one segment is adjacent to another one does not say nothing about where are they located or their length.
 
-Network modeling has became a standard de facto to study the spatial properties of biological systems. The wealth of studies linking network models with a range of phenomena as wide as genetic marker, genetic regulatory processes, viral evolution, neural coding, synaptic plasticity, cognition, neurodegenerative disorders and consciousness, speaks about the capacity of network modeling to represent objects and their relationships. However, network models as any other modeling process rests upon its own assumptions and limitations.
-Dynamic network data are easily available from multiple disciplines, not only the life sciences but specially from the social science, for example finances, social networks. A new approach for network comparison is persistent homology. The main importance of this approach is that it allows to have a multiscale network framework avoiding the threshold determination problem. Persistent homology can be seen as the analysis of the connectivity pattern as the threshold varies. Thus, it avoids the ad-hoc specification of a threshold for the study of the overlapping network patterns and the rates at which they vary.
-The Rips complex is the main algebraic representation of the entire brain and the multiscale networks are the Rips filtration which is a sequence of nested Rips complexes over different scales. The Betti numbers e.g. connected components, holes and voids, capture the topological information.
+The most populat geometric model is the network model. Network modeling has became a standard de facto to study the spatial properties of biological systems. The wealth of studies linking network models with a range of phenomena as wide as genetic marker, genetic regulatory processes, viral evolution, neural coding, synaptic plasticity, cognition, neurodegenerative disorders and consciousness, speaks about the capacity of network modeling to represent objects and their relationships. 
+%However, network models as any other modeling process rests upon its own assumptions and limitations.
+
+Dynamic network data are easily available from multiple disciplines, not only the life sciences but specially from the social science, for example finances, social networks. A new approach for network comparison is persistent homology. The main advantage of this approach is that it allows to have a multiscale network framework avoiding the threshold determination problem. Persistent homology can be seen as the analysis of the connectivity pattern as the threshold varies. Thus, it avoids the ad-hoc specification of a threshold for the study of the overlapping network patterns and the rates at which they vary.
+
 
 The basic concepts of persistent homology in relation to networks are
 \begin{itemize}
@@ -427,33 +395,7 @@ Roughly speaking, the uses of topology in neuroscience can be categorized into t
 \item Suppose we are monitoring with painstaking detail the electrical firing at every time point of a neuron, what governs the behavior of this cell? the network, bien sure!  Now, imagine that we could monitor the activity of all the other neurons, and we knew exactly the pattern of connections between them, and were blessed with an excellent model describing all relevant dynamics, then (maybe?) we would be able to predict when our neuron will fire. This seems a far away project, but monitoring  single cells as we do now seemed impossible in the 50's. %lit
 \end{enumerate}
 
-We discussed by means of examples points i and ii in the previous section. We pass to briefly  discuss here point iii or the neural coding. The idea is to give the reader the basic concepts  to understand what are this very novel approach hhas to say about a very old problem how the brain represents space.
 
-Hubel and Wiesel pioneering work in the visual cortex inserted a microelectrode in the primary visual cortex of an anesthesized cat, but they could not monitor, let alone control the activity of neighboring cells, they could just listen to one neuron at a time, what they could control was the stimulus (bars with certain angle). They found orientation-tuned neurons.
-
-O'Keefe made a remarkable discovery on the same lines, but more striking, because in the hippocampus there is not an obvious sensory path, but he reported that hippocampal place cells responded selectively to spatial locations.
-With this discovery and with the Grid cells later on mind, we may ask are neurons vertices in a network or autonomous device (sensors) attuned with the outside world? Both models can be valid but yield different conceptual and methodological consequences. The first view, neurons are nodes in a network, is endorsed by neural networks and the last by neural coding. In the neural network paradigm the neuron behavior is described via network properties and in neural coding theory the neuronal behavior is a black box with the focus in the relationship between the external stimulus and the neural activity.
-
-We know about the neural coding of neurons but not much abut the neural coding of networks, since it seems that they belong to two different conceptual schemes. But topology, a mathematical theory in which neuroscientists are not trained at all, may be the natural tool for understanding the neural code of brain networks.
-
-For place cells, when simultaneous recordings of place cells became possible, it was shown via statistical inference (using previously measured place fields) that the animal's position could indeed be inferred from population place cell activity. The place cell code, thus, naturally reflects the topology of the represented space.
-
-% Curto review for neural coding (place cells)
-\cite{curto2016can} Some have argued that hippocampal place cell code is fundamentally topological in nature [12, 6] while others have argued that considerable geometric information is also present and can be extracted using topological methods [9, 18]. Dabaghian have worked towards disambiguate geometric and topological information: the place fields respected topological aspects of the environment more than metric features \cite{dabaghian2014reconceiving}. Also, about the grid cells, it turns out that the space represented by grid cells is not the full environment, but a torus.
-
-The wealth of studies linking network models with cognition, disease \cite{stefan2013epileptic}, \cite{stam2014modern} and novel biomarkers points out to a paradigm shift in systems, cognitive, and clinical neuroscience: namely, that brain function and alteration are inherently networked phenomena.
-% Dialectics, so far focus on one side, the bivariate, next step is the poly variate, when we master that, interventional attack will make sense (causal)
-% the road towards causation pass by mastering the polyadic structure of the system
-% Dyadic/Polyadic, bivariate/multivariate.
-
-% In large-scale neuroimaging, cognitive functions appear to be performed by a distributed set of brain regions and even at a smaller scale, the spatiotemporal patterns of interactions between a few neurons is thought to underlie basic information coding (Szatmary and Izhikevich 2010).%no entiendo izi paper
-
-Using the simple observation that place fields corresponding to nearby locations will overlap, the authors conclude that neurons corresponding to those fields will tend to be co-active. Importantly, because of their inherently non-pairwise nature, coactivation patterns of neurons or brain regions can be naturally encoded as simplicial complexes.
-Using the aptly (but coincidentally) named “Nerve Theorem” from algebraic topology, one can work backward from observed coactivity patterns to recover the intersection pattern of the receptive fields, describing a topological map of the animal’s environment.
-The topological approach serve to decode maps of the environment from observed cell activity.
-
-Dabaghian \cite{dabaghian2014reconceiving} shows that hippocampal place cells may ultimately be interested in a space's topological qualities (its connectivity) more than its geometry (distances and angles). After deforming an U track, the resulting place fields preserved the relative sequence of places visited along the track but did not vary with the metrical features of the track or the direction of the rat's movement.
-Dabaghian claims that the paper provides evidence that hippocampal networks represent spatial contiguities and not 2D Cartesian maps created by path integration. The experiment directly pitted against one another these two hypotheses by having rats run in a variable shaped track in the near-dark, and CA1 place cells tracked the linear contiguities much better than the 2D shapes created by various configurations.
 
 \begin{acknowledgements}
 
@@ -469,7 +411,52 @@ Dabaghian claims that the paper provides evidence that hippocampal networks repr
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Appendix}
+%YS
+%Here we elaborate on the implications of application of persistent homology to resting state connectivity data seen in the previous section.
 
+
+%NETWORK COMPARISON WITH FREQUENCY DOMAIN PERSISTENT HOMOLOGY. Ben Cassidy, Caroline Rae, Victor  Solo Thresholding (or selecting significance level) is problematic, particularly  %YS bar code built with honology  help in that, short bars are noise, long ones are persistent features.
+% the approach of my eo ec paper:
+%Thresholding :One method for working around this difficulty is filtrations, which record the results of every possible binarization of the network (simplicial complexes building by doing incremental threhold or ball size), along with the associated threshold values. With this approach we can use first order measure of structure in networks (or simplicial complexes) and  “second order” measures as functions of edge weight. Such functions carry information, for example, in their rate of change, where sudden phase transitions in network structure as one varies the threshold can indicate the presence of modules or rich clubs in networks. The area under such curves can help us characterize the geometric structure in the activity of (hippocampal) neural populations, without appealing to external stimuli or receptive field (\cite{giusti2015clique})
+% www.ams.org/journals/bull/2009-46-02/S0273-0979-09-01249-X/ http://diglib.eg.org/handle/10.2312/SPBG.SPBG07.091-100
+% $MapperGUI.py
+%YS Ojo literal
+
+% Krakauer
+%With the advent of high-throughput genomics, transcriptomics, proteomics, and metabolomics, and functional imaging we have witnessed a technological revolution in biology have gone hand by hand with the rise of bioinformatics and ML prediciton.
+%But there has been a lack of complementary conceptual theory that could help us organize the flood of facts. An emphasis on models, rather than theory.
+%A persistent problem in biology is (contrary to statistichal mechanics) that regularities exist at aggregate levels of description, therefore an qualitatively different theory is required to explain these emergent phenomena than the theory describing the underlying microscopic dynamics (Anderson, 1972).
+%In biology, unlike for traditional physical and chemical phenomena, many of the spatial and temporal scales interact. In physics, nuclear forces can be neglected when calculating plane- tary orbits as these are screened off over large distances. In biology, however, the lowest levels can have a direct impact on the highest levels (and vice versa), as in the case of genes that influence behavior and social structures and behavior that influence gene expression patterns.
+
+%We discussed by means of examples points i and ii in the previous section. We pass to briefly  discuss here point iii or the neural coding. The idea is to give the reader the basic concepts  to understand what are this very novel approach hhas to say about a very old problem how the brain represents space.
+
+%Hubel and Wiesel pioneering work in the visual cortex inserted a microelectrode in the primary visual cortex of an anesthesized cat, but they could not monitor, let alone control the activity of neighboring cells, they could just listen to one neuron at a time, what they could control was the stimulus (bars with certain angle). They found orientation-tuned neurons.
+
+%O'Keefe made a remarkable discovery on the same lines, but more striking, because in the hippocampus there is not an obvious sensory path, but he reported that hippocampal place cells responded selectively to spatial locations.
+%With this discovery and with the Grid cells later on mind, we may ask are neurons vertices in a network or autonomous device (sensors) attuned with the outside world? Both models can be valid but yield different conceptual and methodological consequences. The first view, neurons are nodes in a network, is endorsed by neural networks and the last by neural coding. In the neural network paradigm the neuron behavior is described via network properties and in neural coding theory the neuronal behavior is a black box with the focus in the relationship between the external stimulus and the neural activity.
+
+%We know about the neural coding of neurons but not much abut the neural coding of networks, since it seems that they belong to two different conceptual schemes. But topology, a mathematical theory in which neuroscientists are not trained at all, may be the natural tool for understanding the neural code of brain networks.
+
+%For place cells, when simultaneous recordings of place cells became possible, it was shown via statistical inference (using previously measured place fields) that the animal's position could indeed be inferred from population place cell activity. The place cell code, thus, naturally reflects the topology of the represented space.
+
+% Curto review for neural coding (place cells)
+%\cite{curto2016can} Some have argued that hippocampal place cell code is fundamentally topological in nature [12, 6] while others have argued that considerable geometric information is also present and can be extracted using topological methods [9, 18]. Dabaghian have worked towards disambiguate geometric and topological information: the place fields respected topological aspects of the environment more than metric features \cite{dabaghian2014reconceiving}. Also, about the grid cells, it turns out that the space represented by grid cells is not the full environment, but a torus.
+
+%The wealth of studies linking network models with cognition, disease \cite{stefan2013epileptic}, \cite{stam2014modern} and novel biomarkers points out to a paradigm shift in systems, cognitive, and clinical neuroscience: namely, that brain function and alteration are inherently networked phenomena.
+% Dialectics, so far focus on one side, the bivariate, next step is the poly variate, when we master that, interventional attack will make sense (causal)
+% the road towards causation pass by mastering the polyadic structure of the system
+% Dyadic/Polyadic, bivariate/multivariate.
+
+% In large-scale neuroimaging, cognitive functions appear to be performed by a distributed set of brain regions and even at a smaller scale, the spatiotemporal patterns of interactions between a few neurons is thought to underlie basic information coding (Szatmary and Izhikevich 2010).%no entiendo izi paper
+
+%Using the simple observation that place fields corresponding to nearby locations will overlap, the authors conclude that neurons corresponding to those fields will tend to be co-active. Importantly, because of their inherently non-pairwise nature, coactivation patterns of neurons or brain regions can be naturally encoded as simplicial complexes.
+%Using the aptly (but coincidentally) named “Nerve Theorem” from algebraic topology, one can work backward from observed coactivity patterns to recover the intersection pattern of the receptive fields, describing a topological map of the animal’s environment.
+%The topological approach serve to decode maps of the environment from observed cell activity.
+
+%Dabaghian \cite{dabaghian2014reconceiving} shows that hippocampal place cells may ultimately be interested in a space's topological qualities (its connectivity) more than its geometry (distances and angles). After deforming an U track, the resulting place fields preserved the relative sequence of places visited along the track but did not vary with the metrical features of the track or the direction of the rat's movement.
+%Dabaghian claims that the paper provides evidence that hippocampal networks represent spatial contiguities and not 2D Cartesian maps created by path integration. The experiment directly pitted against one another these two hypotheses by having rats run in a variable shaped track in the near-dark, and CA1 place cells tracked the linear contiguities much better than the 2D shapes created by various configurations.
+%\section{Discussion}
+%\label{se:discuss}
 \subsection{Definitions}
 
 \begin{definition}
@@ -501,6 +488,34 @@ Let $M = \{a,b,c\}$ and $O = \{\emptyset, \{a\}, \{b\}, \{c\}, \{a,b\},\{b,c\},\
 \end{example}
 %Open set definition to Appendix
 For any given set M, the topologies on the set M are bounded. Thus, the topology with the fewest number of elements is $O = \{\emptyset, M\}$ is called chaotic topology (Example \ref{ex:1}), and the topology with the maximum number of elements is $O = P(M)$ is called discrete topology (Example \ref{ex:3}).
+
+\subsection{Haussdorf-Gra,ov metric space comparison}
+% METRIC SPACE example Haussdorf
+The Gramov-Hausdorff distance allows us to measure the distance between two metric spaces. In essence, it just finds the edge that is most different in the two networks. For example, for the node sets X and Y since both are projected to the same template, then the node $x_i \in X$ is simply map to node $y_i \in Y$. Formally, the Gramov-Hausdorff distance is
+\begin{equation}
+d_{}(X,Y) = \frac{1}{2}_{x_i \in X, y_j \in Y} max |d_X(x_i,x_j) - d_Y(y_i,y_j))|
+\end{equation}
+% Gromov distance in python http://stackoverflow.com/questions/30706079/hausdorff-distance-between-3d-grids
+In figure \ref{fig:ph1} we provide an example of network comparison using resting state fMRI data.
+First, we have a measurement set denoted as $X= \{x_1 ... x_p\}$ where $x_i$ refers to the time series associated with a region of interest (ROI) in the resting state fMRI data set (the preprocessing of the image is described in detailin the Appendix section).
+The measurement $x_i$ can be assumed to be normally distributed $x_i ~ N(0,1)$, the distance between two measurements can be, for example, calculated with the Pearson correlation $c_{X}(x_i ,x_j)= 1 - corr(x_i,x_j)$ or other form of coupling in frequency domain for example phase coupling, power coupling etc.
+% also Granger causality and other
+%YS cor should be in abs value
+The measurement set $X$ and the distance $c_X$ form the metric space $(X,c_X)$. The network constructed by thresholding the correlation matrix between nodes is as follows: there is a link between two nodes, if $c(x_i,x_j) \leq \epsilon$, otherwise the nodes are not connected.
+
+Figure \ref{fig:ph1} (a) shows the pipeline -the correlation/covariance matrix we perform a filtration process with a vector $\epsilon$ of possible thresholds.
+Figure \ref{fig:ph1} (b) displays the resulting networks of applying each of the possible thresholds contained in the threshold vector $\epsilon= \epsilon_0,... \epsilon_i, ..., \epsilon_n$. Figure \ref{fig:ph1} (c) shows the Gramov-Hausdorff distance between the networks.
+
+% and the network resulting from applying the customary threshold equal to the mean plus one standard deviation, $\epsilon=\mu +\sigma$.
+%and across conditions, do they distinguish something
+% The collection of the edges and the nodes gives us a binary network $B(X,\epsilon)$ for threshold $\epsilon$ which is the same as the network $G(V,E)$. Note that here the threshold is variable not fixed as in the orthodox approach based on graph theory a la Sporns.
+
+
+
+%YS Network as a SC , comparison.
+%(Python Mapper software).
+Figure \ref{fig:ph1} shows how by varying the threshold we obtain different networks, from totally disconnected to fully connected,  providing a distribution of networks in which distance can be studied, as for example with the Gromov Haussdorf distance. This distance is able to differentiate/or not between the two conditions.
+
 
 \subsection{Clustering}
 
