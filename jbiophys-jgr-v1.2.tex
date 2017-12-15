@@ -5,6 +5,10 @@
 \usepackage{graphicx}
 \usepackage{amssymb}
 \usepackage{multirow}
+\usepackage{float}
+\usepackage[caption = false]{subfig}
+%\usepackage[demo]{graphicx}
+
 
 \journalname{Journal of Biological Physics}
 %\newcommand{\nexists}{\not\exists}
@@ -32,7 +36,7 @@
 
 \begin{abstract}
 The pace at which data is being produced poses important challenges at either conceptual and computational level. The high dimensionality, heterogeneity and complexity of biological data has deeply transformed the way in which life scientists work. Network theory, machine learning and stochastic modeling are now standard de facto in systems biology and neuroscience.
-We highlighted two fundamental limitations in the graphical representation via graphs of multivariate data. First, the dyadic or pairwise representation of coactivation is unfit to encode higher order interactions and second, the derivation of the adjacency matrix from the correlation/covariance matrix relies upon the selection of a significance level or threshold which is necessarily ad-hoc and biased.
+We highlighted two fundamental limitations in the graphical representation via graphs of multivariate data. First, the dyadic or pairwise representation of coactivation is unfit to encode higher order interactions and second, the derivation of the adjacency matrix from the correlation/covariance matrix relies upon the selection of a significance level or threshold which is necessarily ad-hoc.
 Algebraic topology provides a multi-scale mathematical framework that effectively deal with those limitations. In particular, the \emph{simplicial complex}, a high dimensional structure that generalizes network and \emph{persistent homology}, a method for computing topological features at different dimensional scales or space resolutions are introduced and applied to model fMRI connectivity data.
 
 \keywords{metabolic network systems biology \and Category Theory  \and Graph Theory \and Functor\and emergent properties\and Graph Theory\and Algebraic topology \and Persistent homology \and Causality}
@@ -47,12 +51,14 @@ This coupling can be precisely defined in mathematical terms as a correlation or
 A graph is a set of nodes or vertices, some of them connected forming edges or links. Graphs are built by connecting two elements, that is to say, the only type of relationship possible is between pairs. The limitation of having only dyadic (or bivariate in statistics jargon) relationships have important limitations that are often overlooked \cite{giusti2016two}.
 Binary or unweighted networks are the result of thresholding or selecting a significance level and this is problematic, particularly when the underlying system is not scale invariant. For example, small world or clusterness are joint measures that can change very drastically depending on the choice of the threshold \cite{toppi2012statistical}. Furthermore, by adopting a threshold, we may be loosing important information, for example, it may occur that some small-scale features are noise artifacts while other are critically important \cite{fallani2014graph}, \cite{papo2014complex}.
 
-Algebraic topology \cite{munkres1984elements} provides a language and a methodology to deal with the limitations in the graph theoretic approach, namely, the dyadic or pairwise nature of relationships and the threshold selection problem. 
+Algebraic topology \cite{munkres1984elements} provides a language and a methodology to deal with limitations in the graph theoretic approach, namely, the dyadic or pairwise nature of relationships and the threshold selection problem. 
 The origins of this approach can be traced back to the seminal work of catastrophe theorist Christopher Zeeman on the topological structure of visual perception \cite{zeeman:1962}. While there has been since then and even before an understanding that differential equations are not 'good enough' to model a system of the staggering complexity of biological organisms \cite{rosen1958representation}, \cite{Anderson:1972}, \cite{wolkenhauer2001systems}, \cite{boogerd_all_2007}, it is only thanks to the wide availability and ever increasing power of modern computers that geometrical approaches such as persistent homology, have been successfully used to model the brain. Differential equations capture local invariants while algebraic topology, on the other hand, is adapted to capture global properties \cite{hoffman1966lie}. 
 %https://elifesciences.org/content/3/e03476   %PUT REFS Ojo esto viene casi tal cual del papaer de Giusti
 %https://www.lms.ac.uk/content/topological-theory-brain zeeman
+
 Despite the very recent use of computational and algebraic topology tools in the life sciences important insights have been produced, including among others, the geometric structure of neural correlations \cite{giusti2015clique}, \cite{dotko2016topological}, the dynamics in gene regulatory networks \cite{boczko2005structure}, viral evolution and spread \cite{chan2013topology}, \cite{taylor2015topological}, genetic markers for breast cancer \cite{nicolau2011topology}, the analysis of protein structure \cite{xia2014persistent}, protein binding \cite{kovacev2016using} and protein classification \cite{cang2015topological}.
-Persistence diagrams \cite{edelsbrunner2000topological}, a formalism to describe how topology changes with the
+
+Persistence diagrams \cite{edelsbrunner2000topological}, a formalism apt to describe how topology changes with the
 across changes in scales, have been used to quantify branching and looping of brain artery trees at multiple scales \cite{bendich2016persistent}, characterize cortical thickness data \cite{chung2009persistence}, detection of white matter alteration in brain morphometry \cite{chung2015persistent}, multimodal imaging \cite{lee2017integrated}, compare brain activity networks in resting state functional magnetic resonance imaging \cite{petri2014homological}, \cite{cassidy2015brain}, \cite{lord2016insights}, population activity in the visual cortex \cite{singh2008topological}, \cite{pirino2015topological}, understanding the neural code \cite{curto2017makes}, \cite{curto2017can}, in particular, the neural representation of spatial topology in rodents \cite{chen2014neural} and to reconceptualize the hippocampal map as a topological template specialized in computing a topological representation of the environment \cite{dabaghian2012topological}, \cite{dabaghian2014reconceiving}, \cite{babichev2016topological}.
 Very recently, algebraic topology has proved to be effective in modeling complex biological networks as exemplified in the reconstruction and simulation of neocortical microcircuitry, comprising 8 million connections between 31,000 neurons \cite{markram2015reconstruction}. This is the first algebraic topological analysis of structural connectomics and connectomics-based spatio-temporal activity in a biologically realistic neural microcircuit.  In \cite{reimann2017cliques}, Henry Markram team of researchers using digital reconstruction show that neurons bound to functional cliques could play a major role in the emergence of correlated activity. In this view, the brain processes stimuli by building increasingly complex topological objects.
 
@@ -83,27 +89,28 @@ Algebraic topology is the study of topological spaces using abstract algebra.
 
 There are two main approaches in the study of algebraic topology: \emph{i} decompose the topological space into many but simple pieces and \emph{ii} deal with only a few but complicated pieces. Computational topologists favour the first approach -many simple pieces- and the simplicial complex is the prime example of this. The second approach -few but complicated pieces- is of more interest for those looking for aesthetically pleasing shapes \cite{edelsbrunner2010computational}.
 
-The goal of algebraic topology is to classify topological spaces up to homeomorphism, that is, find the intrinsic qualitative aspects of spatial objects that remain invariant under homeomorphic transformations. Definitions of homeomorphism, continuous maps and related terms can be find in the Appendix. Algebraic Topology is concerned with properties of geometric objects that are invariant under continuous deformations i.e. bending, twisting and stretching, but not tearing.
-For example, a torus and a coffee mug are topologically equivalent both have one hole and it is always possible to get a coffee mug from a torus and viceversa via continuous transformations. On the other hand, a torus and a double torus (a sphere with two handles and two holes) are not homeomorphic because they have different number of holes.
+Algebraic topology provides the language to classify topological spaces up to homeomorphism, that is, find the intrinsic qualitative aspects of spatial objects that remain invariant under homeomorphic transformations (definitions of homeomorphism, continuous maps and related terms can be find in the Appendix). Algebraic Topology is concerned with properties of geometric objects that are invariant under continuous deformations i.e. bending, twisting and stretching, but not tearing.
+For example, a torus and a coffee mug are topologically equivalent both have one 1-dimensional hole and it is always possible to get a coffee mug from a torus and viceversa via continuous transformations. On the other hand, a torus and a double torus (a sphere with two handles) are not homeomorphic because they have different number of holes.
 It follows that the presence of holes in a geometric figure is the key property studied in algebraic topology, that is, the invariant under continuous deformation. 
-Algebraic topology formalizes the notion i-dimensional hole or cavity. For example, given a 3-dimensional geometric object, finding a 0-dimensional hole entails that the geometric object has one connected component. A 1-dimensional hole is a cavity that one can see through e.g. the hole in a doughnut or a cheese hole. A 2-dimensional hole is a hollow space, e.g. a balloon one can't see through but there is air trap inside the surface (Figure \ref{fig:iholes})
+Algebraic topology formalizes the notion i-dimensional hole or cavity. For example, given a 3-dimensional geometric object, finding a 0-dimensional hole entails that the geometric object has one connected component. A 1-dimensional hole is a cavity that one can see through e.g. the hole in a doughnut or a cheese hole. A 2-dimensional hole is a hollow space, e.g. a balloon one can't see through but there is air trap inside the surface. See Figure \ref{fig:iholes} for an illustration.
 
 % to draw figures use TikZ
 % sphere, https://tex.stackexchange.com/questions/42812/3d-bodies-in-tikz
 % double torus https://tex.stackexchange.com/questions/231515/draw-a-smooth-surfaced
 % balloon https://tex.stackexchange.com/questions/134117/balloon-shape-in-tikz
- \begin{figure}[h]
-%Figure 1, a is a ball, b is a torus c is a ballon
-        \centering
-        \includegraphics[width=0.1\linewidth]{../figures/800px-Double_torus_wiki}
-        \caption{The figure shows the number of i-dimensional holes (i=0,1,2) for a compact sphere, a torus, a double torus and a balloon.
-        Let $B_i$ ne the number of i-dimensional holes. For (a), $B_0=1, B_1=0, B_2=0$, a compact sphere has one connected component and no holes in it; (b) $B_0=1, B_1=1, B_2=0$, a torus has one connected component, one hole where one can see through and no hollow spaces; (c) $B_0=0, B_1=2, B_2=0$, a double torus has one connected component, two holes where one can see through and no hollow spaces and (d) $B_0=1, B_1=0, B_2=1$; a balloon has one connected component, no holes where one can see through and one hollow spaces.
-        }
+\begin{figure}
+\centering
+\subfloat[Sphere]{\includegraphics[width = 2.5cm, height=2.5cm,keepaspectratio]{../figures/fig1-a-sphere}} 
+\subfloat[Torus]{\includegraphics[width = 2.5cm, height=2.5cm,keepaspectratio]{../figures/fig1-b-torus}}
+\subfloat[Double torus]{\includegraphics[width = 4cm, height=4cm,keepaspectratio]{../figures/fig1c-double_torus}}
+\subfloat[Balloon]{\includegraphics[width = 3cm, height=3cm,keepaspectratio]{../figures/fig1d-balloon}} 
+\caption{The figure shows four different geometric figures: compact sphere, torus, double torus and a balloon. The figures can be topologically differentiated based on the number of of i-dimensional holes (i=0,1,2). Let $B_i$ be  the number of i-dimensional holes, $B_0$ denotes the number of connected components, $B_1$ holes one can see through it and $B_2$ the number of holes one can't see through it or hollow space. Thus, the compact sphere depicted in (a) has one connected component and no holes in it, $B_0=1, B_1=0, B_2=0$. The torus depicted in (b) has one connected component, one hole where one can see through and no hollow spaces, $B_0=1, B_1=1, B_2=0$. The double torus (c) has one connected component, two holes where one can see through and no hollow spaces, $B_0=0, B_1=2, B_2=0$. Finally, the balloon (d) has one connected component, no holes where one can see through and one hollow spaces, $B_0=1, B_1=0, B_2=1$.}
 \label{fig:iholes}
 \end{figure}
 
-Since the goal of algebraic topology is to classify topological spaces. A formal definition of topology with examples is given in the appendix. It is worth reminding that sets are collection of points lacking structure, in order to study how the objects (data points) in a set are related, for example, who is connected with who, we need to find continuity maps. The goal of defining topologies in a set is to add structure, in particular, continuity.
-A topological space can be understood as a set with the structure provided by the chosen topology. Formally,  
+%Since the goal of algebraic topology is to classify topological spaces. . 
+It is worth reminding that sets are collection of points lacking structure, in order to study how the objects (data points) in a set are related, for example, who is connected with who, we need to find continuity maps. The goal of defining topologies in a set is to add structure, in particular, continuity.
+A topological space can be understood as a set with the structure provided by the chosen topology (a formal definition of topology with examples is given in the appendix). Formally,  
 
 \begin{definition}
 %Topological space
@@ -138,24 +145,23 @@ Figure \ref{fig:vrcomplex} shows the construction of the Vietoris-Rips simplicia
 The idea behind the construction of the simplicial complexes depicted in Figure \ref{fig:vrcomplex} is that one can form a n-1 simplex with n points that are closed together. By the same token, a relationship between two vertices or two 0-simplex forms a 1-simplex (Figure \ref{fig:vrcomplex}(b)), a triangle or 2-simplex consists in putting together three edges or 1-simplex (Figure \ref{fig:vrcomplex}(c)), a tetrahedron or 3-simplex ifs defined by four 2-simplices or triangles (Figure \ref{fig:vrcomplex}(d)), similarly for 4-simplex and so on.
 %Simplicial complexes encode diverse neural data modalities. After choosing the complex of interest, quantitative and theoretical tools can be used to describe, compare, and explain the statistical properties of their structure in a manner analogous to graph statistics or network diagnostics. (Giusti)
 
+%https://people.maths.ox.ac.uk/porterm/research/Dissertation-stolz2014-Corr.pdf
 \begin{figure}[h]
 %Figure 2 construction of Vietoris-Rips simplicial,for each graph (only vertices) and a fixed threshold 1,2,3 and 4 vertices
 %Isabel K. Darcy simplicial complex from data https://www.youtube.com/watch?v=E7d7LHb6PLc&t=902s
 % n different graphs provide n diffrent scs
         \centering
-        \includegraphics[width=0.1\linewidth]{../figures/800px-Double_torus_wiki}
-        \caption{The figure shows the simplicial complex obtained from different graphs and a fixed threshold, $\epsilon$ such that two vertices, $u, v$, are connected if the distance between u and v is less than the threshold, $d(u,v) < \epsilon$. Figure \ref{fig:vrcomplex}(a) shows a 0-dimensional simplicial complex from one vertice. (b) shows 1-dimensional simplicial complex obtained by connecting two vertices with an edge.  (c) depicts a 3 vertices networks all connected forming a 2-dimensional simplicial complex (triangle). (d) depicts a 4 vertices all connected forming a 3-dimensional simplicial complex (tetrahedron) the four 2-dimensional complexes are "faces" of the tetrahedron.}
+        \includegraphics[width=0.8\linewidth]{../figures/fig2-sc}
+        \caption{The figure, from left to right, shows a 0-dimensional simplicial complex from one vertice,  a 1-dimensional simplicial complex obtained by connecting two vertices with an edge, a 3 vertices all connected network forming a 2-dimensional simplicial complex (triangle) and a 4 vertices all connected forming a 3-dimensional simplicial complex (tetrahedron). The tetrahedron has four 2-dimensional complexes or "faces".}
 \label{fig:vrcomplex}
 \end{figure}
-
+%The figure shows the simplicial complex obtained from different graphs and a fixed threshold, $\epsilon$ such that two vertices, $u, v$, are connected if the distance between u and v is less than the threshold, $d(u,v) < \epsilon$.
 % Persistent Homology
 As it was already mentioned, the simplicial complex generalizes network models and therefore network properties can be directly generalized. For example, the clustering coefficient of a node in a network can be translated into the number of simplices of different sizes in which the node participates, and the path length can be reformulated considering paths through simplices of fixed size \cite{dotko2016topological}. However, extending network metrics into simplicial complexes does not reckon the potential of simplicial complexes to encode data.
 
 The study of the homology of simplicial complexes provides a way to identify structures that are overseen in network theory, specifically cycles, holes and flairs. Persistent homology a recent methodology from algebraic topology, only 20 years old, allows us to investigate qualitative features i.e. holes, of geometric objects. Prior to define persistent homology we need to understand \emph{filtration}, the process in which persistent homology relies upon.
+Two vertices separated a certain distance could be connected or not that is, form a 1-simplex depending on the threshold of choice. In figure \ref{fig:vrcomplex} implicit to the creation of an edge that connects the vertices there is a threshold such that two vertices are connected if the distance between them is no larger than the threshold of choice. Thus, depending on the election of the threshold we may get very different structures which is particularly problematic since the threshold is often selected on an ad hoc basis. 
 
-Figure \ref{fig:vrcomplex} shows that  is a key factor for the obtention of the simplicial complex is the choice of the threshold $\epsilon$, for the same data set, two different threshold may generate 
-different but also the same simplicial complexes. For example, two vertices separated a certain distance could be connected or not that is, form a 1-simplex depending on the threshold of choice.
-Thus, depending on the election of the threshold we may get very different structures which is particularly problematic since the threshold is often selected on an ad hoc basis. 
 
 An alternative to overcome this difficulty is to select a large population of threshold values. This process is called filtration. The filtration of a complex is the method by which the complex is reduced into its constituent pieces by consecutively applying different thresholds in order to build simplicial complexes whose simplices represent data points that are closed enough given the actual threshold. Formally,
 \begin{definition}
@@ -181,7 +187,7 @@ The invariant that we are looking for may be unstable with respect to perturbati
 %https://www.youtube.com/watch?v=XOZN3XZdoO0 (Chad Giusti)
         \centering
         \includegraphics[width=0.1\linewidth]{../figures/800px-Double_torus_wiki}
-        \captioni{. Figure shows the filtration process obtained by changing the threshold $\epsilon$.
+        \caption{. Figure shows the filtration process obtained by changing the threshold $\epsilon$.
         The chosen $\epsilon$ in a) allows us to detect cycle or hole in the data set but it fails to detect it in b) . We start with 0 dimensional data points and we define closeness between points using a ball having the data point as the center, the threshold is the diameter of the ball and when two balls intersects the two data points are connected. From one unique data cloud when applied different thresholds monotonically increasing we obtain different simplical complexes. By increasing the threshold eventually all the data points will be part of the same simplex, forming one single component.}
 \label{fig:whyweneedfiltration}
 \end{figure}
@@ -259,7 +265,7 @@ In table \ref{table:table} we have grouped the concepts defined in this section.
 
 Topological data analysis (TDA) is a relatively new branch of statistics (15 years old). TDA provides a theoretical framework to extract data features taking into account the multiscale and multidensity of complex data sets. In particular, persistent homology which was discussed in the previous section, allows data analysis with robustness to noise, dimensionality reduction and multiple scales.
 
-The goal of TDA is to apply topology to study qualitative features of data. Of course, data means very different things depending on the context, in TDA data refers to any of this 2 things: \emph{i} a data cloud, i.e. a finite set of points in $\mathcal{R}^n$ with some notion of distance embedded and \emph{ii} functions, in particular functions that take values in the Real line, $f:\mathcal{X} \to \mathcal{R}, where $\mathcal{X}$ is any space and $\mathcal{R}$ is the space of real numbers. The first approach refers to unsupervised learning and the second deals with homeomorphic network objects (isomorphic continuous function between topological spaces). We briefly sketch the key notions of the first approach -qualitative features of finite set of points in $\mathcal{R}^n$ without any underlying structure- to delve more deeply into the second approach -qualitative analysis of simplices generated in the filtration process from network objects- which is the main focus of this paper.
+The goal of TDA is to apply topology to study qualitative features of data. Of course, data means very different things depending on the context, in TDA data refers to any of this 2 things: \emph{i} a data cloud, i.e. a finite set of points in $\mathcal{R}^n$ with some notion of distance embedded and \emph{ii} functions, in particular functions that take values in the Real line, $f:\mathcal{X} \to \mathcal{R}$, where $\mathcal{X}$ is any space and $\mathcal{R}$ is the space of real numbers. The first approach refers to unsupervised learning and the second deals with homeomorphic network objects (isomorphic continuous function between topological spaces). We briefly sketch the key notions of the first approach -qualitative features of finite set of points in $\mathcal{R}^n$ without any underlying structure- to delve more deeply into the second approach -qualitative analysis of simplices generated in the filtration process from network objects- which is the main focus of this paper.
 
 When dealing with cloud data sets, the goal is partitioning the data into data structures such as clusters, cycles or i-dimensional holes. TDA provides formal definitions of those features, the computational tools for detecting such features and very importantly a methodology for quantifying the statistical significance of data features when the data is noisy (see Figure \ref{fig:whyweneedfiltration} for an example). The key premise of this method and of any unsupervised learning method is that of studying the shape of scientific data will likely give us insight into the processes that generated those data.
 %ojo literal cambia esto, https://www.oreilly.com/ideas/data-has-a-shape(Data has shape, and shape has a meaning)
