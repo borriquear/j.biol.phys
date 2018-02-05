@@ -151,7 +151,7 @@ The idea behind the construction of the simplicial complexes depicted in Figure 
 %Isabel K. Darcy simplicial complex from data https://www.youtube.com/watch?v=E7d7LHb6PLc&t=902s
 % n different graphs provide n diffrent scs
         \centering
-        \includegraphics[width=0.8\linewidth]{../figures/fig2-sc}
+        \includegraphics[height=2cm,keepaspectratio, width=0.8\linewidth]{../figures/fig2-sc}
         \caption{The figure, from left to right, shows a 0-dimensional simplicial complex from one vertice, a 1-dimensional simplicial complex obtained by connecting two vertices with an edge, a 3 vertices all connected network forming a 2-dimensional simplicial complex (triangle) and a 4 vertices all connected forming a 3-dimensional simplicial complex (tetrahedron). The tetrahedron has four 2-dimensional complexes or "faces".}
 \label{fig:vrcomplex}
 \end{figure}
@@ -320,7 +320,7 @@ There are however, more versatile formalisms able to explicitly encoding multipl
 \begin{figure}[h]
   %Figure 4 pacemaker coactivity (model generated not fMRI)
         \centering
-        \includegraphics[width=0.5\linewidth]{../figures/figface}
+        \includegraphics[height=2cm,keepaspectratio, width=0.5\linewidth]{../figures/figface}
         \caption{The figure shows the inadequacy of graph to model high-order dependence among pairs of variables. A graph is a system of dyadic relationships and, very importantly, is unable to encode higher order interactions. On the left figure, three nodes are connected through two edges (1-simplex). On the right side, the nodes are not only connected via edges but there is also a face (2-simplex) which represents the coactivity of the three nodes. Simplicial complexes allows us to distinguish between having, for example, three connected nodes to having nodes that are simultaneously active. Crucially, there is nothing in the graph-theoretic formalism that will tell the difference.}
 \label{ex:dyadic}
 \end{figure}
@@ -342,26 +342,25 @@ Persistent homology can overcome the problem of thresholding (or selecting signi
 \section{Persistence Homology applied to brain connectivity data}
 \label{se:exa}
 
-The idea behind persistent homology is to identify those features in the dataset that persist across multiples scales as revealed in a filtration process. A graph filtration is in essence the outcome of the continuous variation of a threshold $\epsilon$. Thus, for a given threshold $\epsilon$ two nodes a and b are linked if $d(a, b) \leq \epsilon$, when $\epsilon = 0$ the network is totally disconnected and has N (the number of nodes) components. The number of connected components increases as $\epsilon$ increases, at some point components start forming larger aggregates reducing the number of components to one in which case the network is fully connected. 
+The idea behind persistent homology is to identify features in the dataset that persist across multiples scales as revealed in a filtration process. A graph filtration is in essence the outcome of the continuous variation of a threshold $\epsilon$. 
+
+%Persistence Homology focuses on the identification of the topological properties that remain invariant, for example disregard the micro level (noise) , PH is based on homology groupstwo shapes are similar if they are isomorphic equivalent, in other words datasets that can be deformed  and stretched into the same shape would fall into the same category. TDA allows noisy data to be addressed in a more efficient mannersimplicial complex: space triangulations by non overlapping polyhedra covering a topological space. SC "approximate" the object they are covering. Example of triangulations are Vorononoi, Delaunay , Vietoris and Czech.
+%Thus, for a given threshold $\epsilon$ two nodes a and b are linked if $d(a, b) \leq \epsilon$, when $\epsilon = 0$ the network is totally disconnected and has N (the number of nodes) components. The number of connected components increases as $\epsilon$ increases, at some point components start forming larger aggregates reducing the number of components to one in which case the network is fully connected. 
 
 In the following example we study the sequence of complexes in the filtration. We compute the Betti numbers of the simplicial complexes that appear and disappear along the filtration.
 %can be transformed via homology into an inter-related family of evolving cycles.
-We calculate the simplicial complexes for the metric space $B_\epsilon$ of networks. Remember that as
-we previously stated in Section \ref{se:at}, every metric space is a topological space.
-For p regions of interest there are $2^p$ subsets candidates to form a topology, the power set is a representation of the underlying topology (see Appendix for definition of topology).
-%Given a (measurement) set $X$ and a rule of connection, the topological space is a simplicial complex and its elements are simplices.
-Given the set $X$, the Rips complex $R(X,\epsilon)$ is a simplicial complex whose k-simplices correspond to $k+1$-tuples of points that are pairwise within distance $\epsilon$.
-While the binary networks have at most 1-semplices, the Rips complex has up to p-1-simplices, so the Rips complex can have faces as well (Figure \cite{ex:dyadic}). 
+We provide an example of the application of persistence homology applied to resting state functional magnetic resonance imaging data (rsFMRI). First, we have a measurement set denoted as $X= \{X_1 ... X_p\}$ where $x_i$ refers to the time series associated with a region of interest (ROI) in the resting state fMRI data set. The preprocessing specifics of the image are described in the Appendix section. 
+The distance between two time series $X_i$ and $X_j$ extracted at regions $i$ and $j$ can be, for example, calculated using the Pearson correlation, $C_{X}(X_i ,X_j)= 1 - |corr(X_i,X_j)|$ or other form of coupling in time or frequency domain e.g. phase coupling, Granger causality, transfer entropy etc.
+The measurement set $X$ and the distance $C_X$ form the metric space $(X,C_X)$. Remember that as
+we previously stated in Section \ref{se:at}, every metric space is a topological space, so for p regions of interest there are $2^p$ subsets candidates to form a topology, the power set is a representation of the underlying topology (see Appendix for definition of topology). Given a measurement set $X$ and a rule of connection, the topological space is a simplicial complex and its elements are simplices.
+The network constructed by thresholding the correlation matrix between nodes is trivially constructed as follows: if $C(X_i,X_j) \leq \epsilon$ there is a link between nodes $X_i$ and $X_j$, otherwise the nodes are not connected. We focus on the default mode network, a network comprising 4 nodes in mPFC, PCC and left and right MTP.
+Figure \cite{adjmatrix} shows the adjacency matrix and the binary network for the threshold set to the mean plus one standard deviation. 
 
 The Rips complex is the main algebraic representation of the entire brain and the multiscale networks are the Rips filtration which is a sequence of nested Rips complexes over different scales. The Betti numbers e.g. connected components, holes and voids, capture the topological information.
 % Trivially, when we use the same distance to build the metric, we have $B(X,\epsilon) \in R(X,\epsilon)$.
-We provide an example of the application of persistence homology applied to resting state functional magnetic resonance imaging data (rsFMRI). First, we have a measurement set denoted as $X= \{X_1 ... X_p\}$ where $x_i$ refers to the time series associated with a region of interest (ROI) in the resting state fMRI data set. The preprocessing specifics of the image are described in the Appendix section. 
-The distance between two time series $X_i$ and $X_j$ extracted at regions $i$ and $j$ can be, for example, calculated using the Pearson correlation, $C_{X}(x_i ,x_j)= 1 - corr(x_i,x_j)$ or other form of coupling in time or frequency domain e.g. phase coupling, Granger causality, transfer entropy etc.
-% also Granger causality and other
-%YS cor should be in abs value
-
-The measurement set $X$ and the distance $C_X$ form the metric space $(X,C_X)$. The network constructed by thresholding the correlation matrix between nodes is trivially constructed as follows: if $C(X_i,X_j) \leq \epsilon$ there is a link between nodes $X_i$ and $X_j$, otherwise the nodes are not connected. We focus on the Default mode Network , a network comprising 4 nodes in mPFC, PCC and leaft and right MTP.
-Figure \cite{adjmatrix} shows the adjacency matrix and the binary network for the threshold set to the mean plus one standard deviation. 
+Given the set $X$, the Rips complex $R(X,\epsilon)$ is a simplicial complex whose k-simplices correspond to $k+1$-tuples of points that are pairwise within a distance $\epsilon$.
+Note that while the binary networks have at most 1-simplices, the Rips complex has up to p-1-simplices, so the Rips complex can have faces as well (Figure \cite{ex:dyadic}). 
+We calculate the simplicial complexes for the metric space $B_\epsilon$ of networks. 
 
 \begin{figure}[h]
 %Figure adj amtrix and network a -b
@@ -394,9 +393,12 @@ Figure \ref{fig:ph1} shows the filtration process and the resulting Betti number
 \label{se:conclusion}
 
 Geometric questions have been pondered since the Greeks or even before, however, topological ones are only one century old  \cite{edelsbrunner2010computational}. A geometric space is defined via geometric measures (distances, areas, angles, etc.) and the relationships that are built on them. A topological space, on the other hand, defines a set of qualitative relationships between its parts: adjacency, containment, connectedness, overlap, cover, etc. \cite{aleksandrov1999mathematics}. Thus, A geometric space is defined in terms of quantitative features and the topological space uses
-in terms of qualitative relationships.  Both set of features, the metrical and the topological are related but the relation is asymmetrical, that is, topological (qualitative) features can be deduced from metrical (quantitative) ones but the inverse is not true. For example, knowing the location and length of two segments we know if they overlap, but knowing that one segment is adjacent to another one does not say nothing about where are they located or their length.
+in terms of qualitative relationships.  Both set of features, the metrical and the topological are related but the relation is asymmetrical, that is, topological (qualitative) features can be deduced from metrical (quantitative) ones but the inverse is not true. For example, knowing the location and length of two segments we know if they overlap, but knowing that one segment is adjacent to another one does not say nothing about where are they located or their length. Geometry focuses on distance and topological data analysis deals with shape and connectivity. 
+topological properties that remain invariant i.e. holes allows to classify objects in a robust way, for example disregarding micro noise to capture shapes are similar if they are isomorphic equivalent.
 
-The most popular geometric model is the network model. Network modeling has became a standard de facto to study the spatial properties of biological systems. The wealth of studies linking network models with a range of phenomena as wide as genetic marker, genetic regulatory processes, viral evolution, neural coding, synaptic plasticity, cognition, neurodegenerative disorders and consciousness, speaks about the capacity of network modeling to represent objects and their relationships. 
+YS: Deep network mathematical invariance is the reason why DN wlork so well, see http://neuralnetworksanddeeplearning.com/chap4.html hinton paper etc.
+
+The most popular geometric model is the network model, network modeling has became a standard de facto to study the spatial properties of biological systems. The wealth of studies linking network models with a range of phenomena as wide as genetic marker, genetic regulatory processes, viral evolution, neural coding, synaptic plasticity, cognition, neurodegenerative disorders and consciousness, speaks about the capacity of network modeling to represent objects and their relationships. 
 %However, network models as any other modeling process rests upon its own assumptions and limitations.
 
 Dynamic network data are easily available from multiple disciplines, not only the life sciences but specially from the social science, for example finances, social networks. A new approach for network comparison is persistent homology. The main advantage of this approach is that it allows to have a multiscale network framework avoiding the threshold determination problem. Persistent homology can be seen as the analysis of the connectivity pattern as the threshold varies. Thus, it avoids the ad-hoc specification of a threshold for the study of the overlapping network patterns and the rates at which they vary.
@@ -410,6 +412,8 @@ The basic concepts of persistent homology in relation to networks are
 
 Topological neuroscience is an untapped resource for empirical neuroscientists.
 Roughly speaking, the uses of topology in neuroscience can be categorized into three (overlapping) themes: (i) traditional topological data analysis applied to neuroscience; (ii) an upgrade to network science; and (iii) understanding the neural code \cite{curto2016can}.
+
+YS: this paper exemplifies point ii.
 
 \begin{enumerate}
 \item  Calculate the statistics of the shape of point cloud data and more importantly the persistent homology (simplicial complex captures the information of intersecting balls, the simplicial complex can be Cech complex and Rips complex).
